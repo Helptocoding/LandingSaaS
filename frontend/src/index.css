@@ -1,0 +1,202 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    :root {
+        /* Veteris — calm, warm, clinical-but-human palette */
+        /* Background: warm off-white (cream) */
+        --background: 40 33% 98%;
+        --foreground: 165 25% 12%;
+
+        --card: 0 0% 100%;
+        --card-foreground: 165 25% 12%;
+        --popover: 0 0% 100%;
+        --popover-foreground: 165 25% 12%;
+
+        /* Primary: sage forest green — trust + care */
+        --primary: 160 35% 28%;
+        --primary-foreground: 40 33% 98%;
+        --primary-glow: 158 40% 55%;
+        --primary-soft: 150 30% 92%;
+
+        /* Secondary: warm peach — paws & warmth */
+        --secondary: 22 80% 92%;
+        --secondary-foreground: 18 50% 22%;
+
+        /* Accent: warm terracotta */
+        --accent: 16 75% 60%;
+        --accent-foreground: 0 0% 100%;
+        --accent-soft: 22 90% 95%;
+
+        --muted: 150 18% 95%;
+        --muted-foreground: 160 12% 38%;
+
+        --destructive: 0 70% 52%;
+        --destructive-foreground: 0 0% 100%;
+
+        --success: 148 50% 42%;
+        --warning: 36 92% 55%;
+
+        --border: 150 15% 88%;
+        --input: 150 15% 88%;
+        --ring: 160 35% 28%;
+
+        --chart-1: 160 35% 35%;
+        --chart-2: 16 75% 60%;
+        --chart-3: 200 50% 50%;
+        --chart-4: 36 80% 60%;
+        --chart-5: 280 30% 55%;
+
+        --radius: 0.75rem;
+
+        /* Gradients */
+        --gradient-hero: radial-gradient(80% 60% at 20% 10%, hsl(150 40% 90%) 0%, transparent 60%),
+                         radial-gradient(70% 50% at 90% 30%, hsl(22 90% 92%) 0%, transparent 60%),
+                         linear-gradient(180deg, hsl(40 33% 98%) 0%, hsl(150 25% 96%) 100%);
+        --gradient-primary: linear-gradient(135deg, hsl(160 35% 28%) 0%, hsl(160 35% 22%) 100%);
+        --gradient-accent: linear-gradient(135deg, hsl(16 75% 60%) 0%, hsl(22 85% 65%) 100%);
+        --gradient-soft: linear-gradient(180deg, hsl(150 30% 96%) 0%, hsl(40 33% 98%) 100%);
+        --gradient-card: linear-gradient(160deg, hsl(0 0% 100%) 0%, hsl(150 25% 97%) 100%);
+
+        /* Shadows */
+        --shadow-sm: 0 1px 2px 0 hsl(160 25% 12% / 0.04);
+        --shadow-md: 0 4px 14px -2px hsl(160 25% 12% / 0.08);
+        --shadow-lg: 0 20px 40px -12px hsl(160 25% 12% / 0.12);
+        --shadow-glow: 0 20px 60px -20px hsl(160 35% 28% / 0.35);
+        --shadow-accent: 0 12px 30px -8px hsl(16 75% 60% / 0.4);
+
+        /* Motion */
+        --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .dark {
+        --background: 165 25% 8%;
+        --foreground: 40 30% 96%;
+        --card: 165 22% 11%;
+        --card-foreground: 40 30% 96%;
+        --popover: 165 22% 11%;
+        --popover-foreground: 40 30% 96%;
+        --primary: 158 40% 55%;
+        --primary-foreground: 165 25% 8%;
+        --primary-glow: 158 45% 65%;
+        --primary-soft: 160 25% 18%;
+        --secondary: 165 18% 18%;
+        --secondary-foreground: 40 30% 96%;
+        --accent: 16 75% 60%;
+        --accent-foreground: 0 0% 100%;
+        --accent-soft: 16 30% 18%;
+        --muted: 165 18% 15%;
+        --muted-foreground: 150 10% 65%;
+        --destructive: 0 62% 42%;
+        --destructive-foreground: 40 30% 96%;
+        --border: 165 18% 18%;
+        --input: 165 18% 18%;
+        --ring: 158 40% 55%;
+    }
+}
+
+@layer base {
+    * {
+        @apply border-border;
+    }
+    html {
+        scroll-behavior: smooth;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+    body {
+        @apply bg-background text-foreground;
+        font-family: 'Inter', system-ui, sans-serif;
+        font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+    }
+    h1, h2, h3, h4, h5, h6 {
+        font-family: 'Space Grotesk', 'Inter', sans-serif;
+        letter-spacing: -0.02em;
+    }
+    ::selection {
+        background: hsl(var(--primary) / 0.2);
+        color: hsl(var(--foreground));
+    }
+}
+
+@layer utilities {
+    .font-display {
+        font-family: 'Space Grotesk', 'Inter', sans-serif;
+    }
+    .bg-gradient-hero {
+        background: var(--gradient-hero);
+    }
+    .bg-gradient-primary {
+        background: var(--gradient-primary);
+    }
+    .bg-gradient-accent {
+        background: var(--gradient-accent);
+    }
+    .bg-gradient-soft {
+        background: var(--gradient-soft);
+    }
+    .bg-gradient-card {
+        background: var(--gradient-card);
+    }
+    .shadow-elegant {
+        box-shadow: var(--shadow-lg);
+    }
+    .shadow-soft {
+        box-shadow: var(--shadow-md);
+    }
+    .shadow-glow {
+        box-shadow: var(--shadow-glow);
+    }
+    .shadow-accent-glow {
+        box-shadow: var(--shadow-accent);
+    }
+    .text-balance {
+        text-wrap: balance;
+    }
+    .grain::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.18 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+        opacity: 0.5;
+        pointer-events: none;
+        mix-blend-mode: multiply;
+    }
+}
+
+@layer components {
+    .container-narrow {
+        @apply mx-auto w-full max-w-6xl px-6 lg:px-8;
+    }
+    .container-wide {
+        @apply mx-auto w-full max-w-7xl px-6 lg:px-8;
+    }
+}
+
+/* Subtle animated paw float */
+@keyframes float-slow {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-12px) rotate(2deg); }
+}
+.animate-float-slow {
+    animation: float-slow 7s ease-in-out infinite;
+}
+
+@keyframes pulse-ring {
+    0% { transform: scale(0.9); opacity: 0.5; }
+    70% { transform: scale(1.4); opacity: 0; }
+    100% { transform: scale(1.4); opacity: 0; }
+}
+.animate-pulse-ring {
+    animation: pulse-ring 2.4s cubic-bezier(0.22, 1, 0.36, 1) infinite;
+}
+
+@keyframes marquee {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+}
+.animate-marquee {
+    animation: marquee 32s linear infinite;
+}
