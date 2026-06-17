@@ -1,4 +1,5 @@
 import React from "react";
+import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Calendar } from "lucide-react";
 import { ctaToast } from "@/lib/cta";
@@ -7,7 +8,13 @@ export default function FinalCTA() {
   return (
     <section className="py-24 lg:py-32">
       <div className="container-wide">
-        <div className="relative overflow-hidden rounded-[2.5rem] border border-border bg-foreground p-10 lg:p-16 text-center">
+        <motion.div
+          initial={{ opacity: 0, scale: 1.18 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true, margin: "-60px" }}
+          transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+          className="relative overflow-hidden rounded-[2.5rem] border border-border bg-foreground p-10 lg:p-16 text-center"
+        >
           {/* decorative paws */}
           <div className="absolute inset-0 opacity-10" style={{
             backgroundImage: "radial-gradient(circle at 15% 25%, hsl(var(--primary-glow)) 0%, transparent 25%), radial-gradient(circle at 85% 75%, hsl(var(--accent)) 0%, transparent 25%)",
@@ -42,7 +49,7 @@ export default function FinalCTA() {
               </Button>
             </div>
           </div>
-        </div>
+        </motion.div>
       </div>
     </section>
   );

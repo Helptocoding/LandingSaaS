@@ -65,7 +65,13 @@ export default function Automation() {
           </div>
 
           <div className="lg:col-span-7">
-            <div className="relative mx-auto max-w-md">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.8, filter: "blur(12px)", rotate: -3 }}
+              whileInView={{ opacity: 1, scale: 1, filter: "blur(0px)", rotate: 0 }}
+              viewport={{ once: true, margin: "-80px" }}
+              transition={{ duration: 0.95, ease: [0.22, 1, 0.36, 1] }}
+              className="relative mx-auto max-w-md"
+            >
               <div className="absolute -inset-4 -z-10 rounded-[2rem] bg-gradient-to-br from-primary/15 via-accent/10 to-transparent blur-2xl" />
               {/* Phone mock */}
               <div className="rounded-[2.2rem] border-[10px] border-foreground/95 bg-foreground/95 p-2 shadow-elegant">
@@ -110,7 +116,7 @@ export default function Automation() {
                   </div>
                 </div>
               </div>
-            </div>
+            </motion.div>
           </div>
         </div>
       </div>

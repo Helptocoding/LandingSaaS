@@ -53,10 +53,10 @@ export default function Testimonials() {
           {testimonials.map((t, i) => (
             <motion.figure
               key={i}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0, scale: 0.88, rotate: i % 2 === 0 ? -2 : 2, y: 24 }}
+              whileInView={{ opacity: 1, scale: 1, rotate: 0, y: 0 }}
               viewport={{ once: true, margin: "-60px" }}
-              transition={{ duration: 0.5, delay: i * 0.06 }}
+              transition={{ duration: 0.7, delay: i * 0.08, ease: [0.22, 1, 0.36, 1] }}
               className={`flex flex-col rounded-3xl border border-border bg-card p-7 shadow-sm ${
                 t.big ? "lg:col-span-2 lg:row-span-2" : ""
               }`}

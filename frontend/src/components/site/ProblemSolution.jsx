@@ -1,6 +1,6 @@
 import React from "react";
-import { motion } from "framer-motion";
 import { X, Check } from "lucide-react";
+import Reveal from "./Reveal";
 
 const problems = [
   "Citas en cuadernos, Google Calendar y WhatsApp",
@@ -36,11 +36,8 @@ export default function ProblemSolution() {
 
         <div className="grid lg:grid-cols-2 gap-6">
           {/* Without Veteris */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-80px" }}
-            transition={{ duration: 0.5 }}
+          <Reveal
+            variant="zoom-in"
             className="rounded-3xl border border-border bg-card p-8 relative overflow-hidden"
           >
             <div className="absolute -top-12 -right-12 h-40 w-40 rounded-full bg-destructive/5" />
@@ -56,14 +53,12 @@ export default function ProblemSolution() {
                 </li>
               ))}
             </ul>
-          </motion.div>
+          </Reveal>
 
           {/* With Veteris */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-80px" }}
-            transition={{ duration: 0.5, delay: 0.1 }}
+          <Reveal
+            variant="zoom-in"
+            delay={0.12}
             className="rounded-3xl border border-primary/30 bg-gradient-card p-8 relative overflow-hidden shadow-soft"
           >
             <div className="absolute -top-12 -right-12 h-40 w-40 rounded-full bg-primary/10" />
@@ -86,7 +81,7 @@ export default function ProblemSolution() {
                 </li>
               ))}
             </ul>
-          </motion.div>
+          </Reveal>
         </div>
       </div>
     </section>

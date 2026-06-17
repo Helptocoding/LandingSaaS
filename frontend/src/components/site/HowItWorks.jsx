@@ -52,10 +52,10 @@ export default function HowItWorks() {
             {steps.map((s, i) => (
               <motion.div
                 key={s.title}
-                initial={{ opacity: 0, y: 24 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                initial={{ opacity: 0, x: i % 2 === 0 ? -80 : 80, scale: 0.95 }}
+                whileInView={{ opacity: 1, x: 0, scale: 1 }}
                 viewport={{ once: true, margin: "-80px" }}
-                transition={{ duration: 0.55 }}
+                transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1] }}
                 className={`grid lg:grid-cols-2 gap-6 lg:gap-16 items-center ${
                   i % 2 === 1 ? "lg:[&>div:first-child]:order-2" : ""
                 }`}
