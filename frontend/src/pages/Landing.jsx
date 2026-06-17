@@ -1,5 +1,6 @@
 import React from "react";
 import Navbar from "@/components/site/Navbar";
+import ScrollProgress from "@/components/site/ScrollProgress";
 import Hero from "@/components/site/Hero";
 import LogosStrip from "@/components/site/LogosStrip";
 import ProblemSolution from "@/components/site/ProblemSolution";
@@ -17,6 +18,7 @@ import Footer from "@/components/site/Footer";
 export default function Landing() {
   return (
     <main className="relative min-h-screen bg-background text-foreground overflow-x-hidden">
+      <ScrollProgress />
       <Navbar />
       <Hero />
       <LogosStrip />

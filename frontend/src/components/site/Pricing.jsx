@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { Check, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
+import { ctaToast } from "@/lib/cta";
 
 const tiers = [
   {
@@ -116,6 +117,8 @@ export default function Pricing() {
                 ))}
               </ul>
               <Button
+                data-testid={`pricing-cta-${t.name.toLowerCase()}`}
+                onClick={() => ctaToast(t.name === "Grupo" ? "sales" : "trial")}
                 className={`mt-auto pt-0 ${
                   t.popular
                     ? "bg-foreground text-background hover:bg-foreground/90"

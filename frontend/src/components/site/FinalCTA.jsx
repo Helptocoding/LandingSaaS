@@ -1,6 +1,7 @@
 import React from "react";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Calendar } from "lucide-react";
+import { ctaToast } from "@/lib/cta";
 
 export default function FinalCTA() {
   return (
@@ -20,11 +21,22 @@ export default function FinalCTA() {
               Prueba Veteris gratis 14 días. Sin tarjeta. Sin permanencia.
             </p>
             <div className="mt-8 flex flex-col sm:flex-row gap-3 justify-center">
-              <Button size="lg" className="bg-background text-foreground hover:bg-background/90 h-12 px-6 group">
+              <Button
+                data-testid="final-cta-trial-btn"
+                size="lg"
+                onClick={() => ctaToast("trial")}
+                className="bg-background text-foreground hover:bg-background/90 h-12 px-6 group transition-transform hover:-translate-y-0.5"
+              >
                 Empezar prueba gratuita
                 <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-0.5" />
               </Button>
-              <Button size="lg" variant="outline" className="h-12 px-6 bg-transparent border-background/30 text-background hover:bg-background/10 hover:text-background">
+              <Button
+                data-testid="final-cta-demo-btn"
+                size="lg"
+                variant="outline"
+                onClick={() => ctaToast("demo")}
+                className="h-12 px-6 bg-transparent border-background/30 text-background hover:bg-background/10 hover:text-background transition-transform hover:-translate-y-0.5"
+              >
                 <Calendar className="mr-2 h-4 w-4" />
                 Agendar demo
               </Button>

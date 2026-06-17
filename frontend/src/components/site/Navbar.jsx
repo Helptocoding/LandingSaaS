@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import Logo from "./Logo";
 import { Menu, X, ArrowRight } from "lucide-react";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { ctaToast } from "@/lib/cta";
 
 const links = [
   { href: "#features", label: "Funciones" },
@@ -46,10 +47,21 @@ export default function Navbar() {
           ))}
         </ul>
         <div className="hidden lg:flex items-center gap-2">
-          <Button variant="ghost" size="sm" className="text-foreground hover:bg-muted">
+          <Button
+            data-testid="nav-login-btn"
+            variant="ghost"
+            size="sm"
+            onClick={() => ctaToast("login")}
+            className="text-foreground hover:bg-muted"
+          >
             Iniciar sesión
           </Button>
-          <Button size="sm" className="bg-foreground text-background hover:bg-foreground/90 group">
+          <Button
+            data-testid="nav-trial-btn"
+            size="sm"
+            onClick={() => ctaToast("trial")}
+            className="bg-foreground text-background hover:bg-foreground/90 group"
+          >
             Probar gratis
             <ArrowRight className="ml-1 h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
           </Button>
@@ -74,8 +86,8 @@ export default function Navbar() {
                 </a>
               ))}
               <div className="mt-4 flex flex-col gap-2">
-                <Button variant="outline" className="w-full">Iniciar sesión</Button>
-                <Button className="w-full bg-foreground text-background hover:bg-foreground/90">Probar gratis</Button>
+                <Button variant="outline" className="w-full" onClick={() => { setOpen(false); ctaToast("login"); }}>Iniciar sesión</Button>
+                <Button className="w-full bg-foreground text-background hover:bg-foreground/90" onClick={() => { setOpen(false); ctaToast("trial"); }}>Probar gratis</Button>
               </div>
             </div>
           </SheetContent>

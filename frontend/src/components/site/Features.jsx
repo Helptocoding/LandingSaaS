@@ -10,6 +10,7 @@ import {
   FileText,
   Users,
 } from "lucide-react";
+import SpotlightCard from "./SpotlightCard";
 
 const features = [
   {
@@ -87,21 +88,26 @@ export default function Features() {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-60px" }}
-              transition={{ duration: 0.5, delay: i * 0.04 }}
-              className={`group relative overflow-hidden rounded-2xl border border-border bg-card p-6 hover:shadow-soft transition-shadow ${f.span || ""}`}
+              transition={{ duration: 0.55, delay: i * 0.05, ease: [0.22, 1, 0.36, 1] }}
+              className={f.span || ""}
             >
-              <div
-                className={`inline-flex h-11 w-11 items-center justify-center rounded-xl ${
-                  f.tone === "accent"
-                    ? "bg-accent/15 text-accent"
-                    : "bg-primary/10 text-primary"
-                }`}
+              <SpotlightCard
+                data-testid={`feature-card-${i}`}
+                className="group h-full relative overflow-hidden rounded-2xl border border-border bg-card p-6 hover:shadow-soft hover:-translate-y-0.5 transition-all duration-300"
               >
-                <f.icon className="h-5 w-5" />
-              </div>
-              <h3 className="font-display text-lg font-semibold text-foreground mt-5">{f.title}</h3>
-              <p className="mt-2 text-sm text-muted-foreground leading-relaxed">{f.desc}</p>
-              <div className="pointer-events-none absolute -bottom-16 -right-16 h-32 w-32 rounded-full bg-gradient-to-br from-primary/0 to-primary/5 group-hover:to-primary/10 transition-colors" />
+                <div
+                  className={`inline-flex h-11 w-11 items-center justify-center rounded-xl ${
+                    f.tone === "accent"
+                      ? "bg-accent/15 text-accent"
+                      : "bg-primary/10 text-primary"
+                  } transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3`}
+                >
+                  <f.icon className="h-5 w-5" />
+                </div>
+                <h3 className="font-display text-lg font-semibold text-foreground mt-5">{f.title}</h3>
+                <p className="mt-2 text-sm text-muted-foreground leading-relaxed">{f.desc}</p>
+                <div className="pointer-events-none absolute -bottom-16 -right-16 h-32 w-32 rounded-full bg-gradient-to-br from-primary/0 to-primary/5 group-hover:to-primary/10 transition-colors" />
+              </SpotlightCard>
             </motion.div>
           ))}
         </div>

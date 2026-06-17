@@ -1,17 +1,31 @@
-import React from "react";
-import { motion } from "framer-motion";
+import React, { useRef } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Sparkles, Check, Calendar, Stethoscope, MessageCircle } from "lucide-react";
 import HeroDashboard from "./HeroDashboard";
+import { ctaToast } from "@/lib/cta";
 
 export default function Hero() {
+  const sectionRef = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start start", "end start"],
+  });
+  // Parallax: dashboard slides up & scales slightly as user scrolls
+  const dashY = useTransform(scrollYProgress, [0, 1], [0, -90]);
+  const dashScale = useTransform(scrollYProgress, [0, 1], [1, 0.94]);
+  const dashRotate = useTransform(scrollYProgress, [0, 1], [0, -2]);
+  const blobY = useTransform(scrollYProgress, [0, 1], [0, 120]);
+  const gridOpacity = useTransform(scrollYProgress, [0, 0.8], [0.18, 0]);
+
   return (
-    <section className="relative pt-28 lg:pt-32 pb-20 lg:pb-28 overflow-hidden">
+    <section ref={sectionRef} className="relative pt-28 lg:pt-32 pb-20 lg:pb-28 overflow-hidden">
       {/* Background gradient + grid */}
       <div className="absolute inset-0 bg-gradient-hero -z-10" />
-      <div
-        className="absolute inset-0 -z-10 opacity-[0.18]"
+      <motion.div
+        className="absolute inset-0 -z-10"
         style={{
+          opacity: gridOpacity,
           backgroundImage:
             "linear-gradient(hsl(var(--primary) / 0.08) 1px, transparent 1px), linear-gradient(90deg, hsl(var(--primary) / 0.08) 1px, transparent 1px)",
           backgroundSize: "42px 42px",
@@ -20,8 +34,8 @@ export default function Hero() {
         }}
       />
       {/* Floating decorative blobs */}
-      <div className="absolute -top-20 -left-20 h-72 w-72 rounded-full bg-primary/10 blur-3xl -z-10" />
-      <div className="absolute top-32 right-0 h-80 w-80 rounded-full bg-accent/15 blur-3xl -z-10" />
+      <motion.div style={{ y: blobY }} className="absolute -top-20 -left-20 h-72 w-72 rounded-full bg-primary/10 blur-3xl -z-10" />
+      <motion.div style={{ y: blobY }} className="absolute top-32 right-0 h-80 w-80 rounded-full bg-accent/15 blur-3xl -z-10" />
 
       <div className="container-wide relative">
         <div className="grid lg:grid-cols-12 gap-12 lg:gap-8 items-center">
@@ -71,11 +85,22 @@ export default function Hero() {
               transition={{ duration: 0.6, delay: 0.18 }}
               className="mt-8 flex flex-col sm:flex-row gap-3"
             >
-              <Button size="lg" className="bg-foreground text-background hover:bg-foreground/90 h-12 px-6 group shadow-soft">
+              <Button
+                data-testid="hero-trial-btn"
+                size="lg"
+                onClick={() => ctaToast("trial")}
+                className="bg-foreground text-background hover:bg-foreground/90 h-12 px-6 group shadow-soft transition-transform hover:-translate-y-0.5"
+              >
                 Empezar prueba gratuita
                 <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-0.5" />
               </Button>
-              <Button size="lg" variant="outline" className="h-12 px-6 border-border bg-card hover:bg-muted">
+              <Button
+                data-testid="hero-demo-btn"
+                size="lg"
+                variant="outline"
+                onClick={() => ctaToast("demo")}
+                className="h-12 px-6 border-border bg-card hover:bg-muted transition-transform hover:-translate-y-0.5"
+              >
                 Ver demo de 2 min
               </Button>
             </motion.div>
@@ -121,7 +146,8 @@ export default function Hero() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.2 }}
-            className="lg:col-span-6 relative"
+            style={{ y: dashY, scale: dashScale, rotate: dashRotate }}
+            className="lg:col-span-6 relative will-change-transform"
           >
             <HeroDashboard />
             {/* Floating mini cards */}
