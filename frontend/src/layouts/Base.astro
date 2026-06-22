@@ -1,0 +1,119 @@
+---
+import '../styles/global.css';
+import SEO from '../components/seo/SEO.astro';
+import JsonLD from '../components/seo/JsonLD.astro';
+import DemoModal from '../components/ui/DemoModal.astro';
+
+export interface Props {
+  title?: string;
+  description?: string;
+  canonical?: string;
+  image?: string;
+  noindex?: boolean;
+  jsonld?: Record<string, unknown>;
+}
+
+const {
+  title = 'SaaslyVet — Software de gestión para clínicas veterinarias',
+  description = 'Gestiona toda tu clínica veterinaria desde un solo lugar. Expediente clínico, agenda, inventario, POS y automatizaciones en una sola plataforma.',
+  canonical,
+  image = '/og-image.png',
+  noindex = false,
+  jsonld,
+} = Astro.props;
+
+const siteUrl = Astro.site?.toString() ?? 'https://www.saaslyvet.com';
+const pageUrl = canonical ?? new URL(Astro.url.pathname, siteUrl).toString();
+
+const orgSchema = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "SaaslyVet",
+  "url": siteUrl,
+  "logo": `${siteUrl}/og-image.png`,
+  "description": description,
+  "sameAs": [
+    "https://twitter.com/saaslyvet",
+    "https://linkedin.com/company/saaslyvet",
+    "https://instagram.com/saaslyvet",
+  ],
+};
+
+const softwareSchema = {
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "SaaslyVet",
+  "applicationCategory": "BusinessApplication",
+  "operatingSystem": "Web",
+  "description": description,
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD",
+  },
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "4.9",
+    "ratingCount": "1200",
+  },
+};
+---
+
+<!doctype html>
+<html lang="es-MX">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content={Astro.generator} />
+
+    <SEO
+      title={title}
+      description={description}
+      canonical={pageUrl}
+      image={image}
+      noindex={noindex}
+    />
+
+    <JsonLD schema={jsonld ?? orgSchema} />
+    <JsonLD schema={softwareSchema} />
+
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
+
+    <slot name="head" />
+  </head>
+  <body class="bg-page text-ink antialiased">
+    <slot />
+
+    <DemoModal />
+
+    <script>
+      const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (!prefersReducedMotion) {
+        const revealObserver = new IntersectionObserver(
+          (entries) => {
+            for (const e of entries) {
+              if (e.isIntersecting) {
+                requestAnimationFrame(() => {
+                  e.target.classList.add('is-visible');
+                });
+                revealObserver.unobserve(e.target);
+              }
+            }
+          },
+          { threshold: 0, rootMargin: '0px 0px -80px 0px' }
+        );
+
+        document.querySelectorAll('[data-reveal]').forEach((el) => {
+          const delay = parseFloat(el.getAttribute('data-reveal-delay') || '0');
+          if (delay) {
+            el.style.transitionDelay = delay + 's';
+          }
+          revealObserver.observe(el);
+        });
+      }
+    </script>
+  </body>
+</html>

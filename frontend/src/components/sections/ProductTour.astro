@@ -1,0 +1,233 @@
+---
+import CalendarDays from '../icons/CalendarDays.astro';
+import FileText from '../icons/FileText.astro';
+import Package from '../icons/Package.astro';
+import CreditCard from '../icons/CreditCard.astro';
+import Check from '../icons/Check.astro';
+---
+
+<section id="tour" class="py-24 lg:py-32">
+  <div class="container-wide">
+    <div class="text-center max-w-2xl mx-auto mb-12">
+      <p class="text-sm font-medium text-brand mb-3">Producto</p>
+      <h2 class="font-display text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight text-ink text-balance">Echa un vistazo a SaaslyVet.</h2>
+      <p class="mt-4 text-lg text-ink-secondary">Cuatro módulos. Una sola fuente de verdad para tu clínica.</p>
+    </div>
+
+    <div class="flex flex-wrap justify-center bg-muted/60 p-1.5 rounded-2xl gap-1 mx-auto w-fit mb-12" id="tour-tabs">
+      <button data-tab="agenda" class="tour-tab flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium transition-all bg-white shadow-soft text-ink">
+        <CalendarDays class="h-4 w-4" /> Agenda
+      </button>
+      <button data-tab="clinico" class="tour-tab flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium transition-all text-ink-secondary">
+        <FileText class="h-4 w-4" /> Expediente
+      </button>
+      <button data-tab="inventario" class="tour-tab flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium transition-all text-ink-secondary">
+        <Package class="h-4 w-4" /> Inventario
+      </button>
+      <button data-tab="pos" class="tour-tab flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium transition-all text-ink-secondary">
+        <CreditCard class="h-4 w-4" /> POS & Caja
+      </button>
+    </div>
+
+    <div class="grid lg:grid-cols-12 gap-10 items-center">
+      <div class="lg:col-span-5">
+        <!-- PANEL: agenda -->
+        <div class="tour-panel" data-panel="agenda">
+          <h3 class="font-display text-2xl sm:text-3xl font-semibold text-ink tracking-tight text-balance">Una agenda que tu equipo entiende sin entrenarse</h3>
+          <p class="mt-4 text-base text-ink-secondary leading-relaxed">Visualiza citas por veterinario, sala o servicio. Arrastra para reagendar, confirma con WhatsApp y reduce ausencias hasta un 68%.</p>
+          <ul class="mt-6 space-y-3">
+            <li class="flex gap-3 text-sm text-ink"><span class="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-brand text-white"><Check class="h-3 w-3" /></span> Citas online desde tu sitio web</li>
+            <li class="flex gap-3 text-sm text-ink"><span class="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-brand text-white"><Check class="h-3 w-3" /></span> Recordatorios automáticos 24h antes</li>
+            <li class="flex gap-3 text-sm text-ink"><span class="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-brand text-white"><Check class="h-3 w-3" /></span> Vista de día, semana o calendario</li>
+          </ul>
+        </div>
+        <!-- PANEL: clinico -->
+        <div class="tour-panel hidden" data-panel="clinico">
+          <h3 class="font-display text-2xl sm:text-3xl font-semibold text-ink tracking-tight text-balance">Toda la historia clínica del paciente en una pantalla</h3>
+          <p class="mt-4 text-base text-ink-secondary leading-relaxed">Notas SOAP, recetas, vacunas, peso, imágenes diagnósticas y antecedentes. Lo que necesitas para decidir, donde lo necesitas.</p>
+          <ul class="mt-6 space-y-3">
+            <li class="flex gap-3 text-sm text-ink"><span class="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-brand text-white"><Check class="h-3 w-3" /></span> Plantillas clínicas configurables</li>
+            <li class="flex gap-3 text-sm text-ink"><span class="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-brand text-white"><Check class="h-3 w-3" /></span> Recetas y certificados en un clic</li>
+            <li class="flex gap-3 text-sm text-ink"><span class="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-brand text-white"><Check class="h-3 w-3" /></span> Historial de vacunación con alertas</li>
+          </ul>
+        </div>
+        <!-- PANEL: inventario -->
+        <div class="tour-panel hidden" data-panel="inventario">
+          <h3 class="font-display text-2xl sm:text-3xl font-semibold text-ink tracking-tight text-balance">Inventario que se mueve solo con cada consulta</h3>
+          <p class="mt-4 text-base text-ink-secondary leading-relaxed">Cuando aplicas un medicamento o producto, el stock se descuenta automáticamente. Sin dobles registros.</p>
+          <ul class="mt-6 space-y-3">
+            <li class="flex gap-3 text-sm text-ink"><span class="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-brand text-white"><Check class="h-3 w-3" /></span> Alertas de stock mínimo</li>
+            <li class="flex gap-3 text-sm text-ink"><span class="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-brand text-white"><Check class="h-3 w-3" /></span> Control de vencimientos</li>
+            <li class="flex gap-3 text-sm text-ink"><span class="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-brand text-white"><Check class="h-3 w-3" /></span> Reportes por proveedor y rotación</li>
+          </ul>
+        </div>
+        <!-- PANEL: pos -->
+        <div class="tour-panel hidden" data-panel="pos">
+          <h3 class="font-display text-2xl sm:text-3xl font-semibold text-ink tracking-tight text-balance">Cobra en segundos y cierra caja sin estrés</h3>
+          <p class="mt-4 text-base text-ink-secondary leading-relaxed">Suma servicios y productos al ticket. Recibe efectivo, tarjeta o transferencia. Concilia al final del día con un clic.</p>
+          <ul class="mt-6 space-y-3">
+            <li class="flex gap-3 text-sm text-ink"><span class="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-brand text-white"><Check class="h-3 w-3" /></span> Tickets de venta digitales</li>
+            <li class="flex gap-3 text-sm text-ink"><span class="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-brand text-white"><Check class="h-3 w-3" /></span> Múltiples métodos de pago</li>
+            <li class="flex gap-3 text-sm text-ink"><span class="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-brand text-white"><Check class="h-3 w-3" /></span> Cierre de caja y arqueos</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="lg:col-span-7">
+        <div class="relative">
+          <div class="absolute inset-0 -z-10 translate-y-6 rounded-3xl bg-gradient-primary opacity-10 blur-2xl" />
+
+          <!-- VISUAL: agenda -->
+          <div class="tour-visual" data-visual="agenda">
+            <div class="rounded-2xl border border-line bg-white shadow-soft overflow-hidden">
+              <div class="flex items-center justify-between border-b border-line px-5 py-3">
+                <div><p class="font-display text-sm font-semibold text-ink">Lunes 18 · Marzo</p><p class="text-xs text-ink-tertiary">3 veterinarios en turno</p></div>
+                <div class="flex gap-1">
+                  <span class="text-xs px-2 py-1 rounded-md bg-muted text-ink-tertiary">Día</span>
+                  <span class="text-xs px-2 py-1 rounded-md bg-ink text-surface">Semana</span>
+                </div>
+              </div>
+              <div class="grid grid-cols-4 text-xs border-b border-line">
+                <div></div>
+                {["Dra. Vega", "Dr. Ortiz", "Dra. Mora"].map((v) => <div class="px-3 py-2 font-medium text-ink-tertiary border-l border-line">{v}</div>)}
+              </div>
+              <div class="grid grid-cols-4">
+                <div class="flex flex-col">
+                  {["09:00","10:00","11:00","12:00","13:00"].map((h) => <div class="h-14 px-3 py-1 text-[10px] text-ink-tertiary border-t border-line">{h}</div>)}
+                </div>
+                {[
+                  [{r:0,pet:"Toby",svc:"Consulta",color:"bg-brand/15 border-brand/40 text-brand"},{r:2,pet:"Rocky",svc:"Cirugía",color:"bg-brand-accent/15 border-brand-accent/40 text-ink"}],
+                  [{r:1,pet:"Mía",svc:"Vacuna",color:"bg-accent/15 border-accent/40 text-accent"},{r:3,pet:"Luna",svc:"Control",color:"bg-brand/15 border-brand/40 text-brand"}],
+                  [{},{}]
+                ].map((col, ci) => (
+                  <div class="flex flex-col border-l border-line">
+                    {["09:00","10:00","11:00","12:00","13:00"].map((_, row) => {
+                      const cell = col.find((c) => c.r === row);
+                      return <div class="relative h-14 border-t border-line p-1">
+                        {cell && <div class={`h-full rounded-md border ${cell.color} px-2 py-1 text-[11px] font-medium`}>{cell.pet}<div class="text-[10px] opacity-80 font-normal">{cell.svc}</div></div>}
+                      </div>
+                    })}
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          <!-- VISUAL: clinico -->
+          <div class="tour-visual hidden" data-visual="clinico">
+            <div class="rounded-2xl border border-line bg-white shadow-soft overflow-hidden">
+              <div class="flex items-center gap-3 border-b border-line px-5 py-4">
+                <div class="h-11 w-11 rounded-xl bg-gradient-primary text-white flex items-center justify-center font-display font-semibold">L</div>
+                <div class="flex-1"><p class="font-display text-sm font-semibold text-ink">Luna · Schnauzer mini · 4 años</p><p class="text-xs text-ink-tertiary">Propietario: Ana Torres · 6.2 kg</p></div>
+                <span class="text-[10px] uppercase tracking-wider px-2 py-1 rounded-md bg-brand-soft text-brand">Esterilizada</span>
+              </div>
+              <div class="grid grid-cols-3 divide-x divide-line text-xs">
+                {[{l:"Última visita",v:"Hace 12 días"},{l:"Vacunas",v:"Al día"},{l:"Alergias",v:"Ninguna"}].map((s) => (
+                  <div class="px-4 py-3"><p class="text-ink-tertiary">{s.l}</p><p class="mt-1 font-semibold text-ink">{s.v}</p></div>
+                ))}
+              </div>
+              <div class="px-5 py-4 space-y-3">
+                <p class="text-xs font-semibold uppercase tracking-wider text-ink-tertiary">Notas SOAP · 18 Mar</p>
+                {[{tag:"S",t:"Dueña reporta picor moderado en patas traseras desde hace 5 días."},{tag:"O",t:"Eritema interdigital bilateral. Sin fiebre. Frecuencia cardíaca 120 lpm."},{tag:"A",t:"Sospecha de dermatitis atópica. Descartar componente alimentario."},{tag:"P",t:"Apoquel 5,4 mg c/24h x 14 días. Control en 2 semanas."}].map((n) => (
+                  <div class="flex gap-3 text-xs"><span class="h-6 w-6 shrink-0 rounded-md bg-muted text-ink font-mono font-semibold flex items-center justify-center">{n.tag}</span><p class="text-ink-secondary leading-relaxed">{n.t}</p></div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          <!-- VISUAL: inventario -->
+          <div class="tour-visual hidden" data-visual="inventario">
+            <div class="rounded-2xl border border-line bg-white shadow-soft overflow-hidden">
+              <div class="flex items-center justify-between border-b border-line px-5 py-3">
+                <p class="font-display text-sm font-semibold text-ink">Inventario · 248 productos</p>
+                <span class="text-xs text-ink-tertiary">Actualizado en vivo</span>
+              </div>
+              <table class="w-full text-xs">
+                <thead class="bg-muted/40"><tr class="text-left text-ink-tertiary"><th class="px-5 py-2 font-medium">Producto</th><th class="px-3 py-2 font-medium">Categoría</th><th class="px-3 py-2 font-medium">Stock</th><th class="px-5 py-2 font-medium">Estado</th></tr></thead>
+                <tbody>
+                  {[
+                    {name:"Apoquel 5.4 mg",cat:"Antialérgico",stock:42,status:"ok"},
+                    {name:"Bravecto 250 mg",cat:"Antiparasitario",stock:8,status:"low"},
+                    {name:"Royal Canin Renal 2kg",cat:"Alimento",stock:24,status:"ok"},
+                    {name:"Amoxi-Tab 250 mg",cat:"Antibiótico",stock:4,status:"critical"},
+                    {name:"Vacuna Sextuple",cat:"Biológico",stock:31,status:"ok"},
+                  ].map((it) => (
+                    <tr class="border-t border-line">
+                      <td class="px-5 py-2.5 font-medium text-ink">{it.name}</td>
+                      <td class="px-3 py-2.5 text-ink-tertiary">{it.cat}</td>
+                      <td class="px-3 py-2.5 text-ink">{it.stock} u.</td>
+                      <td class="px-5 py-2.5">
+                        <span class={`px-2 py-0.5 rounded-md text-[10px] uppercase tracking-wider font-medium ${
+                          it.status === "ok" ? "bg-success/15 text-success" : it.status === "low" ? "bg-warning/20 text-warning" : "bg-destructive/15 text-destructive"
+                        }`}>{it.status === "ok" ? "Óptimo" : it.status === "low" ? "Bajo" : "Crítico"}</span>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- VISUAL: pos -->
+          <div class="tour-visual hidden" data-visual="pos">
+            <div class="grid grid-cols-5 gap-0 rounded-2xl border border-line bg-white shadow-soft overflow-hidden">
+              <div class="col-span-3 p-5">
+                <p class="font-display text-sm font-semibold text-ink mb-3">Ticket #2418</p>
+                <div class="space-y-2">
+                  {[
+                    {name:"Consulta general",qty:1,total:35},
+                    {name:"Vacuna séxtuple",qty:1,total:28},
+                    {name:"Antiparasitario Bravecto",qty:1,total:42},
+                  ].map((it) => (
+                    <div class="flex items-center justify-between text-sm">
+                      <div><p class="font-medium text-ink">{it.name}</p><p class="text-xs text-ink-tertiary">x{it.qty}</p></div>
+                      <p class="text-ink">${it.total}.00</p>
+                    </div>
+                  ))}
+                </div>
+                <div class="mt-5 border-t border-line pt-3 space-y-1 text-sm">
+                  <div class="flex justify-between text-ink-secondary"><span>Subtotal</span><span>$105.00</span></div>
+                  <div class="flex justify-between text-ink-secondary"><span>IVA 16%</span><span>$16.80</span></div>
+                  <div class="flex justify-between font-semibold text-ink text-base pt-1"><span>Total</span><span>$121.80</span></div>
+                </div>
+              </div>
+              <div class="col-span-2 bg-muted/40 p-5 flex flex-col">
+                <p class="text-xs font-semibold uppercase tracking-wider text-ink-tertiary mb-3">Método de pago</p>
+                <div class="space-y-2">
+                  <div class="rounded-lg border px-3 py-2.5 text-sm font-medium bg-ink text-surface border-ink">Tarjeta</div>
+                  <div class="rounded-lg border px-3 py-2.5 text-sm font-medium bg-white text-ink border-line">Efectivo</div>
+                  <div class="rounded-lg border px-3 py-2.5 text-sm font-medium bg-white text-ink border-line">Transferencia</div>
+                </div>
+                <button class="mt-auto w-full rounded-xl bg-gradient-accent text-white font-semibold text-sm py-3 shadow-accent-glow">Cobrar $121.80</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  function switchTourTab(tabId) {
+    document.querySelectorAll('.tour-panel').forEach(function (p) {
+      p.classList.toggle('hidden', p.getAttribute('data-panel') !== tabId);
+    });
+    document.querySelectorAll('.tour-visual').forEach(function (v) {
+      v.classList.toggle('hidden', v.getAttribute('data-visual') !== tabId);
+    });
+    document.querySelectorAll('.tour-tab').forEach(function (b) {
+      var active = b.getAttribute('data-tab') === tabId;
+      b.classList.toggle('bg-white', active);
+      b.classList.toggle('shadow-soft', active);
+      b.classList.toggle('text-ink', active);
+      b.classList.toggle('text-ink-secondary', !active);
+    });
+  }
+
+  document.querySelectorAll('.tour-tab').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      switchTourTab(this.getAttribute('data-tab'));
+    });
+  });
+</script>

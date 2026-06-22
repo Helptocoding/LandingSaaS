@@ -76,6 +76,10 @@ agenthub/agents/youtube/db
 # Build caches
 .cache/
 
+# Astro generated cache/types
+.astro/
+**/.astro/
+
 memory/test_credentials.md
 
 # Mobile development

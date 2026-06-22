@@ -1,0 +1,82 @@
+---
+import MessageCircle from '../icons/MessageCircle.astro';
+import Calendar from '../icons/Calendar.astro';
+import Syringe from '../icons/Syringe.astro';
+import HeartHandshake from '../icons/HeartHandshake.astro';
+import ArrowRight from '../icons/ArrowRight.astro';
+
+const messages = [
+  { when: "10:24", title: "Vacuna próxima", body: "Hola Ana 👋 Max tiene programado su refuerzo de vacuna este mes. ¿Quieres agendar su visita?", icon: Syringe },
+  { when: "10:25", title: "Seguimiento", body: "¿Cómo sigue Luna después de su consulta? Estamos atentos si necesitas ayuda.", icon: HeartHandshake },
+  { when: "10:26", title: "Control pendiente", body: "Rocky tiene una revisión pendiente de su tratamiento. Agenda aquí su próxima visita.", icon: Calendar },
+];
+---
+
+<section class="py-24 lg:py-32">
+  <div class="container-wide">
+    <div class="grid lg:grid-cols-12 gap-12 items-center">
+      <div class="lg:col-span-5">
+        <div class="inline-flex items-center gap-2 rounded-full bg-accent/15 px-3 py-1.5 text-xs font-medium text-accent mb-5">
+          <MessageCircle class="h-3.5 w-3.5" />
+          Automatizaciones
+        </div>
+        <h2 class="font-display text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight text-ink text-balance">
+          Haz que tus clientes vuelvan en el momento adecuado.
+        </h2>
+        <p class="mt-5 text-lg text-ink-secondary leading-relaxed">
+          SaaslyVet usa el historial de cada paciente para enviar recordatorios, seguimientos y mensajes importantes por WhatsApp.
+        </p>
+
+        <ul class="mt-8 space-y-3">
+          {["Confirmación automática de citas", "Recordatorios de vacunas y revisiones", "Seguimiento después de consultas", "Recuperación de pacientes inactivos"].map((b) => (
+            <li class="flex items-start gap-3 text-sm text-ink">
+              <span class="mt-1.5 h-1.5 w-1.5 rounded-full bg-brand" />
+              {b}
+            </li>
+          ))}
+        </ul>
+
+        <a href="#pricing" class="group mt-8 inline-flex items-center gap-2 text-sm font-medium text-brand hover:gap-3 transition-all">
+          Ver planes con automatizaciones
+          <ArrowRight class="h-4 w-4" />
+        </a>
+      </div>
+
+      <div class="lg:col-span-7">
+        <div
+          data-reveal="blur-in"
+          class="relative mx-auto max-w-md"
+        >
+          <div class="absolute -inset-4 -z-10 rounded-[2rem] bg-gradient-to-br from-brand/15 via-accent/10 to-transparent blur-2xl" />
+          <div class="rounded-[2.2rem] border-[10px] border-ink/95 bg-ink/95 p-2 shadow-lift">
+            <div class="rounded-[1.6rem] bg-page overflow-hidden">
+              <div class="flex items-center gap-3 bg-[#075E54] text-white px-4 py-3">
+                <div class="h-9 w-9 rounded-full bg-white/15 flex items-center justify-center">
+                  <MessageCircle class="h-4 w-4" />
+                </div>
+                <div class="flex-1">
+                  <p class="text-sm font-semibold">Clínica Veterinaria</p>
+                  <p class="text-[10px] opacity-80">en línea</p>
+                </div>
+              </div>
+              <div class="px-4 py-5 space-y-3 min-h-[420px]" style="background-image: radial-gradient(circle at 10% 10%, hsl(150 30% 92%) 0%, transparent 50%), radial-gradient(circle at 90% 90%, hsl(22 90% 95%) 0%, transparent 50%); background-color: hsl(40 33% 98%)">
+                {messages.map((m, i) => (
+                  <div data-reveal="slide-left" data-reveal-delay={String(i * 0.15)} class="max-w-[85%] rounded-2xl rounded-tl-sm bg-white border border-line shadow-sm px-3.5 py-3">
+                    <div class="flex items-center gap-2 mb-1">
+                      <span class="flex h-6 w-6 items-center justify-center rounded-md bg-brand/10 text-brand">
+                        <m.icon class="h-3 w-3" />
+                      </span>
+                      <p class="text-xs font-semibold text-ink">{m.title}</p>
+                    </div>
+                    <p class="text-xs text-ink/85 leading-relaxed">{m.body}</p>
+                    <p class="text-[10px] text-ink-tertiary mt-1.5 text-right">{m.when} ✓✓</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

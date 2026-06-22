@@ -1,0 +1,116 @@
+---
+import Check from '../icons/Check.astro';
+import Sparkles from '../icons/Sparkles.astro';
+
+const tiers = [
+  { name: "Esencial", desc: "Para empezar a organizar tu clínica.", monthly: 29, yearly: 24, features: ["Hasta 2 veterinarios", "Agenda y expediente clínico", "Inventario básico", "Soporte por email"], cta: "Empezar gratis", kind: "trial" },
+  { name: "Profesional", desc: "Para operar tu clínica completa.", monthly: 59, yearly: 49, features: ["Veterinarios ilimitados", "Todas las funciones de Esencial", "WhatsApp automatizado", "POS y cierre de caja", "Reportes avanzados", "Soporte prioritario"], cta: "Probar 14 días", popular: true, kind: "trial" },
+  { name: "Clínica Plus", desc: "Para automatizar y crecer.", monthly: 119, yearly: 99, features: ["Multi-sucursal", "Roles y auditoría avanzada", "API e integraciones", "Gestor de cuenta dedicado", "Onboarding personalizado"], cta: "Hablar con ventas", kind: "sales" },
+];
+---
+
+<section id="pricing" class="py-24 lg:py-32">
+  <div class="container-wide">
+    <div class="text-center max-w-2xl mx-auto mb-12">
+      <p class="text-sm font-medium text-brand mb-3">Precios</p>
+      <h2 class="font-display text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight text-ink text-balance">
+        Planes simples. Sin cargos por paciente.
+      </h2>
+      <p class="mt-5 text-lg text-ink-secondary">
+        Comienza gratis 14 días. Cancela cuando quieras.
+      </p>
+
+      <div class="mt-8 inline-flex items-center gap-3 rounded-full border border-line bg-white px-4 py-2 shadow-sm">
+        <span id="label-monthly" class="text-sm font-medium text-ink">Mensual</span>
+        <button
+          id="pricing-toggle"
+          aria-label="Cambiar a precios anuales"
+          class="relative inline-flex h-6 w-11 items-center rounded-full transition-colors bg-brand"
+        >
+          <span id="toggle-dot" class="inline-block h-4 w-4 transform rounded-full bg-white transition-transform shadow-sm translate-x-6" />
+        </button>
+        <span id="label-yearly" class="text-sm font-medium text-ink-secondary">Anual</span>
+        <span class="text-[10px] uppercase tracking-wider font-semibold px-2 py-0.5 rounded-md bg-brand/10 text-brand">-17%</span>
+      </div>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-5" id="pricing-cards">
+      {tiers.map((t, i) => (
+        <div
+          data-reveal="fade-up"
+          data-reveal-delay={String(i * 0.12)}
+          class={`relative flex flex-col rounded-3xl border p-7 ${t.popular ? "border-brand bg-gradient-to-b from-white to-brand-soft/30 shadow-lift" : "border-line bg-white"}`}
+        >
+          {t.popular && (
+            <div class="absolute -top-3 left-1/2 -translate-x-1/2 inline-flex items-center gap-1 rounded-full bg-ink text-surface px-3 py-1 text-[10px] uppercase tracking-wider font-semibold">
+              <Sparkles class="h-3 w-3" /> Más elegido
+            </div>
+          )}
+          <h3 class="font-display text-xl font-semibold text-ink">{t.name}</h3>
+          <p class="mt-1 text-sm text-ink-secondary">{t.desc}</p>
+          <div class="mt-6 flex items-baseline gap-1">
+            <span class="font-display text-5xl font-semibold text-ink" data-price-yearly={t.yearly} data-price-monthly={t.monthly}>${t.yearly}</span>
+            <span class="text-sm text-ink-secondary">/ mes</span>
+          </div>
+          <p class="mt-1 text-xs text-ink-secondary" data-billing-text>facturación anual · por clínica</p>
+          <ul class="mt-6 space-y-3">
+            {t.features.map((f) => (
+              <li class="flex gap-2.5 text-sm text-ink">
+                <Check class="h-4 w-4 text-brand mt-0.5 shrink-0" />
+                {f}
+              </li>
+            ))}
+          </ul>
+          <button
+            data-testid={`pricing-cta-${t.name.toLowerCase()}`}
+            data-cta-kind={t.kind}
+            class={`mt-auto mt-8 h-11 w-full rounded-md text-sm font-medium transition-colors ${
+              t.popular ? "bg-ink text-surface hover:bg-ink/90" : "bg-white text-ink border border-line hover:bg-muted"
+            }`}
+          >
+            {t.cta}
+          </button>
+        </div>
+      ))}
+    </div>
+
+    <p class="text-center text-xs text-ink-secondary mt-8">
+      Todos los precios en USD. Incluye actualizaciones, soporte en español y backups diarios.
+    </p>
+  </div>
+</section>
+
+<script>
+  const toggle = document.getElementById('pricing-toggle');
+  const dot = document.getElementById('toggle-dot');
+  const labelM = document.getElementById('label-monthly');
+  const labelY = document.getElementById('label-yearly');
+  let yearly = true;
+
+  toggle.addEventListener('click', function () {
+    yearly = !yearly;
+    dot.style.transform = yearly ? 'translateX(24px)' : 'translateX(4px)';
+    toggle.classList.toggle('bg-brand', yearly);
+    toggle.classList.toggle('bg-line', !yearly);
+    labelM.classList.toggle('text-ink', !yearly);
+    labelM.classList.toggle('text-ink-secondary', yearly);
+    labelY.classList.toggle('text-ink', yearly);
+    labelY.classList.toggle('text-ink-secondary', !yearly);
+
+    document.querySelectorAll('[data-price-yearly]').forEach(function (el) {
+      el.textContent = '$' + (yearly ? el.getAttribute('data-price-yearly') : el.getAttribute('data-price-monthly'));
+    });
+    document.querySelectorAll('[data-billing-text]').forEach(function (el) {
+      el.textContent = yearly ? 'facturación anual · por clínica' : 'facturación mensual · por clínica';
+    });
+  });
+</script>
+
+<script type="module">
+  import { ctaToast } from '../../lib/cta.js';
+  document.querySelectorAll('[data-cta-kind]').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      ctaToast(this.getAttribute('data-cta-kind'));
+    });
+  });
+</script>

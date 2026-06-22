@@ -1,0 +1,170 @@
+---
+import ArrowRight from '../icons/ArrowRight.astro';
+import Check from '../icons/Check.astro';
+import Calendar from '../icons/Calendar.astro';
+import MessageCircle from '../icons/MessageCircle.astro';
+import HeroDashboard from '../animations/HeroDashboard.astro';
+---
+
+<section id="hero" class="relative pt-28 lg:pt-32 pb-20 lg:pb-28 overflow-hidden">
+  <div class="absolute inset-0 bg-gradient-hero -z-10" />
+  <div class="absolute inset-0 -z-10" style="opacity: 0.18; background-image: linear-gradient(hsl(160 35% 28% / 0.08) 1px, transparent 1px), linear-gradient(90deg, hsl(160 35% 28% / 0.08) 1px, transparent 1px); background-size: 42px 42px; mask-image: radial-gradient(60% 60% at 50% 35%, black 40%, transparent 100%)" id="hero-grid" />
+  <div id="hero-blob-left" class="absolute -top-20 -left-20 h-72 w-72 rounded-full bg-brand/10 blur-3xl -z-10" />
+  <div id="hero-blob-right" class="absolute top-32 right-0 h-80 w-80 rounded-full bg-accent/15 blur-3xl -z-10" />
+
+  <div class="container-wide relative">
+    <div class="grid lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+      <!-- Left column -->
+      <div class="lg:col-span-6">
+        <!-- Positioning -->
+        <p class="hero-entrance text-[11px] font-semibold uppercase tracking-[0.20em] text-ink-secondary mb-4" style="animation-delay: 0s">SOFTWARE DE GESTIÓN VETERINARIA</p>
+
+        <!-- Heading -->
+        <h1 class="hero-entrance mt-6 font-display text-4xl sm:text-5xl lg:text-6xl font-semibold leading-[1.05] tracking-tight text-ink text-balance" style="animation-delay: 0.05s">
+          Toda tu clínica veterinaria,
+          <span class="block">
+            <span class="relative inline-block">
+              <span class="relative z-10 text-brand">conectada</span>
+              <svg viewBox="0 0 220 12" class="absolute -bottom-1 left-0 w-full h-2 text-accent" fill="none" preserveAspectRatio="none" aria-hidden="true">
+                <path d="M2 8 C 60 2, 160 2, 218 8" stroke="currentColor" stroke-width="4" stroke-linecap="round" />
+              </svg>
+            </span>
+            en una sola plataforma.
+          </span>
+        </h1>
+
+        <!-- Description -->
+        <p class="hero-entrance mt-6 max-w-xl text-base sm:text-lg text-ink-secondary leading-relaxed" style="animation-delay: 0.12s">
+          Conecta expedientes, citas, inventario, cobros y comunicación con clientes en un sistema diseñado para clínicas veterinarias.
+        </p>
+
+        <!-- CTAs -->
+        <div class="hero-entrance mt-8 flex flex-col sm:flex-row gap-3" style="animation-delay: 0.18s">
+          <button
+            data-testid="hero-trial-btn"
+            data-cta-kind="trial"
+            class="inline-flex items-center gap-2 bg-ink text-surface rounded-md px-6 py-3.5 font-medium hover:bg-ink/90 transition-colors shadow-soft group h-12"
+          >
+            Empezar prueba gratuita
+            <ArrowRight class="ml-2 h-4 w-4" />
+          </button>
+          <button
+            data-testid="hero-demo-btn"
+            data-cta-kind="demo"
+            class="inline-flex items-center gap-2 bg-white text-ink border border-line rounded-md px-6 py-3.5 font-medium hover:bg-muted transition-colors h-12"
+          >
+            Ver demo de 2 min
+          </button>
+        </div>
+
+        <!-- Trust badges -->
+        <ul class="hero-entrance mt-8 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-ink-secondary" style="animation-delay: 0.3s">
+          {["14 días gratis", "Sin tarjeta de crédito", "Soporte en español", "Acceso desde cualquier dispositivo"].map((t) => (
+            <li class="flex items-center gap-2">
+              <span class="flex h-5 w-5 items-center justify-center rounded-full bg-brand/10 text-brand">
+                <Check class="h-3 w-3" />
+              </span>
+              {t}
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <!-- Right column: Dashboard + floating cards -->
+      <div class="hero-entrance lg:col-span-6 relative will-change-transform" id="hero-dash-wrapper" style="animation-delay: 0.2s">
+        <HeroDashboard />
+
+        <!-- Floating card: Calendar -->
+        <div class="hero-entrance absolute -left-4 lg:-left-10 top-10 lg:top-16 hidden md:flex items-center gap-3 rounded-2xl bg-surface border border-line shadow-lift px-4 py-3" style="animation-delay: 0.6s">
+          <div class="flex h-9 w-9 items-center justify-center rounded-xl bg-accent/15 text-accent">
+            <Calendar class="h-4 w-4" />
+          </div>
+          <div>
+            <p class="text-xs text-ink-secondary">Próxima cita</p>
+            <p class="text-sm font-semibold text-ink">Luna · 14:30</p>
+          </div>
+        </div>
+
+        <!-- Floating card: WhatsApp -->
+        <div class="hero-entrance absolute -right-4 lg:-right-8 bottom-12 hidden md:flex items-center gap-3 rounded-2xl bg-surface border border-line shadow-lift px-4 py-3" style="animation-delay: 0.7s">
+          <div class="relative flex h-9 w-9 items-center justify-center rounded-xl bg-brand/10 text-brand">
+            <MessageCircle class="h-4 w-4" />
+            <span class="absolute -top-1 -right-1 h-2.5 w-2.5 rounded-full bg-success ring-2 ring-white" />
+          </div>
+          <div>
+            <p class="text-xs text-ink-secondary">WhatsApp enviado</p>
+            <p class="text-sm font-semibold text-ink">Recordatorio vacuna</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero-entrance {
+    opacity: 0;
+    animation: hero-fade-up 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  }
+
+  @keyframes hero-fade-up {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero-entrance {
+      opacity: 1;
+      animation: none;
+    }
+  }
+</style>
+
+<script type="module">
+  import { ctaToast } from '../../lib/cta.js';
+  document.querySelectorAll('#hero [data-cta-kind]').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      ctaToast(this.getAttribute('data-cta-kind'));
+    });
+  });
+</script>
+
+<script>
+  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (!prefersReduced) {
+    const section = document.getElementById('hero');
+    const dashWrapper = document.getElementById('hero-dash-wrapper');
+    const grid = document.getElementById('hero-grid');
+    const blobL = document.getElementById('hero-blob-left');
+    const blobR = document.getElementById('hero-blob-right');
+    let ticking = false;
+
+    function updateParallax() {
+      const rect = section.getBoundingClientRect();
+      const total = section.offsetHeight;
+      const scrolled = -rect.top;
+      const pct = total > 0 ? Math.max(0, Math.min(1, scrolled / total)) : 0;
+
+      if (dashWrapper) {
+        dashWrapper.style.transform = 'translateY(' + (pct * -90) + 'px) scale(' + (1 - pct * 0.06) + ') rotate(' + (pct * -2) + 'deg)';
+      }
+      if (blobL) {
+        blobL.style.transform = 'translateY(' + (pct * 120) + 'px)';
+      }
+      if (blobR) {
+        blobR.style.transform = 'translateY(' + (pct * 120) + 'px)';
+      }
+      if (grid) {
+        grid.style.opacity = pct > 0.8 ? 0 : 0.18;
+      }
+      ticking = false;
+    }
+
+    window.addEventListener('scroll', function () {
+      if (!ticking) {
+        requestAnimationFrame(updateParallax);
+        ticking = true;
+      }
+    }, { passive: true });
+  }
+</script>

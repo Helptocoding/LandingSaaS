@@ -1,36 +1,31 @@
-import { toast } from "sonner";
-
-/**
- * Mock CTA handler — shows a Sonner toast with localized Spanish messages.
- * Use across landing CTAs until backend lead capture is wired.
- */
 export function ctaToast(kind = "trial") {
-  switch (kind) {
-    case "trial":
-      toast.success("¡Genial! Te estamos preparando tu prueba.", {
-        description: "En segundos recibirás un correo para crear tu cuenta de Veteris.",
-        duration: 4500,
-      });
-      break;
-    case "demo":
-      toast("Reservemos una demo a tu medida", {
-        description: "Un especialista te contactará en menos de 24 horas hábiles.",
-        duration: 4500,
-      });
-      break;
-    case "sales":
-      toast("Hablemos de tu cadena de clínicas", {
-        description: "Nuestro equipo de cuentas te escribirá hoy mismo.",
-        duration: 4500,
-      });
-      break;
-    case "login":
-      toast("Inicio de sesión", {
-        description: "El portal estará disponible al lanzar tu prueba.",
-        duration: 3500,
-      });
-      break;
-    default:
-      toast("¡Listo!", { description: "Acción registrada.", duration: 3000 });
+  // La demo abre un modal con credenciales + enlace al login (lo maneja DemoModal.astro).
+  if (kind === "demo") {
+    document.dispatchEvent(new CustomEvent("saaslyvet:demo"));
+    return;
   }
+
+  const messages = {
+    trial: ["¡Genial! Te estamos preparando tu prueba.", "En segundos recibirás un correo para crear tu cuenta de SaaslyVet."],
+    demo: ["Reservemos una demo a tu medida", "Un especialista te contactará en menos de 24 horas hábiles."],
+    sales: ["Hablemos de tu cadena de clínicas", "Nuestro equipo de cuentas te escribirá hoy mismo."],
+    login: ["Inicio de sesión", "El portal estará disponible al lanzar tu prueba."],
+  };
+
+  const [title, desc] = messages[kind] || ["¡Listo!", "Acción registrada."];
+
+  const toast = document.createElement('div');
+  toast.className = 'fixed bottom-6 right-6 z-[100] flex items-start gap-3 rounded-xl bg-ink text-surface shadow-lift px-5 py-4 max-w-sm animate-fade-up pointer-events-auto';
+  toast.innerHTML = `
+    <div>
+      <p class="text-sm font-semibold">${title}</p>
+      <p class="mt-0.5 text-xs text-surface/70">${desc}</p>
+    </div>
+  `;
+  document.body.appendChild(toast);
+  setTimeout(() => {
+    toast.style.opacity = '0';
+    toast.style.transition = 'opacity 0.3s';
+    setTimeout(() => toast.remove(), 300);
+  }, 4000);
 }

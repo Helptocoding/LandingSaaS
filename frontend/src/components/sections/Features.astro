@@ -1,0 +1,80 @@
+---
+import Stethoscope from '../icons/Stethoscope.astro';
+import CalendarDays from '../icons/CalendarDays.astro';
+import Package from '../icons/Package.astro';
+import CreditCard from '../icons/CreditCard.astro';
+import MessageCircle from '../icons/MessageCircle.astro';
+import BarChart3 from '../icons/BarChart3.astro';
+import FileText from '../icons/FileText.astro';
+import Users from '../icons/Users.astro';
+
+const features = [
+  { icon: Stethoscope, title: "Expediente clínico digital", desc: "Historial médico completo por paciente: consultas, diagnósticos, recetas, vacunas y archivos adjuntos.", tone: "brand", span: "lg:col-span-2" },
+  { icon: CalendarDays, title: "Agenda inteligente", desc: "Citas online, recordatorios y vista por veterinario.", tone: "accent" },
+  { icon: Package, title: "Inventario veterinario", desc: "Descuento automático con cada tratamiento. Alertas de stock crítico y vencimientos.", tone: "brand" },
+  { icon: CreditCard, title: "POS y caja", desc: "Cobros rápidos, métodos de pago y cierre de caja al final del día.", tone: "accent" },
+  { icon: MessageCircle, title: "WhatsApp automatizado", desc: "Recordatorios de citas, vacunas y seguimientos sin levantar el teléfono.", tone: "brand", span: "lg:col-span-2" },
+  { icon: BarChart3, title: "Reportes en tiempo real", desc: "Ingresos, productos más vendidos, ocupación y retención de clientes.", tone: "accent" },
+  { icon: FileText, title: "Recetas y certificados", desc: "Generación con un clic y firma digital lista para imprimir o enviar.", tone: "brand" },
+  { icon: Users, title: "Equipo y roles", desc: "Permisos por veterinario, recepción y administración.", tone: "brand" },
+];
+---
+
+<section id="features" class="py-24 lg:py-32 bg-muted/30">
+  <div class="container-wide">
+    <div class="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 mb-14">
+      <div class="max-w-2xl">
+        <p class="text-sm font-medium text-brand mb-3">Funciones</p>
+        <h2 class="font-display text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight text-ink text-balance">
+          Una plataforma diseñada para cómo realmente funciona una veterinaria.
+        </h2>
+      </div>
+      <p class="text-base text-ink-secondary max-w-md">
+        Conecta agenda, atención, inventario y administración. Cada acción alimenta al sistema completo.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-5" id="features-grid">
+      {features.map((f, i) => (
+        <div data-reveal="blur-in" data-reveal-delay={String(i * 0.06)} class={f.span || ""}>
+          <div
+            data-testid={`feature-card-${i}`}
+            data-spotlight
+            class="group/spot relative isolate h-full overflow-hidden rounded-2xl border border-line bg-white p-6 hover:shadow-soft hover:-translate-y-0.5 transition-all duration-300"
+          >
+            <span
+              aria-hidden="true"
+              class="pointer-events-none absolute inset-0 rounded-[inherit] opacity-0 group-hover/spot:opacity-100 transition-opacity duration-500"
+            ></span>
+            <span class="relative z-10 block h-full w-full">
+              <div class={`inline-flex h-11 w-11 items-center justify-center rounded-xl ${f.tone === "accent" ? "bg-accent/15 text-accent" : "bg-brand/10 text-brand"} transition-transform duration-300 group-hover/spot:scale-110 group-hover/spot:rotate-3`}>
+                <f.icon class="h-5 w-5" />
+              </div>
+              <h3 class="font-display text-lg font-semibold text-ink mt-5">{f.title}</h3>
+              <p class="mt-2 text-sm text-ink-secondary leading-relaxed">{f.desc}</p>
+              <div class="pointer-events-none absolute -bottom-16 -right-16 h-32 w-32 rounded-full bg-gradient-to-br from-brand/0 to-brand/5 group-hover/spot:to-brand/10 transition-colors" />
+            </span>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<script>
+  const grid = document.getElementById('features-grid');
+  if (grid) {
+    grid.addEventListener('mousemove', function (e) {
+      const cards = this.querySelectorAll('[data-spotlight]');
+      cards.forEach(function (card) {
+        const rect = card.getBoundingClientRect();
+        const mx = e.clientX - rect.left;
+        const my = e.clientY - rect.top;
+        const span = card.querySelector('span[aria-hidden]');
+        if (span) {
+          span.style.background = 'radial-gradient(280px circle at ' + mx + 'px ' + my + 'px, hsl(160 35% 28% / 0.12), transparent 60%)';
+        }
+      });
+    });
+  }
+</script>
