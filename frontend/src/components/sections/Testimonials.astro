@@ -1,0 +1,44 @@
+---
+const ventajas = [
+  {
+    title: "Todo conectado",
+    desc: "Agenda, consultas, inventario y cobros trabajan como un solo sistema. Sin mover información entre herramientas.",
+  },
+  {
+    title: "Flujo veterinario real",
+    desc: "Desde la agenda hasta el historial clínico, cada proceso sigue la forma en que trabaja una clínica veterinaria.",
+  },
+  {
+    title: "Sin instalaciones complicadas",
+    desc: "Tu equipo accede desde cualquier navegador y comienza con una configuración guiada.",
+  },
+  {
+    title: "Control de tu información",
+    desc: "Gestiona usuarios, permisos y datos de tu clínica de forma organizada.",
+  },
+];
+---
+
+<section class="py-24 lg:py-32 bg-muted/30">
+  <div class="container-wide">
+    <div class="max-w-2xl mb-14">
+      <p class="text-sm font-medium text-brand mb-3">Por qué SaaslyVet</p>
+      <h2 class="font-display text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight text-ink text-balance">
+        Un sistema pensado para clínicas veterinarias, no adaptado de otra industria.
+      </h2>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-5">
+      {ventajas.map((v, i) => (
+        <div
+          data-reveal="fade-up"
+          data-reveal-delay={String(i * 0.08)}
+          class="rounded-2xl border border-line bg-white p-7"
+        >
+          <h3 class="font-display text-xl font-semibold text-ink">{v.title}</h3>
+          <p class="mt-3 text-base text-ink-secondary leading-relaxed">{v.desc}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

@@ -1,0 +1,215 @@
+---
+import X from '../icons/X.astro';
+import Check from '../icons/Check.astro';
+import ArrowRight from '../icons/ArrowRight.astro';
+import FadeImage from '../ui/FadeImage.astro';
+import caoticoH from '../../assets/img/escritorio_caotico_horizontal.png';
+import limpioH from '../../assets/img/escritorio_limpio_horizontal.png';
+
+const problems = [
+  "Citas en cuadernos, Google Calendar y WhatsApp",
+  "Historial clínico disperso o en papel",
+  "Inventario que no cuadra al final del mes",
+  "Cobros y caja en hojas de Excel",
+  "Recordatorios manuales que se olvidan",
+  "Sin visibilidad real del negocio",
+];
+
+const solutions = [
+  "Agenda online sincronizada con tu equipo",
+  "Expediente clínico digital unificado por paciente",
+  "Inventario que se descuenta automáticamente",
+  "Cobros y caja integrados",
+  "Recordatorios automáticos por WhatsApp",
+  "Visibilidad de ventas, citas y operación",
+];
+
+// Dos estados del toggle (capas que hacen crossfade dentro de la tarjeta).
+const states = [
+  {
+    key: 'sin',
+    label: 'Sin SaaslyVet',
+    Icon: X,
+    img: caoticoH,
+    alt: 'Escritorio de recepción saturado de papeleo y notas sueltas',
+    badgeBg: 'bg-destructive/85',
+    dot: 'bg-destructive',
+    panel: 'hsl(0 45% 16%)', // rojo oscuro, a juego con el badge ✕
+    title: 'Información dispersa',
+    subtitle: 'Equipo descoordinado',
+    items: problems,
+    cta: false,
+    layerCls: 'opacity-100 group-data-[state=on]:pointer-events-none group-data-[state=on]:opacity-0',
+  },
+  {
+    key: 'con',
+    label: 'Con SaaslyVet',
+    Icon: Check,
+    img: limpioH,
+    alt: 'Escritorio ordenado con la operación de la clínica centralizada en SaaslyVet',
+    badgeBg: 'bg-brand/90',
+    dot: 'bg-brand',
+    panel: 'hsl(162 38% 14%)', // verde oscuro, a juego con el badge ✓
+    title: 'Una sola plataforma',
+    subtitle: 'Todo el equipo viendo la misma información',
+    items: solutions,
+    cta: true,
+    layerCls: 'opacity-0 pointer-events-none group-data-[state=on]:pointer-events-auto group-data-[state=on]:opacity-100',
+  },
+];
+---
+
+<section class="py-24 lg:py-32">
+  <div class="container-wide">
+    <div class="max-w-2xl mb-14">
+      <p class="text-sm font-medium text-brand mb-3">El problema</p>
+      <h2 class="font-display text-3xl sm:text-4xl lg:text-5xl font-semibold text-ink tracking-tight text-balance">
+        La operación de tu veterinaria está fragmentada en demasiadas herramientas.
+      </h2>
+      <p class="mt-5 text-lg text-ink-secondary leading-relaxed">
+        Cuando recepción, veterinarios y administración trabajan en silos, se pierde información, tiempo y clientes.
+      </p>
+    </div>
+
+    <div data-reveal="fade-up" data-ps-block data-state="off" class="group">
+      <!-- Toggle -->
+      <div class="flex items-center justify-center gap-4">
+        <button
+          type="button"
+          data-ps-set="off"
+          class="text-sm font-semibold text-ink transition-colors group-data-[state=on]:text-ink-tertiary"
+        >
+          Sin SaaslyVet
+        </button>
+
+        <button
+          type="button"
+          role="switch"
+          aria-checked="false"
+          aria-label="Alternar entre Sin SaaslyVet y Con SaaslyVet"
+          data-ps-switch
+          class="relative inline-flex h-7 w-12 shrink-0 items-center rounded-full bg-line transition-colors duration-300 group-data-[state=on]:bg-brand"
+        >
+          <span class="inline-block h-5 w-5 translate-x-1 rounded-full bg-white shadow transition-transform duration-300 group-data-[state=on]:translate-x-6"></span>
+        </button>
+
+        <button
+          type="button"
+          data-ps-set="on"
+          class="text-sm font-semibold text-ink-tertiary transition-colors group-data-[state=on]:text-ink"
+        >
+          Con SaaslyVet
+        </button>
+      </div>
+
+      <!-- Nudge: invita a mover el switch; desaparece al activar SaaslyVet -->
+      <p class="mb-8 mt-3 flex items-center justify-center gap-1.5 text-xs font-medium text-brand transition-opacity duration-300 group-data-[state=on]:opacity-0">
+        Mueve el switch y mira cómo cambia con SaaslyVet
+        <ArrowRight class="ps-nudge h-3.5 w-3.5" />
+      </p>
+
+      <!-- Tarjeta: panel de texto + foto lateral -->
+      <div class="relative isolate h-[560px] sm:h-[480px] md:h-[440px] w-full overflow-hidden rounded-3xl shadow-lift">
+        {states.map((s) => {
+          const Icon = s.Icon;
+          return (
+            <div
+              data-layer={s.key}
+              class={`absolute inset-0 transition-opacity duration-500 ease-out ${s.layerCls}`}
+            >
+              <div class="grid h-full grid-rows-[auto_1fr] md:grid-rows-1 md:grid-cols-[38%_62%]">
+                <!-- Panel de texto sólido -->
+                <div
+                  class="relative z-20 flex flex-col justify-center gap-4 p-7 text-white lg:p-9"
+                  style={`background:${s.panel}`}
+                >
+                  <span class={`inline-flex w-fit items-center gap-1.5 rounded-full ${s.badgeBg} px-3 py-1.5 text-xs font-semibold text-white ring-1 ring-white/20`}>
+                    <Icon class="h-3 w-3" />
+                    {s.label}
+                  </span>
+                  <div class="min-h-[3.5rem]">
+                    <h3 class="font-display text-2xl font-semibold tracking-tight text-white">{s.title}</h3>
+                    <p class="mt-1 text-sm text-white/70">{s.subtitle}</p>
+                  </div>
+                  <ul class="space-y-2.5">
+                    {s.items.map((it) => (
+                      <li class="flex gap-3 text-sm text-white/90">
+                        <span class={`mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full ${s.dot} text-white`}>
+                          <Icon class="h-3 w-3" />
+                        </span>
+                        {it}
+                      </li>
+                    ))}
+                  </ul>
+                  {s.cta ? (
+                    <a
+                      href="#pricing"
+                      class="inline-flex w-fit items-center gap-2 rounded-md bg-white px-5 py-3 text-sm font-semibold text-ink shadow-soft transition-colors hover:bg-white/90"
+                    >
+                      Probar gratis
+                      <ArrowRight class="h-4 w-4" />
+                    </a>
+                  ) : (
+                    <span aria-hidden="true" class="invisible inline-flex w-fit items-center gap-2 rounded-md px-5 py-3 text-sm font-semibold">
+                      Probar gratis
+                      <ArrowRight class="h-4 w-4" />
+                    </span>
+                  )}
+                </div>
+
+                <!-- Foto con fade lateral hacia el panel -->
+                <div class="relative min-h-[200px]">
+                  <FadeImage
+                    src={s.img}
+                    alt={s.alt}
+                    cover
+                    fade="none"
+                    objectPosition="center"
+                    class="absolute inset-0 h-full w-full"
+                  />
+                  <div
+                    aria-hidden="true"
+                    class="absolute inset-0"
+                    style={`background:linear-gradient(to right, ${s.panel} 0%, transparent 18%)`}
+                  ></div>
+                </div>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  @keyframes ps-nudge {
+    0%, 100% { transform: translateX(0); }
+    50% { transform: translateX(5px); }
+  }
+  .ps-nudge { animation: ps-nudge 1.1s ease-in-out infinite; }
+  @media (prefers-reduced-motion: reduce) {
+    .ps-nudge { animation: none; }
+  }
+</style>
+
+<script>
+  function initProblemToggle() {
+    document.querySelectorAll<HTMLElement>('[data-ps-block]').forEach((block) => {
+      const sw = block.querySelector<HTMLElement>('[data-ps-switch]');
+      const setBtns = block.querySelectorAll<HTMLElement>('[data-ps-set]');
+
+      const setState = (on: boolean) => {
+        block.dataset.state = on ? 'on' : 'off';
+        sw?.setAttribute('aria-checked', on ? 'true' : 'false');
+      };
+
+      sw?.addEventListener('click', () => setState(block.dataset.state !== 'on'));
+      setBtns.forEach((b) =>
+        b.addEventListener('click', () => setState(b.getAttribute('data-ps-set') === 'on'))
+      );
+    });
+  }
+
+  initProblemToggle();
+</script>

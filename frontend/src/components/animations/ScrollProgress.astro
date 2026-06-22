@@ -1,0 +1,27 @@
+<div
+  data-testid="scroll-progress"
+  class="fixed top-0 left-0 right-0 z-[60] h-[2px] bg-gradient-to-r from-brand via-brand-accent to-accent origin-left scale-x-0"
+  aria-hidden="true"
+  id="scroll-progress"
+></div>
+
+<script>
+  const bar = document.getElementById('scroll-progress');
+  let ticking = false;
+
+  function update() {
+    const h = document.documentElement;
+    const scrollTop = h.scrollTop || document.body.scrollTop;
+    const scrollHeight = h.scrollHeight - h.clientHeight;
+    const pct = scrollHeight > 0 ? scrollTop / scrollHeight : 0;
+    bar.style.transform = 'scaleX(' + pct + ')';
+    ticking = false;
+  }
+
+  window.addEventListener('scroll', () => {
+    if (!ticking) {
+      requestAnimationFrame(update);
+      ticking = true;
+    }
+  }, { passive: true });
+</script>

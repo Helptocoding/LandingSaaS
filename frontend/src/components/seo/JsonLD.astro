@@ -1,0 +1,7 @@
+---
+export interface Props {
+  schema: Record<string, unknown>;
+}
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(Astro.props.schema)}></script>

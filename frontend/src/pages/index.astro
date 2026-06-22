@@ -1,0 +1,38 @@
+---
+import Base from '../layouts/Base.astro';
+import ScrollProgress from '../components/animations/ScrollProgress.astro';
+import Header from '../components/sections/Header.astro';
+import Hero from '../components/sections/Hero.astro';
+import ProblemSolution from '../components/sections/ProblemSolution.astro';
+import Features from '../components/sections/Features.astro';
+import ProductTour from '../components/sections/ProductTour.astro';
+import HowItWorks from '../components/sections/HowItWorks.astro';
+import Automation from '../components/sections/Automation.astro';
+import Pricing from '../components/sections/Pricing.astro';
+import FAQ from '../components/sections/FAQ.astro';
+import FinalCTA from '../components/sections/FinalCTA.astro';
+import Footer from '../components/sections/Footer.astro';
+---
+
+<Base
+  title="SaaslyVet — Software de gestión para clínicas veterinarias"
+  description="Gestiona toda tu clínica veterinaria desde un solo lugar. Expediente clínico, agenda, inventario, POS y automatizaciones inteligentes. Menos desorden, más pacientes."
+>
+  <ScrollProgress />
+
+  <Header />
+
+  <main id="main">
+    <Hero />
+    <ProblemSolution />
+    <Features />
+    <ProductTour />
+    <HowItWorks />
+    <Automation />
+    <Pricing />
+    <FAQ />
+    <FinalCTA />
+  </main>
+
+  <Footer />
+</Base>

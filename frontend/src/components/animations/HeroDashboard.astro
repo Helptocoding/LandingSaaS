@@ -1,0 +1,102 @@
+---
+import Search from '../icons/Search.astro';
+import Bell from '../icons/Bell.astro';
+import Plus from '../icons/Plus.astro';
+import Calendar from '../icons/Calendar.astro';
+import PawPrint from '../icons/PawPrint.astro';
+import Stethoscope from '../icons/Stethoscope.astro';
+import Syringe from '../icons/Syringe.astro';
+import TrendingUp from '../icons/TrendingUp.astro';
+
+const appointments = [
+  { time: "09:00", pet: "Toby", owner: "Carla M.", type: "Consulta", color: "bg-brand" },
+  { time: "10:30", pet: "Mía", owner: "Lucía R.", type: "Vacunación", color: "bg-accent" },
+  { time: "12:00", pet: "Rocky", owner: "José P.", type: "Cirugía menor", color: "bg-brand-accent" },
+  { time: "14:30", pet: "Luna", owner: "Ana T.", type: "Control", color: "bg-brand-accent" },
+  { time: "16:00", pet: "Coco", owner: "Sofía L.", type: "Desparasitación", color: "bg-warning" },
+];
+---
+
+<div id="hero-dashboard" class="relative mx-auto w-full max-w-[640px]">
+  <div class="absolute inset-0 -z-10 translate-y-6 scale-95 rounded-[2rem] bg-gradient-primary opacity-20 blur-3xl" />
+  <div class="relative rounded-[1.75rem] border border-line bg-white shadow-lift overflow-hidden">
+    <!-- Top bar -->
+    <div class="flex items-center justify-between border-b border-line bg-muted/40 px-5 py-3">
+      <div class="flex items-center gap-2">
+        <span class="h-2.5 w-2.5 rounded-full bg-destructive/70" />
+        <span class="h-2.5 w-2.5 rounded-full bg-warning/80" />
+        <span class="h-2.5 w-2.5 rounded-full bg-success/80" />
+      </div>
+      <div class="flex items-center gap-2 rounded-md bg-surface border border-line px-3 py-1.5 w-56">
+        <Search class="h-3.5 w-3.5 text-ink-tertiary" />
+        <span class="text-xs text-ink-tertiary">Buscar paciente, dueño...</span>
+      </div>
+      <div class="flex items-center gap-2">
+        <div class="relative flex h-7 w-7 items-center justify-center rounded-md hover:bg-muted text-ink-tertiary">
+          <Bell class="h-3.5 w-3.5" />
+          <span class="absolute top-1 right-1 h-1.5 w-1.5 rounded-full bg-accent" />
+        </div>
+        <div class="h-7 w-7 rounded-full bg-gradient-primary text-white flex items-center justify-center text-[10px] font-semibold">DV</div>
+      </div>
+    </div>
+
+    <!-- Body -->
+    <div class="grid grid-cols-12 gap-4 p-5">
+      <!-- Sidebar -->
+      <aside class="col-span-3 hidden md:flex flex-col gap-1">
+        {[
+          { i: Calendar, l: "Agenda", active: true },
+          { i: PawPrint, l: "Pacientes" },
+          { i: Stethoscope, l: "Consultas" },
+          { i: Syringe, l: "Vacunas" },
+          { i: TrendingUp, l: "Reportes" },
+        ].map((it) => (
+          <div class={`flex items-center gap-2 rounded-lg px-2.5 py-1.5 text-xs ${it.active ? "bg-brand-soft text-brand font-medium" : "text-ink-tertiary hover:bg-muted"}`}>
+            <it.i class="h-3.5 w-3.5" />{it.l}
+          </div>
+        ))}
+      </aside>
+
+      <!-- Main content -->
+      <div class="col-span-12 md:col-span-9">
+        <div class="flex items-center justify-between mb-4">
+          <div>
+            <h3 class="font-display text-base font-semibold text-ink">Agenda · Hoy</h3>
+            <p class="text-xs text-ink-tertiary">Martes, 18 de Marzo · 5 citas programadas</p>
+          </div>
+          <button class="inline-flex items-center gap-1 rounded-md bg-ink text-surface text-xs font-medium px-2.5 py-1.5">
+            <Plus class="h-3 w-3" /> Nueva cita
+          </button>
+        </div>
+
+        <!-- Appointments list -->
+        <div class="space-y-2">
+          {appointments.map((a, i) => (
+            <div class="dashboard-row group flex items-center gap-3 rounded-xl border border-line bg-surface/60 hover:bg-surface p-3 transition-colors" style={`animation-delay: ${0.3 + i * 0.07}s`}>
+              <div class="text-xs font-mono font-medium text-ink-tertiary w-12">{a.time}</div>
+              <div class={`h-9 w-1 rounded-full ${a.color}`} />
+              <div class="flex-1 min-w-0">
+                <div class="flex items-center gap-2">
+                  <p class="text-sm font-semibold text-ink truncate">{a.pet}</p>
+                  <span class="text-xs text-ink-tertiary truncate">· {a.owner}</span>
+                </div>
+                <p class="text-[11px] text-ink-tertiary">{a.type}</p>
+              </div>
+              <span class="hidden sm:inline-flex text-[10px] font-medium uppercase tracking-wider px-2 py-1 rounded-md bg-brand-soft text-brand">Confirmada</span>
+            </div>
+          ))}
+        </div>
+
+        <!-- Bottom stats -->
+        <div class="mt-4 grid grid-cols-3 gap-2">
+          {[{ l: "Ingresos hoy", v: "$1.840" }, { l: "Tasa asistencia", v: "96%" }, { l: "Stock crítico", v: "3 ítems" }].map((s) => (
+            <div class="rounded-lg bg-muted/50 px-3 py-2">
+              <p class="text-[10px] uppercase tracking-wider text-ink-tertiary">{s.l}</p>
+              <p class="font-display text-sm font-semibold text-ink">{s.v}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

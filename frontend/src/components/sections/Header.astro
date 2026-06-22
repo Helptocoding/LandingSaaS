@@ -1,0 +1,65 @@
+---
+import Logo from '../ui/Logo.astro';
+import Menu from '../icons/Menu.astro';
+import X from '../icons/X.astro';
+import ArrowRight from '../icons/ArrowRight.astro';
+---
+
+<header
+  id="navbar"
+  class="fixed inset-x-0 top-0 z-50 transition-colors duration-300 bg-white/75 backdrop-blur-xl border-b border-line/60"
+>
+  <nav class="container-wide flex h-16 items-center justify-between">
+    <Logo />
+
+    <ul class="hidden lg:flex items-center gap-1">
+      <li><a href="#features" class="px-3 py-2 text-sm font-medium text-ink-secondary hover:text-ink transition-colors rounded-md">Funciones</a></li>
+      <li><a href="#tour" class="px-3 py-2 text-sm font-medium text-ink-secondary hover:text-ink transition-colors rounded-md">Producto</a></li>
+      <li><a href="#how" class="px-3 py-2 text-sm font-medium text-ink-secondary hover:text-ink transition-colors rounded-md">Cómo funciona</a></li>
+      <li><a href="#pricing" class="px-3 py-2 text-sm font-medium text-ink-secondary hover:text-ink transition-colors rounded-md">Precios</a></li>
+      <li><a href="#faq" class="px-3 py-2 text-sm font-medium text-ink-secondary hover:text-ink transition-colors rounded-md">FAQ</a></li>
+    </ul>
+
+    <div class="hidden lg:flex items-center gap-2">
+      <a
+        id="nav-login"
+        href="https://app.saaslyvet.com/login"
+        class="inline-flex items-center justify-center rounded-md px-4 py-2 text-sm font-medium text-ink-secondary hover:text-ink hover:bg-muted transition-colors"
+      >
+        Iniciar sesión
+      </a>
+      <a
+        href="#pricing"
+        class="inline-flex items-center justify-center gap-1.5 rounded-md bg-ink text-surface px-4 py-2 text-sm font-medium hover:bg-ink/90 transition-colors group"
+      >
+        Probar gratis
+        <ArrowRight class="ml-1 h-3.5 w-3.5" />
+      </a>
+    </div>
+
+    <button
+      id="mobile-menu-btn"
+      class="lg:hidden inline-flex h-10 w-10 items-center justify-center rounded-lg border border-line bg-white text-ink"
+      aria-label="Abrir menú"
+      aria-expanded="false"
+      onclick="document.getElementById('mobile-menu').classList.toggle('hidden'); this.querySelector('.open-icon').classList.toggle('hidden'); this.querySelector('.close-icon').classList.toggle('hidden'); this.setAttribute('aria-expanded', this.getAttribute('aria-expanded') === 'true' ? 'false' : 'true')"
+    >
+      <Menu class="open-icon h-4 w-4" />
+      <X class="close-icon hidden h-4 w-4" />
+    </button>
+  </nav>
+
+  <div id="mobile-menu" class="hidden lg:hidden border-t border-line bg-white">
+    <div class="container-wide py-4 flex flex-col gap-1">
+      <a href="#features" class="px-3 py-3 text-base font-medium text-ink hover:bg-muted rounded-md">Funciones</a>
+      <a href="#tour" class="px-3 py-3 text-base font-medium text-ink hover:bg-muted rounded-md">Producto</a>
+      <a href="#how" class="px-3 py-3 text-base font-medium text-ink hover:bg-muted rounded-md">Cómo funciona</a>
+      <a href="#pricing" class="px-3 py-3 text-base font-medium text-ink hover:bg-muted rounded-md">Precios</a>
+      <a href="#faq" class="px-3 py-3 text-base font-medium text-ink hover:bg-muted rounded-md">FAQ</a>
+      <div class="mt-4 flex flex-col gap-2">
+        <a href="https://app.saaslyvet.com/login" class="block w-full rounded-md border border-line bg-white px-4 py-2.5 text-center text-sm font-medium text-ink hover:bg-muted">Iniciar sesión</a>
+        <a href="#pricing" class="w-full rounded-md bg-ink text-surface px-4 py-2.5 text-sm font-medium text-center hover:bg-ink/90">Probar gratis</a>
+      </div>
+    </div>
+  </div>
+</header>

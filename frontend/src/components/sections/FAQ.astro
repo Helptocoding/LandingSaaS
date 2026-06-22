@@ -1,0 +1,52 @@
+---
+const faqs = [
+  { q: "¿Cuánto tarda la implementación en mi clínica?", a: "La mayoría de clínicas está operando al 100% en menos de 5 días. Incluimos onboarding guiado, migración de pacientes desde Excel u otros sistemas, y capacitación en vivo para tu equipo." },
+  { q: "¿Funciona si tengo varias sucursales?", a: "Sí. El plan Grupo está diseñado para cadenas y hospitales multi-sucursal, con permisos por rol, reportes consolidados, transferencias de inventario entre clínicas y un gestor de cuenta dedicado." },
+  { q: "¿Mis datos están seguros?", a: "Tus datos viven en servidores con cifrado en tránsito y en reposo (AES-256), con backups automáticos diarios. Cumplimos con GDPR y la normativa local. Tú eres siempre el dueño de tu información." },
+  { q: "¿Cómo funcionan los recordatorios por WhatsApp?", a: "SaaslyVet se integra con WhatsApp Business API oficial. Defines plantillas (recordatorios, vacunas, encuestas) y reglas de envío. Los mensajes salen automáticamente desde el número verificado de tu clínica." },
+  { q: "¿Puedo migrar mis pacientes y expedientes actuales?", a: "Sí, sin costo. Tenemos importadores listos para Excel, CSV y los sistemas más comunes del mercado (Vetter, IDEXX, etc.). Nuestro equipo te acompaña en cada paso." },
+  { q: "¿Hay permanencia o contrato anual obligatorio?", a: "No. Pagas mensual o anual y puedes cancelar cuando quieras. Si eliges anual obtienes un descuento del 17% y dos meses de regalo." },
+];
+---
+
+<section id="faq" class="py-24 lg:py-32 bg-muted/30">
+  <div class="container-narrow">
+    <div class="text-center max-w-2xl mx-auto mb-12">
+      <p class="text-sm font-medium text-brand mb-3">Preguntas frecuentes</p>
+      <h2 class="font-display text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight text-ink text-balance">
+        Todo lo que necesitas saber antes de empezar.
+      </h2>
+    </div>
+
+    <div class="space-y-3" id="faq-list">
+      {faqs.map((f, i) => (
+        <div class="rounded-2xl border border-line bg-white overflow-hidden">
+          <button
+            class="faq-trigger w-full flex items-center justify-between px-6 py-5 text-left text-base font-semibold text-ink hover:bg-muted/30 transition-colors"
+            data-index={i}
+          >
+            {f.q}
+            <span class="faq-icon transition-transform duration-200 text-ink-tertiary">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+            </span>
+          </button>
+          <div class="faq-content hidden px-6 pb-5 text-base text-ink-secondary leading-relaxed">
+            {f.a}
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<script>
+  document.querySelectorAll('.faq-trigger').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const content = btn.nextElementSibling;
+      const icon = btn.querySelector('.faq-icon');
+      const isOpen = !content.classList.contains('hidden');
+      content.classList.toggle('hidden');
+      icon.style.transform = isOpen ? 'rotate(0deg)' : 'rotate(180deg)';
+    });
+  });
+</script>
