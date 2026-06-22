@@ -3,7 +3,7 @@ import tailwind from '@astrojs/tailwind';
 import sitemap from '@astrojs/sitemap';
 
 export default defineConfig({
-  site: 'https://veteris.com',
+  site: 'https://www.saaslyvet.com',
   output: 'static',
   trailingSlash: 'ignore',
   integrations: [

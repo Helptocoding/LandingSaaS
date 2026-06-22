@@ -22,7 +22,7 @@ const {
   jsonld,
 } = Astro.props;
 
-const siteUrl = Astro.site?.toString() ?? 'https://veteris.com';
+const siteUrl = Astro.site?.toString() ?? 'https://www.saaslyvet.com';
 const pageUrl = canonical ?? new URL(Astro.url.pathname, siteUrl).toString();
 
 const orgSchema = {
@@ -33,9 +33,9 @@ const orgSchema = {
   "logo": `${siteUrl}/og-image.png`,
   "description": description,
   "sameAs": [
-    "https://twitter.com/veteris",
-    "https://linkedin.com/company/veteris",
-    "https://instagram.com/veteris",
+    "https://twitter.com/saaslyvet",
+    "https://linkedin.com/company/saaslyvet",
+    "https://instagram.com/saaslyvet",
   ],
 };
 
