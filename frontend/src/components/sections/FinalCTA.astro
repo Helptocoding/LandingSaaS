@@ -1,19 +1,20 @@
 ---
 import ArrowRight from '../icons/ArrowRight.astro';
 import Calendar from '../icons/Calendar.astro';
+import Check from '../icons/Check.astro';
 ---
 
-<section class="py-24 lg:py-32">
+<section class="py-12 lg:py-24">
   <div class="container-wide">
     <div data-reveal="zoom-out" class="relative overflow-hidden rounded-[2.5rem] border border-line bg-ink p-10 lg:p-16 text-center">
       <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(circle at 15% 25%, hsl(158 40% 55%) 0%, transparent 25%), radial-gradient(circle at 85% 75%, hsl(16 75% 60%) 0%, transparent 25%)" />
       <div class="relative max-w-2xl mx-auto">
         <p class="text-sm font-medium text-surface/70 mb-3">Empieza hoy</p>
         <h2 class="font-display text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight text-surface text-balance">
-          Tu clínica merece una operación a la altura de tu cuidado.
+          ¿Listo para organizar toda tu clínica veterinaria de una vez?
         </h2>
         <p class="mt-5 text-base sm:text-lg text-surface/75 leading-relaxed">
-          Prueba SaaslyVet gratis 14 días. Sin tarjeta. Sin permanencia.
+          Prueba SaaslyVet gratis 14 días. Sin tarjeta, sin instalaciones, con soporte en español desde el primer día.
         </p>
         <div class="mt-8 flex flex-col sm:flex-row gap-3 justify-center">
           <button
@@ -21,7 +22,7 @@ import Calendar from '../icons/Calendar.astro';
             data-cta-kind="trial"
             class="inline-flex items-center gap-2 bg-surface text-ink rounded-md px-6 py-3.5 font-medium hover:bg-surface/90 transition-colors group"
           >
-            Empezar prueba gratuita
+            Empezar gratis — sin tarjeta
             <ArrowRight class="ml-2 h-4 w-4" />
           </button>
           <button
@@ -30,9 +31,17 @@ import Calendar from '../icons/Calendar.astro';
             class="inline-flex items-center gap-2 bg-transparent border border-surface/30 text-surface rounded-md px-6 py-3.5 font-medium hover:bg-surface/10 transition-colors"
           >
             <Calendar class="mr-2 h-4 w-4" />
-            Agendar demo
+            Ver demo en vivo
           </button>
         </div>
+        <ul class="mt-8 flex flex-wrap justify-center gap-x-6 gap-y-2 text-sm text-surface/60">
+          {["Sin permanencia", "Cancela cuando quieras", "Acceso desde cualquier dispositivo", "Soporte durante la configuración"].map((t) => (
+            <li class="flex items-center gap-1.5">
+              <Check class="h-3.5 w-3.5 text-surface/50" />
+              {t}
+            </li>
+          ))}
+        </ul>
       </div>
     </div>
   </div>

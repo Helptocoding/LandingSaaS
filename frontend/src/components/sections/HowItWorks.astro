@@ -3,7 +3,7 @@ import Calendar from '../icons/Calendar.astro';
 import Stethoscope from '../icons/Stethoscope.astro';
 import Package from '../icons/Package.astro';
 import CreditCard from '../icons/CreditCard.astro';
-import MessageCircle from '../icons/MessageCircle.astro';
+import WhatsApp from '../icons/WhatsApp.astro';
 import FadeImage from '../ui/FadeImage.astro';
 import atencionVeterinario from '../../assets/img/atencion_veterinario.png';
 
@@ -12,13 +12,13 @@ const steps = [
   { label: "Consulta", title: "El veterinario atiende", desc: "Accede al historial completo, registra hallazgos y deja todo listo para el siguiente paso.", icon: Stethoscope, visual: "soap" },
   { label: "Tratamiento", title: "Tratamiento e inventario conectados", desc: "Los productos utilizados quedan registrados y el inventario se actualiza automáticamente.", icon: Package, visual: "inventario" },
   { label: "Cobro", title: "Cobro sin duplicar trabajo", desc: "La recepción cobra usando la información generada durante la consulta.", icon: CreditCard, visual: "cobro" },
-  { label: "Seguimiento", title: "El cliente vuelve", desc: "SaaslyVet mantiene la relación activa con recordatorios y mensajes automáticos por WhatsApp.", icon: MessageCircle, visual: "whatsapp" },
+  { label: "Seguimiento", title: "El cliente vuelve", desc: "SaaslyVet mantiene la relación activa con recordatorios y mensajes automáticos por WhatsApp.", icon: WhatsApp, visual: "whatsapp" },
 ];
 ---
 
-<section id="how" class="py-24 lg:py-32 bg-muted/30">
+<section id="how" class="py-12 lg:py-24 bg-muted/30">
   <div class="container-wide">
-    <div class="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center mb-16 lg:mb-24">
+    <div class="grid lg:grid-cols-2 gap-8 lg:gap-16 items-center mb-8 lg:mb-16">
       <div class="max-w-2xl">
         <p class="text-sm font-medium text-brand mb-3">Cómo funciona</p>
         <h2 class="font-display text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight text-ink text-balance">
@@ -44,7 +44,7 @@ const steps = [
     <div class="relative">
       <div class="hidden lg:block absolute left-1/2 -translate-x-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-line to-transparent" />
 
-      <div class="space-y-12 lg:space-y-20">
+      <div class="space-y-8 lg:space-y-16">
         {steps.map((s, i) => (
           <div
             data-reveal={i % 2 === 0 ? "slide-right" : "slide-left"}

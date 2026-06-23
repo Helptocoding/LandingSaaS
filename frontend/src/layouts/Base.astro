@@ -14,8 +14,8 @@ export interface Props {
 }
 
 const {
-  title = 'SaaslyVet — Software de gestión para clínicas veterinarias',
-  description = 'Gestiona toda tu clínica veterinaria desde un solo lugar. Expediente clínico, agenda, inventario, POS y automatizaciones en una sola plataforma.',
+  title = 'Software de gestión para clínicas veterinarias | SaaslyVet',
+  description = 'Centraliza citas, expedientes clínicos, inventario y cobros en una sola plataforma. SaaslyVet organiza toda la operación de tu clínica veterinaria.',
   canonical,
   image = '/og-image.png',
   noindex = false,
@@ -43,18 +43,15 @@ const softwareSchema = {
   "@context": "https://schema.org",
   "@type": "SoftwareApplication",
   "name": "SaaslyVet",
-  "applicationCategory": "BusinessApplication",
+  "applicationCategory": "HealthApplication",
   "operatingSystem": "Web",
   "description": description,
   "offers": {
     "@type": "Offer",
     "price": "0",
     "priceCurrency": "USD",
-  },
-  "aggregateRating": {
-    "@type": "AggregateRating",
-    "ratingValue": "4.9",
-    "ratingCount": "1200",
+    "priceValidUntil": "2027-12-31",
+    "description": "Prueba gratuita de 14 días sin tarjeta de crédito",
   },
 };
 ---

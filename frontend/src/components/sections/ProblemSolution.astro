@@ -3,8 +3,8 @@ import X from '../icons/X.astro';
 import Check from '../icons/Check.astro';
 import ArrowRight from '../icons/ArrowRight.astro';
 import FadeImage from '../ui/FadeImage.astro';
-import caoticoH from '../../assets/img/escritorio_caotico_horizontal.png';
-import limpioH from '../../assets/img/escritorio_limpio_horizontal.png';
+import caoticoH from '../../assets/img/escritorio_caotico.png';
+import limpioH from '../../assets/img/escritorio_limpio.png';
 
 const problems = [
   "Citas en cuadernos, Google Calendar y WhatsApp",
@@ -59,28 +59,22 @@ const states = [
 ];
 ---
 
-<section class="py-24 lg:py-32">
+<section class="py-12 lg:py-24">
   <div class="container-wide">
-    <div class="max-w-2xl mb-14">
-      <p class="text-sm font-medium text-brand mb-3">El problema</p>
+    <div class="max-w-2xl mb-8 lg:mb-12">
+      <p class="text-sm font-medium text-brand mb-3">¿Te suena familiar?</p>
       <h2 class="font-display text-3xl sm:text-4xl lg:text-5xl font-semibold text-ink tracking-tight text-balance">
-        La operación de tu veterinaria está fragmentada en demasiadas herramientas.
+        La operación de tu clínica veterinaria está repartida entre libretas, Excel y WhatsApp.
       </h2>
       <p class="mt-5 text-lg text-ink-secondary leading-relaxed">
-        Cuando recepción, veterinarios y administración trabajan en silos, se pierde información, tiempo y clientes.
+        Cuando no existe un sistema común, se pierden citas, historiales y ventas. Tu equipo trabaja más duro de lo necesario.
       </p>
     </div>
 
     <div data-reveal="fade-up" data-ps-block data-state="off" class="group">
       <!-- Toggle -->
-      <div class="flex items-center justify-center gap-4">
-        <button
-          type="button"
-          data-ps-set="off"
-          class="text-sm font-semibold text-ink transition-colors group-data-[state=on]:text-ink-tertiary"
-        >
-          Sin SaaslyVet
-        </button>
+      <div class="flex items-center justify-center gap-3">
+        <span aria-hidden="true" class="text-sm font-bold text-destructive/50 transition-opacity duration-300 group-data-[state=on]:opacity-25">✕</span>
 
         <button
           type="button"
@@ -93,23 +87,13 @@ const states = [
           <span class="inline-block h-5 w-5 translate-x-1 rounded-full bg-white shadow transition-transform duration-300 group-data-[state=on]:translate-x-6"></span>
         </button>
 
-        <button
-          type="button"
-          data-ps-set="on"
-          class="text-sm font-semibold text-ink-tertiary transition-colors group-data-[state=on]:text-ink"
-        >
-          Con SaaslyVet
-        </button>
+        <span aria-hidden="true" class="text-sm font-bold text-ink-tertiary transition-colors duration-300 group-data-[state=on]:text-brand">✓</span>
       </div>
 
-      <!-- Nudge: invita a mover el switch; desaparece al activar SaaslyVet -->
-      <p class="mb-8 mt-3 flex items-center justify-center gap-1.5 text-xs font-medium text-brand transition-opacity duration-300 group-data-[state=on]:opacity-0">
-        Mueve el switch y mira cómo cambia con SaaslyVet
-        <ArrowRight class="ps-nudge h-3.5 w-3.5" />
-      </p>
+      <div class="mb-8 mt-3 h-4" aria-hidden="true"></div>
 
       <!-- Tarjeta: panel de texto + foto lateral -->
-      <div class="relative isolate h-[560px] sm:h-[480px] md:h-[440px] w-full overflow-hidden rounded-3xl shadow-lift">
+      <div class="relative isolate h-[640px] sm:h-[520px] md:h-[440px] w-full overflow-hidden rounded-3xl shadow-lift">
         {states.map((s) => {
           const Icon = s.Icon;
           return (
@@ -120,7 +104,7 @@ const states = [
               <div class="grid h-full grid-rows-[auto_1fr] md:grid-rows-1 md:grid-cols-[38%_62%]">
                 <!-- Panel de texto sólido -->
                 <div
-                  class="relative z-20 flex flex-col justify-center gap-4 p-7 text-white lg:p-9"
+                  class="relative z-20 flex flex-col justify-center gap-3 p-5 text-white md:p-7 lg:p-9"
                   style={`background:${s.panel}`}
                 >
                   <span class={`inline-flex w-fit items-center gap-1.5 rounded-full ${s.badgeBg} px-3 py-1.5 text-xs font-semibold text-white ring-1 ring-white/20`}>
@@ -131,9 +115,9 @@ const states = [
                     <h3 class="font-display text-2xl font-semibold tracking-tight text-white">{s.title}</h3>
                     <p class="mt-1 text-sm text-white/70">{s.subtitle}</p>
                   </div>
-                  <ul class="space-y-2.5">
-                    {s.items.map((it) => (
-                      <li class="flex gap-3 text-sm text-white/90">
+                  <ul class="space-y-2">
+                    {s.items.map((it, idx) => (
+                      <li class={`gap-3 text-sm text-white/90 ${idx >= 3 ? 'hidden sm:flex' : 'flex'}`}>
                         <span class={`mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full ${s.dot} text-white`}>
                           <Icon class="h-3 w-3" />
                         </span>
@@ -183,13 +167,28 @@ const states = [
 </section>
 
 <style>
-  @keyframes ps-nudge {
-    0%, 100% { transform: translateX(0); }
-    50% { transform: translateX(5px); }
+  /* One-time hint: thumb slides to ~70% then returns */
+  @keyframes ps-thumb-hint {
+    0%        { transform: translateX(4px); }
+    38%, 58%  { transform: translateX(18px); }
+    95%, 100% { transform: translateX(4px); }
   }
-  .ps-nudge { animation: ps-nudge 1.1s ease-in-out infinite; }
+  /* Track flashes brand color while thumb is slid */
+  @keyframes ps-track-hint {
+    0%, 100%  { background-color: hsl(150, 15%, 88%); }
+    38%, 58%  { background-color: hsl(160, 35%, 28%); }
+  }
+
+  [data-ps-switch].ps-hint {
+    animation: ps-track-hint 1.1s ease-in-out both;
+  }
+  [data-ps-switch].ps-hint span {
+    animation: ps-thumb-hint 1.1s ease-in-out both;
+  }
+
   @media (prefers-reduced-motion: reduce) {
-    .ps-nudge { animation: none; }
+    [data-ps-switch].ps-hint,
+    [data-ps-switch].ps-hint span { animation: none; }
   }
 </style>
 
@@ -212,4 +211,30 @@ const states = [
   }
 
   initProblemToggle();
+
+  // Hint: one-shot wiggle when switch enters viewport, only if still "off"
+  (function () {
+    var pref = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (pref) return;
+    var sw = document.querySelector<HTMLElement>('[data-ps-switch]');
+    var block = sw?.closest<HTMLElement>('[data-ps-block]');
+    if (!sw || !block) return;
+
+    var fired = false;
+    var obs = new IntersectionObserver(function (entries) {
+      if (fired || !entries[0].isIntersecting) return;
+      if (block.dataset.state === 'on') return;
+      fired = true;
+      obs.disconnect();
+
+      // Delay slightly so user sees the section first
+      setTimeout(function () {
+        if (block.dataset.state === 'on') return;
+        sw.classList.add('ps-hint');
+        setTimeout(function () { sw.classList.remove('ps-hint'); }, 1200);
+      }, 900);
+    }, { threshold: 0.5 });
+
+    obs.observe(block);
+  })();
 </script>
