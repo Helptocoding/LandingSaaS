@@ -1,5 +1,5 @@
 ---
-import MessageCircle from '../icons/MessageCircle.astro';
+import WhatsApp from '../icons/WhatsApp.astro';
 import Calendar from '../icons/Calendar.astro';
 import Syringe from '../icons/Syringe.astro';
 import HeartHandshake from '../icons/HeartHandshake.astro';
@@ -12,13 +12,13 @@ const messages = [
 ];
 ---
 
-<section class="py-24 lg:py-32">
+<section class="py-12 lg:py-24">
   <div class="container-wide">
-    <div class="grid lg:grid-cols-12 gap-12 items-center">
+    <div class="grid lg:grid-cols-12 gap-8 lg:gap-12 items-center">
       <div class="lg:col-span-5">
         <div class="inline-flex items-center gap-2 rounded-full bg-accent/15 px-3 py-1.5 text-xs font-medium text-accent mb-5">
-          <MessageCircle class="h-3.5 w-3.5" />
-          Automatizaciones
+          <WhatsApp class="h-3.5 w-3.5" />
+          Recordatorios automáticos por WhatsApp
         </div>
         <h2 class="font-display text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight text-ink text-balance">
           Haz que tus clientes vuelvan en el momento adecuado.
@@ -52,14 +52,14 @@ const messages = [
             <div class="rounded-[1.6rem] bg-page overflow-hidden">
               <div class="flex items-center gap-3 bg-[#075E54] text-white px-4 py-3">
                 <div class="h-9 w-9 rounded-full bg-white/15 flex items-center justify-center">
-                  <MessageCircle class="h-4 w-4" />
+                  <WhatsApp class="h-4 w-4" />
                 </div>
                 <div class="flex-1">
                   <p class="text-sm font-semibold">Clínica Veterinaria</p>
                   <p class="text-[10px] opacity-80">en línea</p>
                 </div>
               </div>
-              <div class="px-4 py-5 space-y-3 min-h-[420px]" style="background-image: radial-gradient(circle at 10% 10%, hsl(150 30% 92%) 0%, transparent 50%), radial-gradient(circle at 90% 90%, hsl(22 90% 95%) 0%, transparent 50%); background-color: hsl(40 33% 98%)">
+              <div class="px-4 py-5 space-y-3 min-h-[260px] lg:min-h-[380px]" style="background-image: radial-gradient(circle at 10% 10%, hsl(150 30% 92%) 0%, transparent 50%), radial-gradient(circle at 90% 90%, hsl(22 90% 95%) 0%, transparent 50%); background-color: hsl(40 33% 98%)">
                 {messages.map((m, i) => (
                   <div data-reveal="slide-left" data-reveal-delay={String(i * 0.15)} class="max-w-[85%] rounded-2xl rounded-tl-sm bg-white border border-line shadow-sm px-3.5 py-3">
                     <div class="flex items-center gap-2 mb-1">

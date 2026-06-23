@@ -1,15 +1,15 @@
 ---
 const faqs = [
-  { q: "¿Cuánto tarda la implementación en mi clínica?", a: "La mayoría de clínicas está operando al 100% en menos de 5 días. Incluimos onboarding guiado, migración de pacientes desde Excel u otros sistemas, y capacitación en vivo para tu equipo." },
-  { q: "¿Funciona si tengo varias sucursales?", a: "Sí. El plan Grupo está diseñado para cadenas y hospitales multi-sucursal, con permisos por rol, reportes consolidados, transferencias de inventario entre clínicas y un gestor de cuenta dedicado." },
   { q: "¿Mis datos están seguros?", a: "Tus datos viven en servidores con cifrado en tránsito y en reposo (AES-256), con backups automáticos diarios. Cumplimos con GDPR y la normativa local. Tú eres siempre el dueño de tu información." },
-  { q: "¿Cómo funcionan los recordatorios por WhatsApp?", a: "SaaslyVet se integra con WhatsApp Business API oficial. Defines plantillas (recordatorios, vacunas, encuestas) y reglas de envío. Los mensajes salen automáticamente desde el número verificado de tu clínica." },
   { q: "¿Puedo migrar mis pacientes y expedientes actuales?", a: "Sí, sin costo. Tenemos importadores listos para Excel, CSV y los sistemas más comunes del mercado (Vetter, IDEXX, etc.). Nuestro equipo te acompaña en cada paso." },
+  { q: "¿Cuánto tarda la implementación en mi clínica?", a: "La mayoría de clínicas está operando al 100% en menos de 5 días. Incluimos onboarding guiado, migración de pacientes desde Excel u otros sistemas, y capacitación en vivo para tu equipo." },
   { q: "¿Hay permanencia o contrato anual obligatorio?", a: "No. Pagas mensual o anual y puedes cancelar cuando quieras. Si eliges anual obtienes un descuento del 17% y dos meses de regalo." },
+  { q: "¿Cómo funcionan los recordatorios por WhatsApp?", a: "SaaslyVet se integra con WhatsApp Business API oficial. Defines plantillas (recordatorios, vacunas, encuestas) y reglas de envío. Los mensajes salen automáticamente desde el número verificado de tu clínica." },
+  { q: "¿Funciona si tengo varias sucursales?", a: "Sí. El plan Clínica Plus está diseñado para cadenas y hospitales multi-sucursal, con permisos por rol, reportes consolidados, transferencias de inventario entre clínicas y un gestor de cuenta dedicado." },
 ];
 ---
 
-<section id="faq" class="py-24 lg:py-32 bg-muted/30">
+<section id="faq" class="py-12 lg:py-24 bg-muted/30">
   <div class="container-narrow">
     <div class="text-center max-w-2xl mx-auto mb-12">
       <p class="text-sm font-medium text-brand mb-3">Preguntas frecuentes</p>
@@ -40,10 +40,14 @@ const faqs = [
 </section>
 
 <script>
-  document.querySelectorAll('.faq-trigger').forEach((btn) => {
+  document.querySelectorAll('.faq-trigger').forEach((btn, idx) => {
+    const content = btn.nextElementSibling as HTMLElement;
+    const icon = btn.querySelector('.faq-icon') as HTMLElement;
+    if (idx < 3) {
+      content.classList.remove('hidden');
+      icon.style.transform = 'rotate(180deg)';
+    }
     btn.addEventListener('click', () => {
-      const content = btn.nextElementSibling;
-      const icon = btn.querySelector('.faq-icon');
       const isOpen = !content.classList.contains('hidden');
       content.classList.toggle('hidden');
       icon.style.transform = isOpen ? 'rotate(0deg)' : 'rotate(180deg)';

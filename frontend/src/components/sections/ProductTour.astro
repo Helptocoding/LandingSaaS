@@ -6,26 +6,26 @@ import CreditCard from '../icons/CreditCard.astro';
 import Check from '../icons/Check.astro';
 ---
 
-<section id="tour" class="py-24 lg:py-32">
+<section id="tour" class="py-12 lg:py-24">
   <div class="container-wide">
-    <div class="text-center max-w-2xl mx-auto mb-12">
+    <div class="text-center max-w-2xl mx-auto mb-8">
       <p class="text-sm font-medium text-brand mb-3">Producto</p>
-      <h2 class="font-display text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight text-ink text-balance">Echa un vistazo a SaaslyVet.</h2>
-      <p class="mt-4 text-lg text-ink-secondary">Cuatro módulos. Una sola fuente de verdad para tu clínica.</p>
+      <h2 class="font-display text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight text-ink text-balance">Agenda, expedientes clínicos, inventario y cobros en un solo lugar.</h2>
+      <p class="mt-4 text-lg text-ink-secondary">Cada módulo está conectado. Lo que ocurre en consulta actualiza el inventario, el expediente y el cobro automáticamente.</p>
     </div>
 
-    <div class="flex flex-wrap justify-center bg-muted/60 p-1.5 rounded-2xl gap-1 mx-auto w-fit mb-12" id="tour-tabs">
-      <button data-tab="agenda" class="tour-tab flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium transition-all bg-white shadow-soft text-ink">
+    <div class="flex flex-wrap justify-center bg-muted/60 p-1.5 rounded-2xl gap-1 mx-auto w-fit mb-8" id="tour-tabs">
+      <button data-tab="agenda" class="tour-tab flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium transition-all bg-white shadow-soft text-ink cursor-pointer">
         <CalendarDays class="h-4 w-4" /> Agenda
       </button>
-      <button data-tab="clinico" class="tour-tab flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium transition-all text-ink-secondary">
+      <button data-tab="clinico" class="tour-tab flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium transition-all text-ink-secondary hover:bg-white/70 hover:text-ink cursor-pointer">
         <FileText class="h-4 w-4" /> Expediente
       </button>
-      <button data-tab="inventario" class="tour-tab flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium transition-all text-ink-secondary">
+      <button data-tab="inventario" class="tour-tab flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium transition-all text-ink-secondary hover:bg-white/70 hover:text-ink cursor-pointer">
         <Package class="h-4 w-4" /> Inventario
       </button>
-      <button data-tab="pos" class="tour-tab flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium transition-all text-ink-secondary">
-        <CreditCard class="h-4 w-4" /> POS & Caja
+      <button data-tab="pos" class="tour-tab flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium transition-all text-ink-secondary hover:bg-white/70 hover:text-ink cursor-pointer">
+        <CreditCard class="h-4 w-4" /> Cobros
       </button>
     </div>
 

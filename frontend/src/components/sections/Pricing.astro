@@ -3,13 +3,41 @@ import Check from '../icons/Check.astro';
 import Sparkles from '../icons/Sparkles.astro';
 
 const tiers = [
-  { name: "Esencial", desc: "Para empezar a organizar tu clínica.", monthly: 29, yearly: 24, features: ["Hasta 2 veterinarios", "Agenda y expediente clínico", "Inventario básico", "Soporte por email"], cta: "Empezar gratis", kind: "trial" },
-  { name: "Profesional", desc: "Para operar tu clínica completa.", monthly: 59, yearly: 49, features: ["Veterinarios ilimitados", "Todas las funciones de Esencial", "WhatsApp automatizado", "POS y cierre de caja", "Reportes avanzados", "Soporte prioritario"], cta: "Probar 14 días", popular: true, kind: "trial" },
-  { name: "Clínica Plus", desc: "Para automatizar y crecer.", monthly: 119, yearly: 99, features: ["Multi-sucursal", "Roles y auditoría avanzada", "API e integraciones", "Gestor de cuenta dedicado", "Onboarding personalizado"], cta: "Hablar con ventas", kind: "sales" },
+  {
+    name: "Inicio",
+    desc: "Todo lo necesario para digitalizar tu clínica desde el primer día.",
+    monthly: 399, monthly_orig: 599,
+    yearly: 329, yearly_orig: 499,
+    features: ["Hasta 2 veterinarios", "Agenda y expediente clínico", "Inventario básico", "Soporte por email"],
+    cta: "Empezar gratis", kind: "trial",
+  },
+  {
+    name: "Profesional",
+    desc: "Para operar tu clínica completa con automatizaciones.",
+    monthly: 799, monthly_orig: 1199,
+    yearly: 649, yearly_orig: 999,
+    features: ["Veterinarios ilimitados", "Todo en Inicio", "WhatsApp automatizado", "POS y cierre de caja", "Reportes avanzados", "Soporte prioritario"],
+    cta: "Probar 14 días", popular: true, kind: "trial",
+  },
+  {
+    name: "Clínica Plus",
+    desc: "Para automatizar y crecer.",
+    monthly: 1599, monthly_orig: 2499,
+    yearly: 1299, yearly_orig: 1999,
+    features: ["Multi-sucursal", "Roles y auditoría avanzada", "API e integraciones", "Gestor de cuenta dedicado", "Onboarding personalizado"],
+    cta: "Hablar con ventas", kind: "sales",
+  },
+  {
+    name: "Empresarial",
+    desc: "Para grupos veterinarios y cadenas multisucursal.",
+    enterprise: true,
+    features: ["Sucursales ilimitadas", "Usuarios ilimitados", "API e integraciones avanzadas", "SLA dedicado", "Onboarding personalizado", "Gestor de cuenta asignado"],
+    cta: "Contactar ventas", kind: "sales",
+  },
 ];
 ---
 
-<section id="pricing" class="py-24 lg:py-32">
+<section id="pricing" class="py-12 lg:py-24">
   <div class="container-wide">
     <div class="text-center max-w-2xl mx-auto mb-12">
       <p class="text-sm font-medium text-brand mb-3">Precios</p>
@@ -20,39 +48,66 @@ const tiers = [
         Comienza gratis 14 días. Cancela cuando quieras.
       </p>
 
-      <div class="mt-8 inline-flex items-center gap-3 rounded-full border border-line bg-white px-4 py-2 shadow-sm">
-        <span id="label-monthly" class="text-sm font-medium text-ink">Mensual</span>
+      <!-- Segmented toggle -->
+      <div class="mt-8 inline-flex items-center rounded-xl border border-line bg-muted/50 p-1">
         <button
-          id="pricing-toggle"
-          aria-label="Cambiar a precios anuales"
-          class="relative inline-flex h-6 w-11 items-center rounded-full transition-colors bg-brand"
+          id="btn-yearly"
+          class="rounded-lg px-5 py-2 text-sm font-medium transition-all bg-white shadow-soft text-ink"
         >
-          <span id="toggle-dot" class="inline-block h-4 w-4 transform rounded-full bg-white transition-transform shadow-sm translate-x-6" />
+          Anual
+          <span id="yearly-badge" class="ml-1.5 text-[10px] uppercase tracking-wider font-semibold px-1.5 py-0.5 rounded-md bg-brand/10 text-brand">−17%</span>
         </button>
-        <span id="label-yearly" class="text-sm font-medium text-ink-secondary">Anual</span>
-        <span class="text-[10px] uppercase tracking-wider font-semibold px-2 py-0.5 rounded-md bg-brand/10 text-brand">-17%</span>
+        <button
+          id="btn-monthly"
+          class="rounded-lg px-5 py-2 text-sm font-medium transition-all text-ink-secondary"
+        >
+          Mensual
+        </button>
       </div>
     </div>
 
-    <div class="grid md:grid-cols-3 gap-5" id="pricing-cards">
+    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-5" id="pricing-cards">
       {tiers.map((t, i) => (
         <div
           data-reveal="fade-up"
-          data-reveal-delay={String(i * 0.12)}
-          class={`relative flex flex-col rounded-3xl border p-7 ${t.popular ? "border-brand bg-gradient-to-b from-white to-brand-soft/30 shadow-lift" : "border-line bg-white"}`}
+          data-reveal-delay={String(i * 0.1)}
+          class={`relative flex flex-col rounded-3xl border p-7 ${
+            t.popular
+              ? "border-2 border-brand bg-gradient-to-b from-white to-brand-soft/30 shadow-lift"
+              : "border-line bg-white"
+          }`}
         >
           {t.popular && (
-            <div class="absolute -top-3 left-1/2 -translate-x-1/2 inline-flex items-center gap-1 rounded-full bg-ink text-surface px-3 py-1 text-[10px] uppercase tracking-wider font-semibold">
+            <div class="absolute -top-3.5 left-1/2 -translate-x-1/2 inline-flex items-center gap-1 rounded-full bg-brand text-white px-3 py-1 text-[10px] uppercase tracking-wider font-semibold shadow-sm">
               <Sparkles class="h-3 w-3" /> Más elegido
             </div>
           )}
+
           <h3 class="font-display text-xl font-semibold text-ink">{t.name}</h3>
           <p class="mt-1 text-sm text-ink-secondary">{t.desc}</p>
-          <div class="mt-6 flex items-baseline gap-1">
-            <span class="font-display text-5xl font-semibold text-ink" data-price-yearly={t.yearly} data-price-monthly={t.monthly}>${t.yearly}</span>
-            <span class="text-sm text-ink-secondary">/ mes</span>
-          </div>
-          <p class="mt-1 text-xs text-ink-secondary" data-billing-text>facturación anual · por clínica</p>
+
+          {t.enterprise ? (
+            <div class="mt-6">
+              <p class="font-display text-4xl font-semibold text-ink">Hablemos</p>
+              <p class="mt-1 text-xs text-ink-secondary">Cotización personalizada</p>
+            </div>
+          ) : (
+            <div class="mt-6">
+              <div class="flex items-baseline gap-2">
+                <span class="font-display text-4xl font-semibold text-ink" data-price-yearly={t.yearly} data-price-monthly={t.monthly}>
+                  ${t.yearly?.toLocaleString('es-MX')}
+                </span>
+                <span class="text-sm text-ink-secondary">/ mes</span>
+              </div>
+              <div class="mt-1 flex items-center gap-2">
+                <span class="text-xs line-through text-ink-tertiary" data-orig-yearly={t.yearly_orig} data-orig-monthly={t.monthly_orig}>
+                  ${t.yearly_orig?.toLocaleString('es-MX')}
+                </span>
+                <span class="text-[10px] text-ink-tertiary" data-billing-text>facturación anual</span>
+              </div>
+            </div>
+          )}
+
           <ul class="mt-6 space-y-3">
             {t.features.map((f) => (
               <li class="flex gap-2.5 text-sm text-ink">
@@ -61,11 +116,15 @@ const tiers = [
               </li>
             ))}
           </ul>
+
           <button
-            data-testid={`pricing-cta-${t.name.toLowerCase()}`}
             data-cta-kind={t.kind}
             class={`mt-auto mt-8 h-11 w-full rounded-md text-sm font-medium transition-colors ${
-              t.popular ? "bg-ink text-surface hover:bg-ink/90" : "bg-white text-ink border border-line hover:bg-muted"
+              t.popular
+                ? "bg-brand text-white hover:bg-brand-hover"
+                : t.enterprise
+                ? "bg-ink text-surface hover:bg-ink/90"
+                : "bg-white text-ink border border-line hover:bg-muted"
             }`}
           >
             {t.cta}
@@ -75,34 +134,52 @@ const tiers = [
     </div>
 
     <p class="text-center text-xs text-ink-secondary mt-8">
-      Todos los precios en USD. Incluye actualizaciones, soporte en español y backups diarios.
+      Todos los precios en MXN. Incluye actualizaciones, soporte en español y backups diarios.
     </p>
   </div>
 </section>
 
 <script>
-  const toggle = document.getElementById('pricing-toggle');
-  const dot = document.getElementById('toggle-dot');
-  const labelM = document.getElementById('label-monthly');
-  const labelY = document.getElementById('label-yearly');
-  let yearly = true;
+  var btnYearly  = document.getElementById('btn-yearly');
+  var btnMonthly = document.getElementById('btn-monthly');
+  var yearlyBadge = document.getElementById('yearly-badge');
+  var yearly = true;
 
-  toggle.addEventListener('click', function () {
-    yearly = !yearly;
-    dot.style.transform = yearly ? 'translateX(24px)' : 'translateX(4px)';
-    toggle.classList.toggle('bg-brand', yearly);
-    toggle.classList.toggle('bg-line', !yearly);
-    labelM.classList.toggle('text-ink', !yearly);
-    labelM.classList.toggle('text-ink-secondary', yearly);
-    labelY.classList.toggle('text-ink', yearly);
-    labelY.classList.toggle('text-ink-secondary', !yearly);
+  function setActive(btn, other) {
+    btn.classList.add('bg-white', 'shadow-soft', 'text-ink');
+    btn.classList.remove('text-ink-secondary');
+    other.classList.remove('bg-white', 'shadow-soft', 'text-ink');
+    other.classList.add('text-ink-secondary');
+  }
 
+  function updatePrices() {
     document.querySelectorAll('[data-price-yearly]').forEach(function (el) {
-      el.textContent = '$' + (yearly ? el.getAttribute('data-price-yearly') : el.getAttribute('data-price-monthly'));
+      var val = yearly
+        ? parseInt(el.getAttribute('data-price-yearly'))
+        : parseInt(el.getAttribute('data-price-monthly'));
+      el.textContent = '$' + val.toLocaleString('es-MX');
+    });
+    document.querySelectorAll('[data-orig-yearly]').forEach(function (el) {
+      var val = yearly
+        ? parseInt(el.getAttribute('data-orig-yearly'))
+        : parseInt(el.getAttribute('data-orig-monthly'));
+      el.textContent = '$' + val.toLocaleString('es-MX');
     });
     document.querySelectorAll('[data-billing-text]').forEach(function (el) {
-      el.textContent = yearly ? 'facturación anual · por clínica' : 'facturación mensual · por clínica';
+      el.textContent = yearly ? 'facturación anual' : 'facturación mensual';
     });
+    if (yearlyBadge) yearlyBadge.style.display = yearly ? '' : 'none';
+  }
+
+  if (btnYearly) btnYearly.addEventListener('click', function () {
+    yearly = true;
+    setActive(btnYearly, btnMonthly);
+    updatePrices();
+  });
+  if (btnMonthly) btnMonthly.addEventListener('click', function () {
+    yearly = false;
+    setActive(btnMonthly, btnYearly);
+    updatePrices();
   });
 </script>
 
