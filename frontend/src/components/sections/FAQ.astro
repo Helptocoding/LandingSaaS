@@ -1,4 +1,6 @@
 ---
+import JsonLD from '../seo/JsonLD.astro';
+
 const faqs = [
   { q: "¿Mis datos están seguros?", a: "Tus datos viven en servidores con cifrado en tránsito y en reposo (AES-256), con backups automáticos diarios. Cumplimos con GDPR y la normativa local. Tú eres siempre el dueño de tu información." },
   { q: "¿Puedo migrar mis pacientes y expedientes actuales?", a: "Sí, sin costo. Tenemos importadores listos para Excel, CSV y los sistemas más comunes del mercado (Vetter, IDEXX, etc.). Nuestro equipo te acompaña en cada paso." },
@@ -7,6 +9,17 @@ const faqs = [
   { q: "¿Cómo funcionan los recordatorios por WhatsApp?", a: "SaaslyVet se integra con WhatsApp Business API oficial. Defines plantillas (recordatorios, vacunas, encuestas) y reglas de envío. Los mensajes salen automáticamente desde el número verificado de tu clínica." },
   { q: "¿Funciona si tengo varias sucursales?", a: "Sí. El plan Clínica Plus está diseñado para cadenas y hospitales multi-sucursal, con permisos por rol, reportes consolidados, transferencias de inventario entre clínicas y un gestor de cuenta dedicado." },
 ];
+
+// FAQPage schema construido desde las MISMAS preguntas visibles (sin inventar contenido para SEO).
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqs.map((f) => ({
+    "@type": "Question",
+    "name": f.q,
+    "acceptedAnswer": { "@type": "Answer", "text": f.a },
+  })),
+};
 ---
 
 <section id="faq" class="py-12 lg:py-24 bg-muted/30">
@@ -38,6 +51,8 @@ const faqs = [
     </div>
   </div>
 </section>
+
+<JsonLD schema={faqSchema} />
 
 <script>
   document.querySelectorAll('.faq-trigger').forEach((btn, idx) => {

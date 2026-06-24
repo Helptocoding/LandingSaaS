@@ -101,7 +101,9 @@ import HeroDashboard from '../animations/HeroDashboard.astro';
 
 <script>
   const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if (!prefersReduced) {
+  // Parallax solo en desktop (≥768px): en móvil casi no se percibe y ahorra trabajo de scroll/main-thread (INP).
+  const isDesktop = window.matchMedia('(min-width: 768px)').matches;
+  if (!prefersReduced && isDesktop) {
     const section = document.getElementById('hero');
     const dashWrapper = document.getElementById('hero-dash-wrapper');
     const grid = document.getElementById('hero-grid');
