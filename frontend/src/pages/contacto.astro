@@ -1,0 +1,67 @@
+---
+import LegalLayout from '../layouts/LegalLayout.astro';
+import ArrowRight from '../components/icons/ArrowRight.astro';
+---
+
+<LegalLayout
+  title="Contacto"
+  heading="Hablemos"
+  description="Contacta al equipo de SaaslyVet: soporte, ventas y demostraciones del software de gestión veterinaria."
+>
+  <p>
+    ¿Tienes dudas sobre SaaslyVet o quieres ver la plataforma en acción? Escríbenos por correo y
+    te respondemos. Estos son nuestros canales reales de contacto.
+  </p>
+
+  <div class="not-prose mt-8 grid gap-4 sm:grid-cols-2">
+    <div class="rounded-2xl border border-line bg-white p-6">
+      <h2 class="font-display text-lg font-semibold text-ink">Soporte</h2>
+      <p class="mt-1.5 text-sm text-ink-secondary">¿Ya usas SaaslyVet y necesitas ayuda?</p>
+      <a
+        href="mailto:contacto@saaslyvet.com"
+        class="mt-3 inline-block text-sm font-medium text-brand underline underline-offset-2 hover:text-brand-hover"
+      >
+        contacto@saaslyvet.com
+      </a>
+    </div>
+
+    <div class="rounded-2xl border border-line bg-white p-6">
+      <h2 class="font-display text-lg font-semibold text-ink">Ventas y demostraciones</h2>
+      <p class="mt-1.5 text-sm text-ink-secondary">¿Quieres conocer planes o agendar una demo?</p>
+      <a
+        href="mailto:contacto@saaslyvet.com"
+        class="mt-3 inline-block text-sm font-medium text-brand underline underline-offset-2 hover:text-brand-hover"
+      >
+        contacto@saaslyvet.com
+      </a>
+    </div>
+
+    <div class="rounded-2xl border border-line bg-white p-6">
+      <h2 class="font-display text-lg font-semibold text-ink">Privacidad y datos personales</h2>
+      <p class="mt-1.5 text-sm text-ink-secondary">Solicitudes relacionadas con datos personales.</p>
+      <a
+        href="mailto:privacidad@saaslyvet.com"
+        class="mt-3 inline-block text-sm font-medium text-brand underline underline-offset-2 hover:text-brand-hover"
+      >
+        privacidad@saaslyvet.com
+      </a>
+    </div>
+
+    <div class="rounded-2xl border border-line bg-gradient-to-b from-white to-brand-soft/30 p-6">
+      <h2 class="font-display text-lg font-semibold text-ink">Probar la demo</h2>
+      <p class="mt-1.5 text-sm text-ink-secondary">Explora la plataforma con datos de ejemplo.</p>
+      <button
+        data-cta-kind="demo"
+        class="mt-3 inline-flex items-center gap-1.5 rounded-md bg-brand px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-brand-hover"
+      >
+        Ver demo
+        <ArrowRight class="h-3.5 w-3.5" />
+      </button>
+    </div>
+  </div>
+
+  <p class="mt-8 text-sm text-ink-tertiary">
+    Respondemos los mensajes en horario hábil. SaaslyVet es operado por Felipe Díaz bajo dicha
+    marca comercial, en México.
+  </p>
+</LegalLayout>
