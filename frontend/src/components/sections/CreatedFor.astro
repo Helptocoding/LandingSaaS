@@ -1,0 +1,68 @@
+---
+import Check from '../icons/Check.astro';
+
+const tools = [
+  "Libretas y cuadernos",
+  "Excel para cobros e inventario",
+  "WhatsApp para agendar citas",
+  "Expedientes físicos en archiveros",
+  "Varios sistemas sin conexión entre sí",
+];
+
+const benefits = [
+  "Agenda online con confirmaciones automáticas",
+  "Inventario y cobros integrados a la consulta",
+  "Recordatorios por WhatsApp sin trabajo manual",
+  "Expediente clínico digital accesible en segundos",
+  "Todo el equipo trabajando en la misma plataforma",
+];
+---
+
+<section class="py-12 lg:py-16 border-y border-line bg-muted/15">
+  <div class="container-wide">
+
+    <div class="text-center mb-10" data-reveal="fade-up">
+      <p class="text-[11px] font-semibold uppercase tracking-widest text-ink-tertiary mb-2">Pensado para quienes trabajan así</p>
+      <h2 class="font-display text-2xl sm:text-3xl font-semibold text-ink tracking-tight">
+        Creado para veterinarios que todavía gestionan con herramientas del siglo pasado.
+      </h2>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-5 max-w-3xl mx-auto">
+
+      <!-- Sin SaaslyVet -->
+      <div data-reveal="slide-right" class="rounded-2xl border border-line bg-white p-6">
+        <p class="text-[10px] font-semibold uppercase tracking-widest text-destructive/70 mb-4">Sin SaaslyVet</p>
+        <ul class="space-y-3">
+          {tools.map((t) => (
+            <li class="flex items-center gap-2.5 text-sm text-ink">
+              <span class="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-destructive/10 text-xs font-bold text-destructive">✕</span>
+              {t}
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <!-- Con SaaslyVet -->
+      <div data-reveal="slide-left" class="rounded-2xl border border-brand/25 bg-brand/5 p-6">
+        <p class="text-[10px] font-semibold uppercase tracking-widest text-brand mb-4">Con SaaslyVet</p>
+        <ul class="space-y-3">
+          {benefits.map((b) => (
+            <li class="flex items-center gap-2.5 text-sm text-ink">
+              <span class="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-brand text-white">
+                <Check class="h-3 w-3" />
+              </span>
+              {b}
+            </li>
+          ))}
+        </ul>
+      </div>
+
+    </div>
+
+    <p class="text-center mt-8 text-sm text-ink-secondary" data-reveal="fade-up" data-reveal-delay="0.1">
+      Si te identificas con cualquiera de estos puntos, SaaslyVet es exactamente lo que necesitas.
+    </p>
+
+  </div>
+</section>

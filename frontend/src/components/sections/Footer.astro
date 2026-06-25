@@ -1,57 +1,79 @@
 ---
 import Logo from '../ui/Logo.astro';
-import Twitter from '../icons/Twitter.astro';
-import Linkedin from '../icons/Linkedin.astro';
-import Instagram from '../icons/Instagram.astro';
-import Youtube from '../icons/Youtube.astro';
 
-const columns = [
-  { title: "Producto", links: ["Funciones", "Precios", "Integraciones", "Novedades", "Roadmap"] },
-  { title: "Recursos", links: ["Centro de ayuda", "Blog veterinario", "Guías de implementación", "Webinars", "API"] },
-  { title: "Empresa", links: ["Sobre nosotros", "Clientes", "Carreras", "Prensa", "Contacto"] },
-  { title: "Legal", links: ["Términos", "Privacidad", "Cookies", "Seguridad", "GDPR"] },
+// Producto = anclas a secciones del home (absolutas con "/#" para que también
+// funcionen desde las páginas legales). Demo = botón que abre DemoModal vía
+// data-cta-kind (delegación global en DemoModal.astro). Empresa/Legal = rutas reales.
+const productLinks = [
+  { label: "Funciones", href: "/#features" },
+  { label: "Cómo funciona", href: "/#how" },
+  { label: "Automatización WhatsApp", href: "/#automation" },
+  { label: "Precios", href: "/#pricing" },
+];
+
+const companyLinks = [
+  { label: "Sobre nosotros", href: "/nosotros" },
+  { label: "Contacto", href: "/contacto" },
+];
+
+const legalLinks = [
+  { label: "Aviso de privacidad", href: "/aviso-de-privacidad" },
+  { label: "Términos y condiciones", href: "/terminos" },
+  { label: "Cookies", href: "/cookies" },
 ];
 ---
 
 <footer class="border-t border-line bg-muted/20">
   <div class="container-wide py-16">
     <div class="grid lg:grid-cols-12 gap-10">
-      <div class="lg:col-span-4">
+      <div class="lg:col-span-5">
         <Logo />
         <p class="mt-4 text-sm text-ink-secondary max-w-xs leading-relaxed">
           Software de gestión veterinaria para clínicas pequeñas y medianas. Agenda, expedientes, inventario y cobros en un solo lugar.
         </p>
-        <div class="mt-6 flex items-center gap-2">
-          <a href="#" class="flex h-9 w-9 items-center justify-center rounded-lg border border-line bg-white text-ink-secondary hover:text-ink hover:border-ink/30 transition-colors" aria-label="Twitter">
-            <Twitter class="h-4 w-4" />
-          </a>
-          <a href="#" class="flex h-9 w-9 items-center justify-center rounded-lg border border-line bg-white text-ink-secondary hover:text-ink hover:border-ink/30 transition-colors" aria-label="LinkedIn">
-            <Linkedin class="h-4 w-4" />
-          </a>
-          <a href="#" class="flex h-9 w-9 items-center justify-center rounded-lg border border-line bg-white text-ink-secondary hover:text-ink hover:border-ink/30 transition-colors" aria-label="Instagram">
-            <Instagram class="h-4 w-4" />
-          </a>
-          <a href="#" class="flex h-9 w-9 items-center justify-center rounded-lg border border-line bg-white text-ink-secondary hover:text-ink hover:border-ink/30 transition-colors" aria-label="YouTube">
-            <Youtube class="h-4 w-4" />
-          </a>
+      </div>
+
+      <div class="lg:col-span-7 grid grid-cols-2 sm:grid-cols-3 gap-8">
+        <div>
+          <p class="font-display text-sm font-semibold text-ink mb-4">Producto</p>
+          <ul class="space-y-2.5">
+            {productLinks.map((l) => (
+              <li><a href={l.href} class="text-sm text-ink-secondary hover:text-ink transition-colors">{l.label}</a></li>
+            ))}
+            <li>
+              <button
+                data-cta-kind="demo"
+                class="text-sm text-ink-secondary hover:text-ink transition-colors"
+              >
+                Demo
+              </button>
+            </li>
+          </ul>
+        </div>
+
+        <div>
+          <p class="font-display text-sm font-semibold text-ink mb-4">Empresa</p>
+          <ul class="space-y-2.5">
+            {companyLinks.map((l) => (
+              <li><a href={l.href} class="text-sm text-ink-secondary hover:text-ink transition-colors">{l.label}</a></li>
+            ))}
+          </ul>
+        </div>
+
+        <div>
+          <p class="font-display text-sm font-semibold text-ink mb-4">Legal</p>
+          <ul class="space-y-2.5">
+            {legalLinks.map((l) => (
+              <li><a href={l.href} class="text-sm text-ink-secondary hover:text-ink transition-colors">{l.label}</a></li>
+            ))}
+          </ul>
         </div>
       </div>
-      <div class="lg:col-span-8 grid grid-cols-2 md:grid-cols-4 gap-8">
-        {columns.map((c) => (
-          <div>
-            <p class="font-display text-sm font-semibold text-ink mb-4">{c.title}</p>
-            <ul class="space-y-2.5">
-              {c.links.map((l) => (
-                <li><a href="#" class="text-sm text-ink-secondary hover:text-ink transition-colors">{l}</a></li>
-              ))}
-            </ul>
-          </div>
-        ))}
-      </div>
     </div>
+
     <div class="mt-14 pt-6 border-t border-line flex flex-col sm:flex-row items-center justify-between gap-4">
-      <p class="text-xs text-ink-secondary">© 2026 SaaslyVet. Todos los derechos reservados.</p>
-      <p class="text-xs text-ink-secondary">Hecho con cuidado por veterinarios, para veterinarios.</p>
+      <p class="text-xs text-ink-secondary">© 2026 SaaslyVet — Operado por Felipe Díaz.</p>
+      <p class="text-xs text-ink-secondary">Hecho en México para ayudar a clínicas veterinarias a trabajar de forma más organizada.</p>
     </div>
   </div>
 </footer>

@@ -1,0 +1,93 @@
+---
+// Layout para páginas de texto largo (legal / contacto / nosotros).
+// Reusa Base (SEO + JsonLD + observer) y compone Header + contenido + Footer,
+// igual que index.astro. Tipografía de lectura en .legal-content (is:global
+// porque el contenido llega por <slot> y conserva el scope del padre).
+import Base from './Base.astro';
+import Header from '../components/sections/Header.astro';
+import Footer from '../components/sections/Footer.astro';
+import ArrowRight from '../components/icons/ArrowRight.astro';
+
+export interface Props {
+  title: string;
+  description: string;
+  heading?: string;
+  lastUpdated?: string;
+}
+
+const { title, description, heading, lastUpdated } = Astro.props;
+---
+
+<Base title={`${title} | SaaslyVet`} description={description}>
+  <Header />
+
+  <main id="main" class="pt-16">
+    <section class="py-12 lg:py-20">
+      <div class="container-narrow">
+        <a
+          href="/"
+          class="inline-flex items-center gap-1.5 text-sm font-medium text-ink-secondary hover:text-ink transition-colors"
+        >
+          <ArrowRight class="h-3.5 w-3.5 rotate-180" />
+          Volver al inicio
+        </a>
+
+        <h1 class="mt-6 font-display text-3xl lg:text-4xl font-semibold tracking-tight text-ink text-balance">
+          {heading ?? title}
+        </h1>
+
+        {lastUpdated && (
+          <p class="mt-3 text-sm text-ink-tertiary">Última actualización: {lastUpdated}</p>
+        )}
+
+        <div class="legal-content mt-8 lg:mt-10">
+          <slot />
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</Base>
+
+<style is:global>
+  /* Bloques: solo hijos directos del slot — evita pisar componentes anidados
+     (p.ej. las tarjetas de /contacto, que traen su propio h2/p). */
+  .legal-content > h2 {
+    @apply font-display text-xl font-semibold text-ink mt-10 mb-3 scroll-mt-24;
+  }
+  .legal-content > h3 {
+    @apply font-display text-base font-semibold text-ink mt-6 mb-2;
+  }
+  .legal-content > p {
+    @apply text-ink-secondary leading-relaxed mb-4;
+  }
+  .legal-content > ul {
+    @apply list-disc pl-5 mb-4 space-y-2 text-ink-secondary;
+  }
+  .legal-content > ol {
+    @apply list-decimal pl-5 mb-4 space-y-2 text-ink-secondary;
+  }
+  .legal-content li {
+    @apply leading-relaxed;
+  }
+  .legal-content a {
+    @apply text-brand underline underline-offset-2 hover:text-brand-hover;
+  }
+  .legal-content strong {
+    @apply text-ink font-semibold;
+  }
+  .legal-content table {
+    @apply w-full text-left text-sm border border-line rounded-lg my-5 border-collapse;
+  }
+  .legal-content th,
+  .legal-content td {
+    @apply border border-line px-3 py-2 align-top text-ink-secondary;
+  }
+  .legal-content th {
+    @apply font-semibold text-ink bg-muted/40;
+  }
+  .legal-content hr {
+    @apply my-8 border-line;
+  }
+</style>

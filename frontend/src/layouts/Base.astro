@@ -1,4 +1,14 @@
 ---
+// Self-hosted fonts (weights 400/500/600/700) — replaces the remote Google Fonts @import.
+// Subconjunto "latin" únicamente: cubre el español (incl. á é í ó ú ñ ü) sin cargar cirílico/griego/vietnamita.
+import '@fontsource/inter/latin-400.css';
+import '@fontsource/inter/latin-500.css';
+import '@fontsource/inter/latin-600.css';
+import '@fontsource/inter/latin-700.css';
+import '@fontsource/space-grotesk/latin-400.css';
+import '@fontsource/space-grotesk/latin-500.css';
+import '@fontsource/space-grotesk/latin-600.css';
+import '@fontsource/space-grotesk/latin-700.css';
 import '../styles/global.css';
 import SEO from '../components/seo/SEO.astro';
 import JsonLD from '../components/seo/JsonLD.astro';
@@ -14,8 +24,8 @@ export interface Props {
 }
 
 const {
-  title = 'Software de gestión para clínicas veterinarias | SaaslyVet',
-  description = 'Centraliza citas, expedientes clínicos, inventario y cobros en una sola plataforma. SaaslyVet organiza toda la operación de tu clínica veterinaria.',
+  title = 'Software de gestión veterinaria para clínicas | SaaslyVet',
+  description = 'El software de gestión veterinaria que centraliza agenda, expediente clínico, inventario y cobros, con recordatorios por WhatsApp. Prueba 14 días gratis.',
   canonical,
   image = '/og-image.png',
   noindex = false,
@@ -30,29 +40,28 @@ const orgSchema = {
   "@type": "Organization",
   "name": "SaaslyVet",
   "url": siteUrl,
-  "logo": `${siteUrl}/og-image.png`,
+  "logo": `${siteUrl}/logo-512.png`,
   "description": description,
-  "sameAs": [
-    "https://twitter.com/saaslyvet",
-    "https://linkedin.com/company/saaslyvet",
-    "https://instagram.com/saaslyvet",
-  ],
+  // `sameAs` omitido a propósito: no añadir perfiles sociales hasta tener URLs reales verificadas.
 };
 
 const softwareSchema = {
   "@context": "https://schema.org",
   "@type": "SoftwareApplication",
   "name": "SaaslyVet",
-  "applicationCategory": "HealthApplication",
+  "url": siteUrl,
+  "applicationCategory": "BusinessApplication",
   "operatingSystem": "Web",
   "description": description,
   "offers": {
     "@type": "Offer",
-    "price": "0",
-    "priceCurrency": "USD",
+    "price": "329",
+    "priceCurrency": "MXN",
     "priceValidUntil": "2027-12-31",
-    "description": "Prueba gratuita de 14 días sin tarjeta de crédito",
+    "url": `${siteUrl}/#pricing`,
+    "description": "Plan Inicio (facturación anual). Prueba gratis de 14 días sin tarjeta.",
   },
+  // No se incluye aggregateRating/review: no existen reseñas reales publicadas todavía.
 };
 ---
 
@@ -76,8 +85,7 @@ const softwareSchema = {
 
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-
-    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
+    <link rel="sitemap" type="application/xml" href="/sitemap-index.xml" />
 
     <slot name="head" />
   </head>

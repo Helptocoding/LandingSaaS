@@ -1,4 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap');
+/* Fonts are self-hosted via @fontsource — imported in Base.astro frontmatter.
+   No remote @import here: avoids the render-blocking HTML→CSS→Google Fonts chain. */
 
 @tailwind base;
 @tailwind components;
