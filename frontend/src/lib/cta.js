@@ -5,6 +5,12 @@ export function ctaToast(kind = "trial") {
     return;
   }
 
+  // trial/sales abren el formulario de acceso anticipado (lo maneja RegisterModal.astro).
+  if (kind === "trial" || kind === "sales") {
+    document.dispatchEvent(new CustomEvent("saaslyvet:register"));
+    return;
+  }
+
   const messages = {
     trial: ["¡Genial! Te estamos preparando tu prueba.", "En segundos recibirás un correo para crear tu cuenta de SaaslyVet."],
     demo: ["Reservemos una demo a tu medida", "Un especialista te contactará en menos de 24 horas hábiles."],
