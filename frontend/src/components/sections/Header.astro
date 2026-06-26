@@ -28,13 +28,14 @@ import ArrowRight from '../icons/ArrowRight.astro';
       >
         Iniciar sesión
       </a>
-      <a
-        href="/#pricing"
+      <button
+        type="button"
+        data-cta-kind="trial"
         class="inline-flex items-center justify-center gap-1.5 rounded-md bg-ink text-surface px-4 py-2 text-sm font-medium hover:bg-ink/90 transition-colors group"
       >
-        Probar gratis
+        Registrate gratis
         <ArrowRight class="ml-1 h-3.5 w-3.5" />
-      </a>
+      </button>
     </div>
 
     <button
@@ -58,7 +59,12 @@ import ArrowRight from '../icons/ArrowRight.astro';
       <a href="/#faq" class="px-3 py-3 text-base font-medium text-ink hover:bg-muted rounded-md">FAQ</a>
       <div class="mt-4 flex flex-col gap-2">
         <a href="https://app.saaslyvet.com/login" class="block w-full rounded-md border border-line bg-white px-4 py-2.5 text-center text-sm font-medium text-ink hover:bg-muted">Iniciar sesión</a>
-        <a href="/#pricing" class="w-full rounded-md bg-ink text-surface px-4 py-2.5 text-sm font-medium text-center hover:bg-ink/90">Probar gratis</a>
+        <button
+          type="button"
+          data-cta-kind="trial"
+          onclick="document.getElementById('mobile-menu').classList.add('hidden')"
+          class="w-full rounded-md bg-ink text-surface px-4 py-2.5 text-sm font-medium text-center hover:bg-ink/90"
+        >Registrate gratis</button>
       </div>
     </div>
   </div>

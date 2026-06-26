@@ -13,6 +13,7 @@ import '../styles/global.css';
 import SEO from '../components/seo/SEO.astro';
 import JsonLD from '../components/seo/JsonLD.astro';
 import DemoModal from '../components/ui/DemoModal.astro';
+import RegisterModal from '../components/ui/RegisterModal.astro';
 
 export interface Props {
   title?: string;
@@ -93,6 +94,7 @@ const softwareSchema = {
     <slot />
 
     <DemoModal />
+    <RegisterModal />
 
     <script>
       const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;

@@ -1,0 +1,261 @@
+---
+import X from '../icons/X.astro';
+import Check from '../icons/Check.astro';
+import CheckMini from '../icons/CheckMini.astro';
+import ArrowRight from '../icons/ArrowRight.astro';
+
+// Endpoint de Formspree (acceso anticipado → soporte@saaslyvet.com)
+const formAction = 'https://formspree.io/f/mpqgdokp';
+
+const benefits = [
+  '2 meses de acceso completo, totalmente gratis y sin tarjeta.',
+  'Línea directa con el equipo para reportar fallos y pedir ajustes.',
+  'Tus comentarios deciden qué construimos en las próximas semanas.',
+  'Tarifa de fundador: un precio especial reservado para quienes nos ayudan a pulir el sistema.',
+];
+---
+
+<div
+  id="register-modal"
+  class="fixed inset-0 z-[200] hidden items-center justify-center p-4"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="register-modal-title"
+>
+  <div data-register-overlay class="absolute inset-0 bg-ink/60 backdrop-blur-sm"></div>
+
+  <div class="animate-fade-up relative flex w-full max-w-3xl max-h-[92vh] flex-col overflow-hidden rounded-2xl bg-white shadow-lift md:flex-row">
+    <button
+      data-register-close
+      aria-label="Cerrar"
+      class="absolute right-4 top-4 z-10 flex h-8 w-8 items-center justify-center rounded-lg text-ink-tertiary transition-colors hover:bg-muted hover:text-ink md:text-surface/70 md:hover:bg-white/10 md:hover:text-white"
+    >
+      <X class="h-4 w-4" />
+    </button>
+
+    <!-- Panel de pitch (programa fundadores) -->
+    <aside class="relative hidden min-h-0 w-2/5 flex-col justify-between overflow-y-auto bg-gradient-primary p-8 text-surface md:flex">
+      <div
+        class="absolute inset-0 opacity-[0.18]"
+        style="background-image: radial-gradient(circle at 20% 15%, hsl(158 40% 55%) 0%, transparent 35%), radial-gradient(circle at 90% 85%, hsl(16 75% 60%) 0%, transparent 35%)"
+        aria-hidden="true"
+      ></div>
+      <div class="relative">
+        <span class="inline-flex items-center rounded-full bg-white/15 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.16em] text-white">
+          Acceso anticipado
+        </span>
+        <h2 class="mt-4 font-display text-2xl font-semibold leading-tight tracking-tight text-white">
+          Sé de las primeras clínicas en SaaslyVet
+        </h2>
+        <p class="mt-2 text-sm leading-relaxed text-white/70">
+          Cupos limitados para clínicas fundadoras. Déjanos tus datos y te enviamos las credenciales de acceso.
+        </p>
+      </div>
+      <ul class="relative mt-8 space-y-3.5">
+        {benefits.map((b) => (
+          <li class="flex gap-3 text-sm leading-snug text-white/90">
+            <CheckMini class="mt-0.5 h-4 w-4 shrink-0 text-brand-accent" />
+            {b}
+          </li>
+        ))}
+      </ul>
+    </aside>
+
+    <!-- Formulario -->
+    <div class="min-h-0 flex-1 overflow-y-auto p-7 sm:p-8">
+      <!-- Vista: formulario -->
+      <div id="register-form-view">
+        <span class="inline-flex items-center rounded-full bg-brand/10 px-3 py-1 text-xs font-semibold text-brand md:hidden">
+          Acceso anticipado
+        </span>
+        <h3 id="register-modal-title" class="mt-3 font-display text-xl font-semibold tracking-tight text-ink md:mt-0">
+          Solicita tu acceso anticipado
+        </h3>
+        <p class="mt-1.5 text-sm text-ink-secondary">
+          Recibirás las credenciales en el correo que indiques. Toma menos de un minuto.
+        </p>
+
+        <form id="register-form" action={formAction} method="POST" novalidate class="mt-6 space-y-4">
+          <input type="hidden" name="_subject" value="Nuevo registro de acceso anticipado — SaaslyVet" />
+          <!-- Honeypot anti-spam (debe quedar vacío) -->
+          <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true" class="hidden" />
+
+          <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+            <div>
+              <label for="reg-nombre" class="mb-1.5 block text-xs font-semibold text-ink">Nombre <span class="text-accent">*</span></label>
+              <input
+                id="reg-nombre" name="nombre" type="text" required autocomplete="given-name"
+                class="w-full rounded-lg border border-line bg-white px-3.5 py-2.5 text-sm text-ink placeholder:text-ink-tertiary transition-colors focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand/20"
+                placeholder="Tu nombre"
+              />
+            </div>
+            <div>
+              <label for="reg-apellido" class="mb-1.5 block text-xs font-semibold text-ink">Apellido <span class="text-accent">*</span></label>
+              <input
+                id="reg-apellido" name="apellido" type="text" required autocomplete="family-name"
+                class="w-full rounded-lg border border-line bg-white px-3.5 py-2.5 text-sm text-ink placeholder:text-ink-tertiary transition-colors focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand/20"
+                placeholder="Tu apellido"
+              />
+            </div>
+          </div>
+
+          <div>
+            <label for="reg-clinica" class="mb-1.5 block text-xs font-semibold text-ink">Nombre de la clínica <span class="text-accent">*</span></label>
+            <input
+              id="reg-clinica" name="clinica" type="text" required autocomplete="organization"
+              class="w-full rounded-lg border border-line bg-white px-3.5 py-2.5 text-sm text-ink placeholder:text-ink-tertiary transition-colors focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand/20"
+              placeholder="Clínica Veterinaria…"
+            />
+          </div>
+
+          <div>
+            <label for="reg-email" class="mb-1.5 block text-xs font-semibold text-ink">Correo electrónico <span class="text-accent">*</span></label>
+            <input
+              id="reg-email" name="email" type="email" required autocomplete="email"
+              class="w-full rounded-lg border border-line bg-white px-3.5 py-2.5 text-sm text-ink placeholder:text-ink-tertiary transition-colors focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand/20"
+              placeholder="tucorreo@clinica.com"
+            />
+            <p class="mt-1 text-[11px] text-ink-tertiary">Aquí recibirás tus credenciales de acceso.</p>
+          </div>
+
+          <div>
+            <label for="reg-telefono" class="mb-1.5 block text-xs font-semibold text-ink">Teléfono <span class="font-normal text-ink-tertiary">(opcional)</span></label>
+            <input
+              id="reg-telefono" name="telefono" type="tel" autocomplete="tel" inputmode="tel"
+              class="w-full rounded-lg border border-line bg-white px-3.5 py-2.5 text-sm text-ink placeholder:text-ink-tertiary transition-colors focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand/20"
+              placeholder="55 1234 5678"
+            />
+          </div>
+
+          <label class="flex items-start gap-2.5 text-xs leading-relaxed text-ink-secondary">
+            <input id="reg-consent" name="consentimiento" type="checkbox" required value="Sí, acepto" class="mt-0.5 h-4 w-4 shrink-0 rounded border-line text-brand focus:ring-brand/30" />
+            <span>Acepto que SaaslyVet use mis datos para contactarme sobre el acceso anticipado, conforme al <a href="/aviso-de-privacidad" target="_blank" rel="noopener" class="font-medium text-brand underline underline-offset-2 hover:text-brand-hover">Aviso de Privacidad</a>.</span>
+          </label>
+
+          <p id="register-error" class="hidden rounded-lg bg-destructive/10 px-3 py-2 text-xs text-destructive" role="alert"></p>
+
+          <button
+            type="submit"
+            id="register-submit"
+            class="btn-brand h-11 w-full text-sm disabled:cursor-not-allowed disabled:opacity-60"
+          >
+            <span data-submit-label>Solicitar mi acceso</span>
+            <ArrowRight class="h-4 w-4" data-submit-arrow />
+          </button>
+        </form>
+      </div>
+
+      <!-- Vista: éxito -->
+      <div id="register-success-view" class="hidden flex-col items-center py-10 text-center">
+        <div class="flex h-14 w-14 items-center justify-center rounded-full bg-brand/10">
+          <Check class="h-7 w-7 text-brand" />
+        </div>
+        <h3 class="mt-5 font-display text-xl font-semibold tracking-tight text-ink">¡Solicitud enviada!</h3>
+        <p class="mt-2 max-w-xs text-sm text-ink-secondary">
+          Gracias por sumarte. Revisaremos tu solicitud y te enviaremos las credenciales de acceso a tu correo muy pronto.
+        </p>
+        <button
+          data-register-close
+          class="btn-secondary mt-6 h-11 px-6 text-sm"
+        >
+          Cerrar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const modal = document.getElementById('register-modal');
+  if (modal) {
+    const formView = document.getElementById('register-form-view');
+    const successView = document.getElementById('register-success-view');
+    const form = document.getElementById('register-form') as HTMLFormElement | null;
+    const submitBtn = document.getElementById('register-submit') as HTMLButtonElement | null;
+    const submitLabel = modal.querySelector<HTMLElement>('[data-submit-label]');
+    const errorBox = document.getElementById('register-error');
+
+    const resetToForm = () => {
+      formView?.classList.remove('hidden');
+      successView?.classList.add('hidden');
+      successView?.classList.remove('flex');
+      errorBox?.classList.add('hidden');
+    };
+
+    const open = () => {
+      resetToForm();
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+      document.documentElement.style.overflow = 'hidden';
+      document.body.style.overflow = 'hidden';
+      modal.querySelector<HTMLElement>('#reg-nombre')?.focus();
+    };
+    const close = () => {
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+      document.documentElement.style.overflow = '';
+      document.body.style.overflow = '';
+    };
+
+    // Vía 1: evento despachado por cta.js (kinds trial/sales).
+    document.addEventListener('saaslyvet:register', open);
+    // Vía 2 (robusta, sin dependencias): delegación directa sobre cualquier CTA de registro.
+    document.addEventListener('click', (e) => {
+      const trigger = (e.target as HTMLElement)?.closest?.('[data-cta-kind="trial"], [data-cta-kind="sales"]');
+      if (trigger) {
+        e.preventDefault();
+        open();
+      }
+    });
+
+    modal
+      .querySelectorAll<HTMLElement>('[data-register-close], [data-register-overlay]')
+      .forEach((el) => el.addEventListener('click', close));
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && !modal.classList.contains('hidden')) close();
+    });
+
+    // Envío AJAX a Formspree (sin recargar ni redirigir).
+    form?.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      if (!form.reportValidity()) return;
+
+      errorBox?.classList.add('hidden');
+      if (submitBtn) submitBtn.disabled = true;
+      const prevLabel = submitLabel?.textContent;
+      if (submitLabel) submitLabel.textContent = 'Enviando…';
+
+      try {
+        const res = await fetch(form.action, {
+          method: 'POST',
+          body: new FormData(form),
+          headers: { Accept: 'application/json' },
+        });
+        if (res.ok) {
+          form.reset();
+          formView?.classList.add('hidden');
+          successView?.classList.remove('hidden');
+          successView?.classList.add('flex');
+        } else {
+          let msg = 'No pudimos enviar tu solicitud. Inténtalo de nuevo en un momento.';
+          try {
+            const data = await res.json();
+            if (data?.errors?.length) msg = data.errors.map((x: any) => x.message).join(' ');
+          } catch { /* respuesta no-JSON */ }
+          if (errorBox) {
+            errorBox.textContent = msg;
+            errorBox.classList.remove('hidden');
+          }
+        }
+      } catch {
+        if (errorBox) {
+          errorBox.textContent = 'Sin conexión. Revisa tu internet e inténtalo de nuevo.';
+          errorBox.classList.remove('hidden');
+        }
+      } finally {
+        if (submitBtn) submitBtn.disabled = false;
+        if (submitLabel && prevLabel) submitLabel.textContent = prevLabel;
+      }
+    });
+  }
+</script>
