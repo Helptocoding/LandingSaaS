@@ -91,3 +91,6 @@ android-sdk/
 credentials.json
 *.key
 .credentials
+
+# screenshot local accidental — no versionar
+screenshot.png
