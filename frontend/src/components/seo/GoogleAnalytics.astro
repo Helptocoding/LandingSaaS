@@ -1,0 +1,31 @@
+---
+// Google Analytics 4 (gtag.js).
+//
+// El Measurement ID se lee de la variable de entorno pública
+// `PUBLIC_GA_MEASUREMENT_ID` (el prefijo `PUBLIC_` es obligatorio en Astro
+// para exponer la variable al cliente durante el build estático).
+//
+// Si la variable no está definida, este componente no renderiza nada:
+// el sitio sigue funcionando con normalidad y Analytics simplemente no carga.
+//
+// Debe incluirse UNA sola vez, en el layout raíz (`Base.astro`), para que
+// la etiqueta no se duplique entre páginas.
+const gaId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID;
+---
+
+{
+  gaId && (
+    <>
+      {/* Google tag (gtag.js) — carga asíncrona, no bloquea el render */}
+      <script async src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`} is:inline />
+      <script is:inline define:vars={{ gaId }}>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() {
+          dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+        gtag('config', gaId);
+      </script>
+    </>
+  )
+}

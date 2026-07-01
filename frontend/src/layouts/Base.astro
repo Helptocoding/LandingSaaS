@@ -12,6 +12,7 @@ import '@fontsource/space-grotesk/latin-700.css';
 import '../styles/global.css';
 import SEO from '../components/seo/SEO.astro';
 import JsonLD from '../components/seo/JsonLD.astro';
+import GoogleAnalytics from '../components/seo/GoogleAnalytics.astro';
 import DemoModal from '../components/ui/DemoModal.astro';
 import RegisterModal from '../components/ui/RegisterModal.astro';
 
@@ -72,6 +73,8 @@ const softwareSchema = {
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="generator" content={Astro.generator} />
+
+    <GoogleAnalytics />
 
     <SEO
       title={title}
