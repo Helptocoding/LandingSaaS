@@ -8,7 +8,8 @@ export default defineConfig({
   trailingSlash: 'ignore',
   integrations: [
     tailwind({ applyBaseStyles: false }),
-    sitemap(),
+    // Excluye la página interna de captura del mockup del sitemap.
+    sitemap({ filter: (page) => !page.includes('/mockup-dashboard') }),
   ],
   server: {
     host: '0.0.0.0',
