@@ -1,240 +1,111 @@
 ---
-import X from '../icons/X.astro';
-import Check from '../icons/Check.astro';
-import ArrowRight from '../icons/ArrowRight.astro';
-import FadeImage from '../ui/FadeImage.astro';
-import caoticoH from '../../assets/img/escritorio_caotico.png';
-import limpioH from '../../assets/img/escritorio_limpio.png';
+import Clock from '../icons/Clock.astro';
+import Bell from '../icons/Bell.astro';
+import CreditCard from '../icons/CreditCard.astro';
+import Stethoscope from '../icons/Stethoscope.astro';
 
-const problems = [
-  "Citas en cuadernos, Google Calendar y WhatsApp",
-  "Historial clínico disperso o en papel",
-  "Inventario que no cuadra al final del mes",
-  "Cobros y caja en hojas de Excel",
-  "Recordatorios manuales que se olvidan",
-  "Sin visibilidad real del negocio",
+// Ruido operativo — solo frases de miedo concreto (dinero / clientes / clínico / control).
+// Cada fila mezcla ejes y arranca con un "killer". Sin relleno neutro.
+const rows = [
+  ['¿Ya cobraron esta consulta?', '¿Dónde quedó el expediente?', 'Ese cliente nunca volvió', 'Un día más apagando incendios', 'Se acabó el medicamento', '¿Le tocaba refuerzo o no?', 'Otra llamada perdida'],
+  ['La caja no cuadra', 'No encuentro la receta anterior', 'Se fue con la competencia', 'Dos pacientes a la misma hora', 'Ese lote ya venció', '¿Cuándo fue su última vacuna?'],
+  ['Se fue sin pagar el medicamento', '¿Este paciente es alérgico a algo?', '¿Ya le recordaron su cita?', 'Tres urgencias al mismo tiempo', 'El mes cerró más bajo otra vez', 'Otra vez me quedé tarde capturando'],
+];
+// dir: alterna → ← →
+const rowConf = [
+  { dir: 'right', dur: '46s' },
+  { dir: 'left', dur: '58s' },
+  { dir: 'right', dur: '50s' },
 ];
 
-const solutions = [
-  "Agenda online sincronizada con tu equipo",
-  "Expediente clínico digital unificado por paciente",
-  "Inventario que se descuenta automáticamente",
-  "Cobros y caja integrados",
-  "Recordatorios automáticos por WhatsApp",
-  "Visibilidad de ventas, citas y operación",
-];
-
-// Dos estados del toggle (capas que hacen crossfade dentro de la tarjeta).
-const states = [
-  {
-    key: 'sin',
-    label: 'Sin SaaslyVet',
-    Icon: X,
-    img: caoticoH,
-    alt: 'Escritorio de recepción saturado de papeleo y notas sueltas',
-    badgeBg: 'bg-destructive/85',
-    dot: 'bg-destructive',
-    panel: 'hsl(0 45% 16%)', // rojo oscuro, a juego con el badge ✕
-    title: 'Información dispersa',
-    subtitle: 'Equipo descoordinado',
-    items: problems,
-    cta: false,
-    layerCls: 'opacity-100 group-data-[state=on]:pointer-events-none group-data-[state=on]:opacity-0',
-  },
-  {
-    key: 'con',
-    label: 'Con SaaslyVet',
-    Icon: Check,
-    img: limpioH,
-    alt: 'Escritorio ordenado con la operación de la clínica centralizada en SaaslyVet',
-    badgeBg: 'bg-brand/90',
-    dot: 'bg-brand',
-    panel: 'hsl(162 38% 14%)', // verde oscuro, a juego con el badge ✓
-    title: 'Una sola plataforma',
-    subtitle: 'Todo el equipo viendo la misma información',
-    items: solutions,
-    cta: true,
-    layerCls: 'opacity-0 pointer-events-none group-data-[state=on]:pointer-events-auto group-data-[state=on]:opacity-100',
-  },
+const benefits = [
+  { icon: Clock, title: 'Recuperas horas cada semana', desc: 'Menos captura manual y menos búsquedas. Ese tiempo vuelve a los pacientes.', tone: 'text-brand' },
+  { icon: Bell, title: 'Nada se te escapa', desc: 'Citas, vacunas y seguimientos en piloto automático. Dejas de perder clientes por olvidos.', tone: 'text-accent' },
+  { icon: CreditCard, title: 'Cobras todo y la caja cuadra', desc: 'Cada consulta y producto queda registrado. Cierras caja sin fugas ni sorpresas a fin de mes.', tone: 'text-brand' },
+  { icon: Stethoscope, title: 'Toda la historia del paciente, a la mano', desc: 'Expediente, recetas y vacunas en una pantalla. Decides sin buscar entre papeles.', tone: 'text-accent' },
 ];
 ---
 
-<section class="py-12 lg:py-24">
+<section class="py-14 lg:py-20">
   <div class="container-wide">
-    <div class="max-w-2xl mb-8 lg:mb-12">
-      <p class="text-sm font-medium text-brand mb-3">¿Te suena familiar?</p>
+    <!-- 1 · Encabezado -->
+    <div data-reveal="fade-up" class="mx-auto max-w-2xl text-center">
       <h2 class="font-display text-3xl sm:text-4xl lg:text-5xl font-semibold text-ink tracking-tight text-balance">
-        La operación de tu clínica veterinaria está repartida entre libretas, Excel y WhatsApp.
+        Todo esto pasa cada día en una clínica sin sistema.
       </h2>
-      <p class="mt-5 text-lg text-ink-secondary leading-relaxed">
-        Cuando no existe un sistema común, se pierden citas, historiales y ventas. Tu equipo trabaja más duro de lo necesario.
+      <p class="mx-auto mt-4 max-w-xl text-lg text-ink-secondary leading-relaxed">
+        SaaslyVet silencia el ruido para que recuperes tiempo, ingresos y tranquilidad.
       </p>
     </div>
 
-    <div data-reveal="fade-up" data-ps-block data-state="off" class="group">
-      <!-- Toggle -->
-      <div class="flex items-center justify-center gap-3">
-        <span aria-hidden="true" class="text-sm font-bold text-destructive/50 transition-opacity duration-300 group-data-[state=on]:opacity-25">✕</span>
-
-        <button
-          type="button"
-          role="switch"
-          aria-checked="false"
-          aria-label="Alternar entre Sin SaaslyVet y Con SaaslyVet"
-          data-ps-switch
-          class="relative inline-flex h-7 w-12 shrink-0 items-center rounded-full bg-line transition-colors duration-300 group-data-[state=on]:bg-brand"
-        >
-          <span class="inline-block h-5 w-5 translate-x-1 rounded-full bg-white shadow transition-transform duration-300 group-data-[state=on]:translate-x-6"></span>
-        </button>
-
-        <span aria-hidden="true" class="text-sm font-bold text-ink-tertiary transition-colors duration-300 group-data-[state=on]:text-brand">✓</span>
-      </div>
-
-      <div class="mb-8 mt-3 h-4" aria-hidden="true"></div>
-
-      <!-- Tarjeta: panel de texto + foto lateral -->
-      <div class="relative isolate h-[640px] sm:h-[520px] md:h-[440px] w-full overflow-hidden rounded-3xl shadow-lift">
-        {states.map((s) => {
-          const Icon = s.Icon;
-          return (
-            <div
-              data-layer={s.key}
-              class={`absolute inset-0 transition-opacity duration-500 ease-out ${s.layerCls}`}
-            >
-              <div class="grid h-full grid-rows-[auto_1fr] md:grid-rows-1 md:grid-cols-[38%_62%]">
-                <!-- Panel de texto sólido -->
-                <div
-                  class="relative z-20 flex flex-col justify-center gap-3 p-5 text-white md:p-7 lg:p-9"
-                  style={`background:${s.panel}`}
-                >
-                  <span class={`inline-flex w-fit items-center gap-1.5 rounded-full ${s.badgeBg} px-3 py-1.5 text-xs font-semibold text-white ring-1 ring-white/20`}>
-                    <Icon class="h-3 w-3" />
-                    {s.label}
-                  </span>
-                  <div class="min-h-[3.5rem]">
-                    <h3 class="font-display text-2xl font-semibold tracking-tight text-white">{s.title}</h3>
-                    <p class="mt-1 text-sm text-white/70">{s.subtitle}</p>
-                  </div>
-                  <ul class="space-y-2">
-                    {s.items.map((it, idx) => (
-                      <li class={`gap-3 text-sm text-white/90 ${idx >= 3 ? 'hidden sm:flex' : 'flex'}`}>
-                        <span class={`mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full ${s.dot} text-white`}>
-                          <Icon class="h-3 w-3" />
-                        </span>
-                        {it}
-                      </li>
-                    ))}
-                  </ul>
-                  {s.cta ? (
-                    <a
-                      href="#pricing"
-                      class="inline-flex w-fit items-center gap-2 rounded-md bg-white px-5 py-3 text-sm font-semibold text-ink shadow-soft transition-colors hover:bg-white/90"
-                    >
-                      Probar gratis
-                      <ArrowRight class="h-4 w-4" />
-                    </a>
-                  ) : (
-                    <span aria-hidden="true" class="invisible inline-flex w-fit items-center gap-2 rounded-md px-5 py-3 text-sm font-semibold">
-                      Probar gratis
-                      <ArrowRight class="h-4 w-4" />
+    <!-- 2 · Banda dinámica de ruido operativo (contenida) -->
+    <div
+      class="noise-band mx-auto mt-10 max-w-3xl space-y-2.5 overflow-hidden rounded-2xl bg-muted/40 py-5"
+      style="-webkit-mask-image:linear-gradient(to right,transparent,#000 5%,#000 95%,transparent);mask-image:linear-gradient(to right,transparent,#000 5%,#000 95%,transparent)"
+    >
+      <p class="sr-only">
+        El día a día de una clínica sin sistema: consultas sin cobrar, expedientes perdidos, medicamento agotado, clientes que no vuelven, urgencias encimadas.
+      </p>
+      <div aria-hidden="true" class="space-y-2.5">
+        {rows.map((row, r) => (
+          <div class="marquee" data-dir={rowConf[r].dir} style={`--dur:${rowConf[r].dur}`}>
+            <div class="marquee-track">
+              {[0, 1].map((dup) => (
+                <div class="marquee-group" data-dup={dup === 1 ? '' : undefined}>
+                  {row.map((phrase) => (
+                    <span class="mr-3 inline-flex items-center whitespace-nowrap rounded-full bg-surface px-4 py-2 text-sm font-medium text-ink-secondary shadow-soft">
+                      {phrase}
                     </span>
-                  )}
+                  ))}
                 </div>
-
-                <!-- Foto con fade lateral hacia el panel -->
-                <div class="relative min-h-[200px]">
-                  <FadeImage
-                    src={s.img}
-                    alt={s.alt}
-                    cover
-                    fade="none"
-                    objectPosition="center"
-                    class="absolute inset-0 h-full w-full"
-                  />
-                  <div
-                    aria-hidden="true"
-                    class="absolute inset-0"
-                    style={`background:linear-gradient(to right, ${s.panel} 0%, transparent 18%)`}
-                  ></div>
-                </div>
-              </div>
+              ))}
             </div>
-          );
-        })}
+          </div>
+        ))}
       </div>
+    </div>
+
+    <!-- Divisor sutil -->
+    <div class="mt-8 h-px bg-gradient-to-r from-transparent via-line to-transparent"></div>
+
+    <!-- 3 · Beneficios (retícula editorial, sin cards) -->
+    <div data-reveal="fade-up" class="mt-8 grid grid-cols-1 gap-px bg-line sm:grid-cols-2 lg:grid-cols-4">
+      {benefits.map((b) => (
+        <div class="bg-page px-6 py-6 lg:py-7">
+          <b.icon class={`h-6 w-6 ${b.tone}`} />
+          <h3 class="mt-4 font-display text-base font-semibold text-ink tracking-tight text-balance">{b.title}</h3>
+          <p class="mt-2 text-sm text-ink-secondary leading-relaxed">{b.desc}</p>
+        </div>
+      ))}
     </div>
   </div>
 </section>
 
 <style>
-  /* One-time hint: thumb slides to ~70% then returns */
-  @keyframes ps-thumb-hint {
-    0%        { transform: translateX(4px); }
-    38%, 58%  { transform: translateX(18px); }
-    95%, 100% { transform: translateX(4px); }
+  .marquee { overflow: hidden; }
+  .marquee-track {
+    display: flex;
+    width: max-content;
+    animation: marquee-x var(--dur, 50s) linear infinite;
   }
-  /* Track flashes brand color while thumb is slid */
-  @keyframes ps-track-hint {
-    0%, 100%  { background-color: hsl(150, 15%, 88%); }
-    38%, 58%  { background-color: hsl(160, 35%, 28%); }
-  }
+  /* dir=right → se mueven hacia la derecha (keyframe invertido) */
+  .marquee[data-dir="right"] .marquee-track { animation-direction: reverse; }
+  .marquee-group { display: flex; flex: 0 0 auto; }
 
-  [data-ps-switch].ps-hint {
-    animation: ps-track-hint 1.1s ease-in-out both;
-  }
-  [data-ps-switch].ps-hint span {
-    animation: ps-thumb-hint 1.1s ease-in-out both;
+  /* Hover / focus pause (WCAG 2.2.2, sin controles visibles) */
+  .marquee:hover .marquee-track,
+  .marquee:focus-within .marquee-track { animation-play-state: paused; }
+
+  @keyframes marquee-x {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
   }
 
   @media (prefers-reduced-motion: reduce) {
-    [data-ps-switch].ps-hint,
-    [data-ps-switch].ps-hint span { animation: none; }
+    .noise-band { -webkit-mask-image: none !important; mask-image: none !important; overflow: visible; }
+    .marquee { overflow: visible; }
+    .marquee-track { animation: none; width: auto; flex-wrap: wrap; }
+    .marquee-group { flex-wrap: wrap; }
+    .marquee-group[data-dup] { display: none; }
   }
 </style>
-
-<script>
-  function initProblemToggle() {
-    document.querySelectorAll<HTMLElement>('[data-ps-block]').forEach((block) => {
-      const sw = block.querySelector<HTMLElement>('[data-ps-switch]');
-      const setBtns = block.querySelectorAll<HTMLElement>('[data-ps-set]');
-
-      const setState = (on: boolean) => {
-        block.dataset.state = on ? 'on' : 'off';
-        sw?.setAttribute('aria-checked', on ? 'true' : 'false');
-      };
-
-      sw?.addEventListener('click', () => setState(block.dataset.state !== 'on'));
-      setBtns.forEach((b) =>
-        b.addEventListener('click', () => setState(b.getAttribute('data-ps-set') === 'on'))
-      );
-    });
-  }
-
-  initProblemToggle();
-
-  // Hint: one-shot wiggle when switch enters viewport, only if still "off"
-  (function () {
-    var pref = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (pref) return;
-    var sw = document.querySelector<HTMLElement>('[data-ps-switch]');
-    var block = sw?.closest<HTMLElement>('[data-ps-block]');
-    if (!sw || !block) return;
-
-    var fired = false;
-    var obs = new IntersectionObserver(function (entries) {
-      if (fired || !entries[0].isIntersecting) return;
-      if (block.dataset.state === 'on') return;
-      fired = true;
-      obs.disconnect();
-
-      // Delay slightly so user sees the section first
-      setTimeout(function () {
-        if (block.dataset.state === 'on') return;
-        sw.classList.add('ps-hint');
-        setTimeout(function () { sw.classList.remove('ps-hint'); }, 1200);
-      }, 900);
-    }, { threshold: 0.5 });
-
-    obs.observe(block);
-  })();
-</script>

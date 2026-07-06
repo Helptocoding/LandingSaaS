@@ -18,6 +18,10 @@ import tabletFrame from '../../assets/img/hero_tablet_frame.png';
 
   <!-- ── Iluminación ambiental: todo por CSS, el WebP se mantiene transparente ── -->
   <div class="hero-ambient pointer-events-none absolute inset-0 -z-10" aria-hidden="true">
+    <!-- Aurora: luz ambiental viva (blobs de marca que giran muy lento, difuminados) -->
+    <span class="hero-aurora"></span>
+    <!-- Anillo/halo sutil para dar foco al dispositivo -->
+    <span class="hero-halo"></span>
     <span class="hero-glow hero-glow--primary"></span>
     <span class="hero-glow hero-glow--accent"></span>
     <span class="hero-glow hero-glow--soft"></span>
@@ -57,8 +61,8 @@ import tabletFrame from '../../assets/img/hero_tablet_frame.png';
   <!-- WhatsApp (wsp) — esquina superior derecha, flota hacia arriba -->
   <div
     id="hcc-signal-wa"
-    class="hcc-signal pointer-events-none absolute right-1 top-3 z-20 md:-right-3 md:top-6
-           hidden md:flex items-center gap-2 rounded-full border border-line bg-white/95 px-3 py-2 backdrop-blur-sm"
+    class="hcc-signal pointer-events-none absolute right-1 top-3 z-20 md:right-0 md:-top-7
+           hidden md:flex items-center gap-2 rounded-full border border-line bg-surface/95 px-3 py-2 backdrop-blur-sm"
   >
     <WhatsApp class="h-3.5 w-3.5 shrink-0 text-[#25D366]" />
     <span class="whitespace-nowrap text-[11px] font-medium text-ink">Recordatorio enviado</span>
@@ -74,8 +78,8 @@ import tabletFrame from '../../assets/img/hero_tablet_frame.png';
   <!-- Agenda — esquina inferior izquierda, flota hacia abajo -->
   <div
     id="hcc-signal-agenda"
-    class="hcc-signal pointer-events-none absolute bottom-6 left-1 z-20 md:-left-3 md:bottom-10
-           hidden md:flex items-center gap-2 rounded-full border border-line bg-white/95 px-3 py-2 backdrop-blur-sm"
+    class="hcc-signal pointer-events-none absolute bottom-6 left-1 z-20 md:left-0 md:-bottom-7
+           hidden md:flex items-center gap-2 rounded-full border border-line bg-surface/95 px-3 py-2 backdrop-blur-sm"
   >
     <CalendarCheck2 class="h-3.5 w-3.5 shrink-0 text-brand" />
     <span class="whitespace-nowrap text-[11px] font-medium text-ink">Nueva cita agendada</span>
@@ -95,12 +99,40 @@ import tabletFrame from '../../assets/img/hero_tablet_frame.png';
     filter: blur(8px);
   }
 
+  /* ── Aurora: blobs de marca que orbitan muy lento tras el dispositivo ── */
+  .hero-aurora {
+    position: absolute;
+    inset: -28%;
+    border-radius: 50%;
+    background:
+      radial-gradient(38% 42% at 30% 34%, hsl(160 52% 42% / 0.55) 0%, transparent 60%),
+      radial-gradient(34% 38% at 74% 30%, hsl(16 85% 62% / 0.34) 0%, transparent 60%),
+      radial-gradient(44% 46% at 60% 76%, hsl(158 50% 50% / 0.48) 0%, transparent 62%),
+      radial-gradient(30% 32% at 22% 72%, hsl(174 60% 46% / 0.32) 0%, transparent 60%);
+    filter: blur(44px);
+    opacity: 1;
+    will-change: transform;
+    animation: hero-aurora-spin 26s linear infinite;
+  }
+
+  /* ── Halo: anillo de luz suave que enfoca el dispositivo ── */
+  .hero-halo {
+    position: absolute;
+    inset: 2% 6%;
+    border-radius: 50%;
+    background: radial-gradient(closest-side,
+      transparent 62%, hsl(160 40% 40% / 0.16) 78%, transparent 92%);
+    filter: blur(14px);
+    animation: hero-halo-pulse 8s ease-in-out infinite;
+  }
+
   /* Glow principal — verde marca, amplio y elegante, domina la escena. */
   .hero-glow--primary {
-    inset: -16% -12% -8% -12%;
+    inset: -18% -14% -10% -14%;
     background: radial-gradient(54% 50% at 50% 46%,
-      hsl(160 35% 28% / 0.34) 0%, hsl(160 35% 30% / 0.15) 44%, transparent 72%);
-    filter: blur(32px);
+      hsl(160 38% 30% / 0.42) 0%, hsl(160 38% 34% / 0.18) 44%, transparent 72%);
+    filter: blur(34px);
+    animation: hero-glow-pulse 8s ease-in-out infinite;
   }
 
   /* Secundario cálido (terracota) — muy sutil, aporta profundidad. */
@@ -200,6 +232,18 @@ import tabletFrame from '../../assets/img/hero_tablet_frame.png';
     50%      { transform: translateY(-7px); }
   }
 
+  @keyframes hero-aurora-spin {
+    to { transform: rotate(360deg); }
+  }
+  @keyframes hero-halo-pulse {
+    0%, 100% { opacity: 0.55; transform: scale(0.98); }
+    50%      { opacity: 1;    transform: scale(1.03); }
+  }
+  @keyframes hero-glow-pulse {
+    0%, 100% { opacity: 0.85; }
+    50%      { opacity: 1; }
+  }
+
   /* ══════════════ Tarjetas flotantes ══════════════ */
   .hcc-signal {
     opacity: 0;
@@ -232,7 +276,9 @@ import tabletFrame from '../../assets/img/hero_tablet_frame.png';
 
   /* ══════════════ Responsive: bajar intensidad, mantener composición ══════════════ */
   @media (max-width: 1023px) {
-    .hero-glow--primary { filter: blur(20px); background: radial-gradient(52% 48% at 50% 46%, hsl(160 35% 28% / 0.20) 0%, transparent 72%); }
+    .hero-aurora { opacity: 0.55; filter: blur(40px); animation-duration: 40s; }
+    .hero-halo   { display: none; }
+    .hero-glow--primary { filter: blur(20px); background: radial-gradient(52% 48% at 50% 46%, hsl(160 35% 28% / 0.20) 0%, transparent 72%); animation: none; }
     .hero-glow--accent  { opacity: 0.7; }
     .hero-glow--soft    { opacity: 0.7; }
     .hero-ground        { opacity: 0.7; }
@@ -244,7 +290,10 @@ import tabletFrame from '../../assets/img/hero_tablet_frame.png';
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .hero-tablet__float { animation: none; }
+    .hero-tablet__float,
+    .hero-aurora,
+    .hero-halo,
+    .hero-glow--primary { animation: none; }
     .hcc-signal   { opacity: 1; transform: none; transition: none; }
     #hcc-signal-wa.hcc-visible,
     #hcc-signal-agenda.hcc-visible { animation: none; }

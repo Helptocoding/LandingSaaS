@@ -15,16 +15,16 @@ import Check from '../icons/Check.astro';
     </div>
 
     <div class="flex flex-wrap justify-center bg-muted/60 p-1.5 rounded-2xl gap-1 mx-auto w-fit mb-8" id="tour-tabs">
-      <button data-tab="agenda" class="tour-tab flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium transition-all bg-white shadow-soft text-ink cursor-pointer">
+      <button data-tab="agenda" class="tour-tab flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium transition-all bg-surface shadow-soft text-ink cursor-pointer">
         <CalendarDays class="h-4 w-4" /> Agenda
       </button>
-      <button data-tab="clinico" class="tour-tab flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium transition-all text-ink-secondary hover:bg-white/70 hover:text-ink cursor-pointer">
+      <button data-tab="clinico" class="tour-tab flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium transition-all text-ink-secondary hover:bg-surface/70 hover:text-ink cursor-pointer">
         <FileText class="h-4 w-4" /> Expediente
       </button>
-      <button data-tab="inventario" class="tour-tab flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium transition-all text-ink-secondary hover:bg-white/70 hover:text-ink cursor-pointer">
+      <button data-tab="inventario" class="tour-tab flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium transition-all text-ink-secondary hover:bg-surface/70 hover:text-ink cursor-pointer">
         <Package class="h-4 w-4" /> Inventario
       </button>
-      <button data-tab="pos" class="tour-tab flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium transition-all text-ink-secondary hover:bg-white/70 hover:text-ink cursor-pointer">
+      <button data-tab="pos" class="tour-tab flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium transition-all text-ink-secondary hover:bg-surface/70 hover:text-ink cursor-pointer">
         <CreditCard class="h-4 w-4" /> Cobros
       </button>
     </div>
@@ -79,7 +79,7 @@ import Check from '../icons/Check.astro';
 
           <!-- VISUAL: agenda -->
           <div class="tour-visual" data-visual="agenda">
-            <div class="rounded-2xl border border-line bg-white shadow-soft overflow-hidden">
+            <div class="rounded-2xl border border-line bg-surface shadow-soft overflow-hidden">
               <div class="flex items-center justify-between border-b border-line px-5 py-3">
                 <div><p class="font-display text-sm font-semibold text-ink">Lunes 18 · Marzo</p><p class="text-xs text-ink-tertiary">3 veterinarios en turno</p></div>
                 <div class="flex gap-1">
@@ -115,7 +115,7 @@ import Check from '../icons/Check.astro';
 
           <!-- VISUAL: clinico -->
           <div class="tour-visual hidden" data-visual="clinico">
-            <div class="rounded-2xl border border-line bg-white shadow-soft overflow-hidden">
+            <div class="rounded-2xl border border-line bg-surface shadow-soft overflow-hidden">
               <div class="flex items-center gap-3 border-b border-line px-5 py-4">
                 <div class="h-11 w-11 rounded-xl bg-gradient-primary text-white flex items-center justify-center font-display font-semibold">L</div>
                 <div class="flex-1"><p class="font-display text-sm font-semibold text-ink">Luna · Schnauzer mini · 4 años</p><p class="text-xs text-ink-tertiary">Propietario: Ana Torres · 6.2 kg</p></div>
@@ -137,7 +137,7 @@ import Check from '../icons/Check.astro';
 
           <!-- VISUAL: inventario -->
           <div class="tour-visual hidden" data-visual="inventario">
-            <div class="rounded-2xl border border-line bg-white shadow-soft overflow-hidden">
+            <div class="rounded-2xl border border-line bg-surface shadow-soft overflow-hidden">
               <div class="flex items-center justify-between border-b border-line px-5 py-3">
                 <p class="font-display text-sm font-semibold text-ink">Inventario · 248 productos</p>
                 <span class="text-xs text-ink-tertiary">Actualizado en vivo</span>
@@ -170,7 +170,7 @@ import Check from '../icons/Check.astro';
 
           <!-- VISUAL: pos -->
           <div class="tour-visual hidden" data-visual="pos">
-            <div class="grid grid-cols-5 gap-0 rounded-2xl border border-line bg-white shadow-soft overflow-hidden">
+            <div class="grid grid-cols-5 gap-0 rounded-2xl border border-line bg-surface shadow-soft overflow-hidden">
               <div class="col-span-3 p-5">
                 <p class="font-display text-sm font-semibold text-ink mb-3">Ticket #2418</p>
                 <div class="space-y-2">
@@ -195,8 +195,8 @@ import Check from '../icons/Check.astro';
                 <p class="text-xs font-semibold uppercase tracking-wider text-ink-tertiary mb-3">Método de pago</p>
                 <div class="space-y-2">
                   <div class="rounded-lg border px-3 py-2.5 text-sm font-medium bg-ink text-surface border-ink">Tarjeta</div>
-                  <div class="rounded-lg border px-3 py-2.5 text-sm font-medium bg-white text-ink border-line">Efectivo</div>
-                  <div class="rounded-lg border px-3 py-2.5 text-sm font-medium bg-white text-ink border-line">Transferencia</div>
+                  <div class="rounded-lg border px-3 py-2.5 text-sm font-medium bg-surface text-ink border-line">Efectivo</div>
+                  <div class="rounded-lg border px-3 py-2.5 text-sm font-medium bg-surface text-ink border-line">Transferencia</div>
                 </div>
                 <button class="mt-auto w-full rounded-xl bg-gradient-accent text-white font-semibold text-sm py-3 shadow-accent-glow">Cobrar $121.80</button>
               </div>
@@ -218,7 +218,7 @@ import Check from '../icons/Check.astro';
     });
     document.querySelectorAll('.tour-tab').forEach(function (b) {
       var active = b.getAttribute('data-tab') === tabId;
-      b.classList.toggle('bg-white', active);
+      b.classList.toggle('bg-surface', active);
       b.classList.toggle('shadow-soft', active);
       b.classList.toggle('text-ink', active);
       b.classList.toggle('text-ink-secondary', !active);

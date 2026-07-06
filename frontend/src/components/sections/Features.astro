@@ -8,73 +8,66 @@ import BarChart3 from '../icons/BarChart3.astro';
 import FileText from '../icons/FileText.astro';
 import Users from '../icons/Users.astro';
 
-const features = [
-  { icon: Stethoscope, title: "Toda la historia de tus pacientes, siempre disponible", desc: "Historial médico completo por paciente: consultas, diagnósticos, recetas, vacunas y archivos adjuntos.", tone: "brand", span: "lg:col-span-2" },
-  { icon: CalendarDays, title: "Menos citas olvidadas, más pacientes atendidos", desc: "Agenda online con recordatorios automáticos y vista por veterinario. Tus clientes confirman solos.", tone: "accent" },
-  { icon: Package, title: "Nunca más sin el medicamento que necesitas", desc: "El inventario se descuenta automáticamente con cada tratamiento. Alertas de stock crítico y vencimientos.", tone: "brand" },
-  { icon: CreditCard, title: "Cobra y cierra caja sin duplicar trabajo", desc: "Cobros rápidos, múltiples métodos de pago y cierre de caja al final del día sin recapturar nada.", tone: "accent" },
-  { icon: MessageCircle, title: "Tus clientes informados sin que tengas que llamar", desc: "Recordatorios de citas, vacunas y seguimientos automáticos por WhatsApp. Sin levantar el teléfono.", tone: "brand", span: "lg:col-span-2" },
-  { icon: BarChart3, title: "Entiende tu clínica con números reales", desc: "Ingresos, productos más vendidos, ocupación y retención de clientes en tiempo real.", tone: "accent" },
-  { icon: FileText, title: "Recetas y documentos listos en segundos", desc: "Generación con un clic y firma digital lista para imprimir o enviar por WhatsApp.", tone: "brand" },
-  { icon: Users, title: "Cada persona con el acceso exacto que necesita", desc: "Permisos por rol: veterinario, recepción y administración. Sin accidentes, sin confusión.", tone: "brand" },
+// Bento asimétrico (composición C). Spans SOLO en lg: (col-start/row-start explícitos).
+// Sin tintes de fondo: la vida = hover (gradiente + línea de acento) + entrada escalonada.
+// side = mitad del bento (lg). left entra desde la izquierda, right desde la derecha.
+const cells = [
+  { icon: CalendarDays, title: "Agenda con recordatorios", desc: "Citas online y recordatorios automáticos por WhatsApp. Tus clientes confirman solos y las ausencias caen.", tone: "brand", size: "wide", side: "left", area: "lg:col-start-1 lg:row-start-1 lg:col-span-2" },
+  { icon: Stethoscope, title: "Expediente clínico digital", desc: "Consultas, recetas, vacunas y archivos. Toda la historia de cada paciente en una pantalla.", tone: "accent", size: "tall", side: "right", area: "lg:col-start-3 lg:row-start-1 lg:row-span-2" },
+  { icon: Package, title: "Inventario automático", desc: "Se descuenta con cada tratamiento. Alertas de stock y caducidad.", tone: "brand", size: "sm", side: "right", area: "lg:col-start-4 lg:row-start-1" },
+  { icon: CreditCard, title: "Cobros y cierre de caja", desc: "Cobro rápido, varios métodos de pago y cierre sin recapturar.", tone: "accent", size: "sm", side: "left", area: "lg:col-start-1 lg:row-start-2" },
+  { icon: BarChart3, title: "Reportes en tiempo real", desc: "Ingresos, productos más vendidos, ocupación y retención.", tone: "brand", size: "sm", side: "left", area: "lg:col-start-2 lg:row-start-2" },
+  { icon: FileText, title: "Recetas en un clic", desc: "Generación y firma digital, listas para imprimir o enviar.", tone: "accent", size: "sm", side: "right", area: "lg:col-start-4 lg:row-start-2" },
+  { icon: MessageCircle, title: "Recordatorios por WhatsApp", desc: "Citas, vacunas y seguimientos automáticos. Sin levantar el teléfono.", tone: "brand", size: "wide", side: "left", area: "lg:col-start-1 lg:row-start-3 lg:col-span-2" },
+  { icon: Users, title: "Permisos por rol", desc: "Accesos por veterinario, recepción y administración. Sin accidentes, sin confusión.", tone: "accent", size: "wide", side: "right", area: "lg:col-start-3 lg:row-start-3 lg:col-span-2" },
 ];
 ---
 
-<section id="features" class="py-12 lg:py-24 bg-muted/30">
+<section id="features" class="py-14 lg:py-24">
   <div class="container-wide">
-    <div class="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 mb-8 lg:mb-12">
-      <div class="max-w-2xl">
-        <p class="text-sm font-medium text-brand mb-3">Funciones</p>
-        <h2 class="font-display text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight text-ink text-balance">
-          Una plataforma diseñada para cómo realmente funciona una veterinaria.
-        </h2>
-      </div>
-      <p class="text-base text-ink-secondary max-w-md">
+    <div class="mx-auto max-w-2xl text-center mb-10 lg:mb-16">
+      <p class="text-sm font-medium text-brand mb-3">Funciones</p>
+      <h2 class="font-display text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight text-ink text-balance">
+        Una plataforma diseñada para cómo funciona una veterinaria.
+      </h2>
+      <p class="mx-auto mt-4 max-w-xl text-lg text-ink-secondary leading-relaxed">
         Conecta agenda, atención, inventario y administración. Cada acción alimenta al sistema completo.
       </p>
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-5" id="features-grid">
-      {features.map((f, i) => (
-        <div data-reveal="blur-in" data-reveal-delay={String(i * 0.06)} class={f.span || ""}>
+    <div class="grid grid-cols-1 gap-px overflow-hidden rounded-2xl bg-line ring-1 ring-line sm:grid-cols-2 lg:grid-cols-4 lg:grid-rows-3">
+      {cells.map((c, i) => {
+        const big = c.size === "wide" || c.size === "tall";
+        const grad = c.tone === "accent"
+          ? "radial-gradient(120% 90% at 0% 0%, hsl(16 75% 60% / 0.10), transparent 62%)"
+          : "radial-gradient(120% 90% at 0% 0%, hsl(160 35% 40% / 0.10), transparent 62%)";
+        return (
           <div
-            data-testid={`feature-card-${i}`}
-            data-spotlight
-            class="group/spot relative isolate h-full overflow-hidden rounded-2xl border border-line bg-white p-6 hover:shadow-soft hover:-translate-y-0.5 transition-all duration-300"
+            data-reveal={c.side === "left" ? "slide-right" : "slide-left"}
+            data-reveal-delay={String(i * 0.09)}
+            class={`group/cell relative isolate flex flex-col bg-surface ${big ? "p-6 lg:p-8" : "p-6 lg:p-7"} ${c.area}`}
           >
-            <span
-              aria-hidden="true"
-              class="pointer-events-none absolute inset-0 rounded-[inherit] opacity-0 group-hover/spot:opacity-100 transition-opacity duration-500"
-            ></span>
-            <span class="relative z-10 block h-full w-full">
-              <div class={`inline-flex h-11 w-11 items-center justify-center rounded-xl ${f.tone === "accent" ? "bg-accent/15 text-accent" : "bg-brand/10 text-brand"} transition-transform duration-300 group-hover/spot:scale-110 group-hover/spot:rotate-3`}>
-                <f.icon class="h-5 w-5" />
-              </div>
-              <h3 class="font-display text-lg font-semibold text-ink mt-5">{f.title}</h3>
-              <p class="mt-2 text-sm text-ink-secondary leading-relaxed">{f.desc}</p>
-              <div class="pointer-events-none absolute -bottom-16 -right-16 h-32 w-32 rounded-full bg-gradient-to-br from-brand/0 to-brand/5 group-hover/spot:to-brand/10 transition-colors" />
-            </span>
+            <span aria-hidden="true" class="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 ease-out group-hover/cell:opacity-100" style={`background:${grad}`}></span>
+
+            <c.icon class={`relative ${big ? "h-8 w-8" : "h-7 w-7"} ${c.tone === "accent" ? "text-accent" : "text-brand"} transition-transform duration-300 ease-out group-hover/cell:-translate-y-0.5 group-hover/cell:scale-105`} />
+
+            <span class={`relative mt-5 block h-[3px] w-7 rounded-full ${c.tone === "accent" ? "bg-accent" : "bg-brand"} transition-all duration-300 ease-out group-hover/cell:w-14`}></span>
+
+            <div class="relative mt-4">
+              <h3 class="font-display text-base font-semibold text-ink tracking-tight text-balance">{c.title}</h3>
+              <p class="mt-2 text-sm text-ink-secondary leading-relaxed">{c.desc}</p>
+            </div>
           </div>
-        </div>
-      ))}
+        );
+      })}
     </div>
   </div>
 </section>
 
-<script>
-  const grid = document.getElementById('features-grid');
-  if (grid) {
-    grid.addEventListener('mousemove', function (e) {
-      const cards = this.querySelectorAll('[data-spotlight]');
-      cards.forEach(function (card) {
-        const rect = card.getBoundingClientRect();
-        const mx = e.clientX - rect.left;
-        const my = e.clientY - rect.top;
-        const span = card.querySelector('span[aria-hidden]');
-        if (span) {
-          span.style.background = 'radial-gradient(280px circle at ' + mx + 'px ' + my + 'px, hsl(160 35% 28% / 0.12), transparent 60%)';
-        }
-      });
-    });
+<style>
+  /* Aparición más suave (solo Funciones): más larga + easing gentil */
+  #features [data-reveal] {
+    transition-duration: 1.1s;
+    transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
   }
-</script>
+</style>

@@ -1,0 +1,33 @@
+---
+import { Image } from 'astro:assets';
+import banda from '../../assets/img/banda_emocional.webp';
+---
+
+<section aria-label="El porqué de SaaslyVet" class="relative w-full overflow-hidden">
+  <div class="relative h-[460px] sm:h-[420px] lg:h-[560px]">
+    <Image
+      src={banda}
+      alt="Veterinaria examina con cariño a un perro tranquilo mientras su dueña lo acompaña"
+      class="absolute inset-0 h-full w-full object-cover object-[72%_center] sm:object-center"
+      loading="lazy"
+      decoding="async"
+    />
+    <!-- Scrim: aclara la izquierda para que el texto ink sea legible sobre la pared cálida -->
+    <div
+      aria-hidden="true"
+      class="absolute inset-0 bg-gradient-to-r from-page via-page/85 to-page/10 sm:via-page/70 sm:to-transparent"
+    ></div>
+
+    <div class="container-wide relative flex h-full items-center">
+      <div class="max-w-md lg:max-w-xl" data-reveal="fade-up">
+        <p class="text-sm font-medium text-brand mb-3">Por qué existe SaaslyVet</p>
+        <p class="font-display text-3xl sm:text-4xl lg:text-5xl font-semibold text-ink tracking-tight text-balance">
+          Detrás de cada expediente hay una mascota que alguien ama.
+        </p>
+        <p class="mt-4 text-base sm:text-lg text-ink-secondary leading-relaxed max-w-md">
+          SaaslyVet ordena la operación para que tu equipo gaste su energía en lo que de verdad importa: cuidarlas.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>

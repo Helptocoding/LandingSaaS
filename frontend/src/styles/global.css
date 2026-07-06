@@ -5,6 +5,47 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Tokens de color como variables (formato "H S% L%") → soportan alpha y tema. */
+:root {
+  --page: 40 33% 98%;
+  --surface: 0 0% 100%;
+  --muted: 150 18% 95%;
+  --ink: 165 25% 12%;
+  --ink-secondary: 160 12% 38%;
+  --ink-tertiary: 160 8% 55%;
+  --brand: 160 35% 28%;
+  --brand-hover: 160 35% 22%;
+  --brand-accent: 158 40% 55%;
+  --brand-soft: 150 30% 92%;
+  --accent: 16 75% 60%;
+  --accent-foreground: 0 0% 100%;
+  --accent-soft: 22 90% 95%;
+  --line: 150 15% 88%;
+  --success: 148 50% 42%;
+  --warning: 36 92% 55%;
+  --destructive: 0 70% 52%;
+}
+
+.dark {
+  --page: 168 24% 8%;
+  --surface: 165 21% 12%;
+  --muted: 165 16% 17%;
+  --ink: 40 20% 95%;
+  --ink-secondary: 160 12% 72%;
+  --ink-tertiary: 160 10% 56%;
+  --brand: 158 46% 56%;
+  --brand-hover: 158 46% 64%;
+  --brand-accent: 158 50% 64%;
+  --brand-soft: 160 28% 20%;
+  --accent: 16 82% 64%;
+  --accent-foreground: 0 0% 100%;
+  --accent-soft: 16 45% 22%;
+  --line: 160 12% 22%;
+  --success: 148 45% 52%;
+  --warning: 36 85% 60%;
+  --destructive: 0 65% 62%;
+}
+
 html {
   scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;
@@ -13,16 +54,22 @@ html {
   overflow-x: hidden;
 }
 
+/* Lenis (scroll con inercia): mientras Lenis controla, desactiva el smooth nativo */
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+.lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+.lenis.lenis-stopped { overflow: hidden; }
+html.lenis, html.lenis body { height: auto; }
+
 body {
-  background: theme('colors.page');
-  color: theme('colors.ink.DEFAULT');
+  background: hsl(var(--page));
+  color: hsl(var(--ink));
   font-family: 'Inter', system-ui, -apple-system, sans-serif;
   font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
 }
 
 ::selection {
-  background: theme('colors.brand.DEFAULT');
-  color: white;
+  background: hsl(var(--brand));
+  color: hsl(var(--surface));
 }
 
 .font-display {
@@ -72,21 +119,29 @@ body {
   }
 }
 
-[data-reveal] {
-  opacity: 0;
-  transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
-              transform 0.7s cubic-bezier(0.22, 1, 0.36, 1),
-              filter 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+/* Gradiente del hero en modo oscuro */
+.dark .bg-gradient-hero {
+  background: radial-gradient(80% 60% at 20% 10%, hsl(160 30% 15%) 0%, transparent 60%),
+              radial-gradient(70% 50% at 90% 30%, hsl(16 45% 18%) 0%, transparent 60%),
+              linear-gradient(180deg, hsl(168 24% 8%) 0%, hsl(165 20% 11%) 100%);
 }
 
-[data-reveal="fade-up"]     { transform: translateY(28px); }
-[data-reveal="zoom-in"]     { transform: scale(0.85); }
-[data-reveal="zoom-out"]    { transform: scale(1.18); }
-[data-reveal="blur-in"]     { transform: translateY(14px); filter: blur(14px); }
-[data-reveal="slide-left"]  { transform: translateX(60px); }
-[data-reveal="slide-right"] { transform: translateX(-60px); }
-[data-reveal="tilt"]        { transform: rotate(-4deg) scale(0.92) translateY(24px); }
-[data-reveal="rise"]        { transform: translateY(80px) scale(0.96); }
+[data-reveal] {
+  opacity: 0;
+  transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+              filter 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform, opacity;
+}
+
+[data-reveal="fade-up"]     { transform: translateY(44px) scale(0.97); }
+[data-reveal="zoom-in"]     { transform: scale(0.82); }
+[data-reveal="zoom-out"]    { transform: scale(1.2); }
+[data-reveal="blur-in"]     { transform: translateY(24px) scale(0.97); filter: blur(18px); }
+[data-reveal="slide-left"]  { transform: translateX(84px); }
+[data-reveal="slide-right"] { transform: translateX(-84px); }
+[data-reveal="tilt"]        { transform: rotate(-5deg) scale(0.9) translateY(32px); }
+[data-reveal="rise"]        { transform: translateY(96px) scale(0.94); }
 
 [data-reveal].is-visible {
   opacity: 1;

@@ -1,0 +1,39 @@
+# SaaslyVet
+
+> SaaslyVet is a web-based SaaS for managing small and medium veterinary clinics. It centralizes scheduling, clinical records, inventory, and billing in a single platform, with automated WhatsApp reminders. Built for Spanish-speaking clinics in Mexico (es-MX).
+
+- Website: https://www.saaslyvet.com
+- Language: Spanish (es-MX)
+- Country: Mexico
+- Category: Veterinary practice/clinic management software (B2B SaaS)
+- Business model: SaaS subscription, billed monthly or annually in MXN; 14-day free trial, no card required, cancel anytime
+- Status: Early access — actively developed together with the clinics that use it
+- Audience: Independent veterinarians and small-to-medium veterinary clinics
+
+## Core features
+
+- Online appointment scheduling with per-veterinarian views and automatic WhatsApp confirmations and reminders
+- Unified digital clinical record per patient (SOAP notes, prescriptions, vaccines, weight, diagnostic images, attachments, history)
+- Inventory that auto-deducts stock with each treatment, plus low-stock and expiry alerts
+- Fast billing / point of sale with multiple payment methods and end-of-day cash close
+- Automated WhatsApp reminders (appointment confirmations, vaccine reminders, post-consultation follow-ups, inactive-patient recovery)
+- Reports and analytics (revenue, top-selling products, occupancy, client retention)
+- Role-based access control (veterinarian, reception, administration)
+
+## Links
+
+- [Landing / home](https://www.saaslyvet.com/)
+- [Features](https://www.saaslyvet.com/#features)
+- [Product tour](https://www.saaslyvet.com/#tour)
+- [WhatsApp automation](https://www.saaslyvet.com/#automation)
+- [Pricing](https://www.saaslyvet.com/#pricing)
+- [FAQ](https://www.saaslyvet.com/#faq)
+- [About](https://www.saaslyvet.com/nosotros)
+- [Contact](https://www.saaslyvet.com/contacto)
+- [Full details for LLMs](https://www.saaslyvet.com/llms-full.txt)
+
+## Contact
+
+- General and sales: contacto@saaslyvet.com
+- Privacy and data requests: privacidad@saaslyvet.com
+- Operated by Felipe Díaz under the SaaslyVet commercial brand, in Mexico.

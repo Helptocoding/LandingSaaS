@@ -1,0 +1,192 @@
+# SaaslyVet — Full product reference for AI agents
+
+> SaaslyVet is a web-based SaaS (software-as-a-service) that helps small and medium veterinary
+> clinics run their day-to-day operations from a single platform: scheduling, clinical records,
+> inventory, billing, and automated WhatsApp reminders. The product, interface, and support are
+> in Spanish, targeted at clinics in Mexico (locale es-MX).
+
+This document contains only public product information intended to help AI agents understand and
+describe SaaslyVet accurately. It contains no source code, internal architecture, private data,
+internal endpoints, admin routes, or infrastructure details.
+
+- Website: https://www.saaslyvet.com
+- Primary language: Spanish (es-MX)
+- Country: Mexico
+- Category: Veterinary practice/clinic management software (B2B SaaS)
+- Delivery: Web-based; runs in the browser with no installation and no technical setup
+- Business model: Subscription SaaS, billed monthly or annually, priced in Mexican Pesos (MXN)
+- Trial: 14 days free, no credit card required; cancel anytime
+- Status: Early access — the product is actively being built alongside the clinics that use it
+
+## What it is
+
+SaaslyVet replaces the scattered mix of notebooks, spreadsheets, WhatsApp chats, and disconnected
+tools that many veterinary clinics still rely on. Instead of separate systems that don't talk to
+each other, it connects the whole clinic workflow — reception, consultation, inventory, and
+billing — so that each action feeds the rest of the system automatically.
+
+## Problem it solves
+
+Small and medium veterinary clinics commonly operate with tools that are not integrated:
+
+- Appointments split across notebooks, Google Calendar, and WhatsApp
+- Clinical history on paper or dispersed across places
+- Inventory that does not reconcile at month-end
+- Charges and cash handled in Excel
+- Manual reminders that get forgotten
+- No real visibility into how the business is doing
+
+When there is no common system, appointments, records, and sales get lost, and the team works
+harder than necessary. SaaslyVet centralizes this into one connected platform.
+
+## Target audience
+
+- Independent veterinarians
+- Small and medium veterinary clinics
+- Clinics that currently manage their operation with notebooks, spreadsheets, physical records,
+  WhatsApp, or several disconnected systems
+- Teams that want their day (consultations, WhatsApp, and administration) organized in one place
+
+## Use cases
+
+- Booking and confirming appointments online, with automatic WhatsApp reminders to reduce no-shows
+- Keeping a complete, always-available clinical history for each patient
+- Automatically deducting inventory as treatments and products are used during consultations
+- Charging quickly and closing the cash register at the end of the day without re-entering data
+- Sending automatic WhatsApp reminders for vaccines, follow-ups, and re-engaging inactive patients
+- Understanding the clinic with real numbers: revenue, best-selling products, occupancy, retention
+- Giving each team member (veterinarian, reception, administration) the exact access they need
+
+## Core modules
+
+### Scheduling (Agenda)
+Online appointment calendar that the team can use without training. View appointments by
+veterinarian, room, or service; drag to reschedule; confirm via WhatsApp. Includes online booking
+from a website, automatic reminders 24 hours before, and day, week, or calendar views.
+
+### Clinical record (Expediente clínico)
+A complete digital medical history per patient on a single screen: SOAP notes, prescriptions,
+vaccines, weight, diagnostic images, attachments, and background. Configurable clinical templates,
+one-click prescriptions and certificates, and a vaccination history with alerts.
+
+### Inventory (Inventario)
+Stock that updates itself with each consultation: when a medication or product is applied, stock is
+deducted automatically, with no double entry. Includes minimum-stock alerts, expiry control, and
+reports by supplier and rotation.
+
+### Billing / Point of sale (Cobros / POS)
+Charge in seconds and close the register without stress. Add services and products to a ticket,
+accept cash, card, or transfer, and reconcile at the end of the day with one click. Includes
+digital sales tickets, multiple payment methods, and cash close / reconciliation (arqueos).
+
+### WhatsApp automation
+Uses each patient's history to send reminders, follow-ups, and important messages over WhatsApp:
+appointment confirmations, vaccine and check-up reminders, post-consultation follow-ups, and
+recovery of inactive patients. Clinics define the templates and the sending rules.
+
+### Reports and analytics
+Revenue, top-selling products, occupancy, and client retention in real time, so clinics can
+understand their operation with real numbers.
+
+### Documents
+One-click generation of prescriptions and documents, with a digital signature, ready to print or
+send by WhatsApp.
+
+### Roles and permissions
+Access by role — veterinarian, reception, and administration — so each person has exactly the
+access they need.
+
+## General system flow
+
+The clinic's areas work connected end to end, from appointment to follow-up:
+
+1. Reception: the appointment is registered; the team finds the patient's record and needed
+   information in seconds.
+2. Consultation: the veterinarian opens the full history, records findings, and leaves everything
+   ready for the next step.
+3. Treatment: products used are recorded and inventory updates automatically.
+4. Billing: reception charges using the information generated during the consultation, without
+   re-entering data.
+5. Follow-up: SaaslyVet keeps the relationship active with automatic reminders and messages over
+   WhatsApp.
+
+## Plans and pricing
+
+Subscription plans, priced in MXN, with no per-patient charges. Billed monthly or annually (annual
+billing is roughly 17% cheaper than monthly). All plans include product updates, Spanish-language
+support, and daily backups. A 14-day free trial is available with no credit card, and subscriptions
+can be canceled at any time. Prices below are the annual monthly-equivalent rate.
+
+- Inicio — from $329 MXN/month. Everything needed to digitize a clinic from day one: up to 2
+  veterinarians, scheduling and clinical record, inventory and stock control, billing and cash
+  close, email support.
+- Profesional (most chosen) — from $649 MXN/month. To run a full clinic with automations:
+  unlimited veterinarians, everything in Inicio, WhatsApp reminders, point of sale (POS), reports
+  and analytics, priority support. Includes a 14-day trial.
+- Clínica Plus — from $1,299 MXN/month. For larger teams that need more control: everything in
+  Profesional, advanced roles and permissions, activity audit, assisted clinic migration,
+  personalized onboarding, dedicated account manager.
+- Empresarial — custom quote. For veterinary groups operating at larger scale: unlimited users,
+  tailored implementation, guided onboarding and setup, assigned account manager, team training,
+  dedicated support.
+
+## Frequently asked questions (public)
+
+Q: Is my data secure?
+A: Data travels encrypted over HTTPS/TLS and is backed up every day with encrypted off-site copies.
+Each clinic's information is isolated from the others, and the clinic always owns its data.
+
+Q: Can I migrate my current patients and records?
+A: Yes. Clients and patients can be imported from Excel or CSV files, mapping your columns to
+SaaslyVet's fields, with guidance during the process.
+
+Q: How long does implementation take?
+A: It is designed to be fast: create an account, import patients from Excel or CSV, and start using
+scheduling and the clinical record the same day, with guided initial setup.
+
+Q: Is there a lock-in or mandatory annual contract?
+A: No. Pay monthly or annually and cancel anytime. The annual plan gives a discount over the
+monthly price.
+
+Q: How do WhatsApp reminders work?
+A: SaaslyVet uses each patient's history to send appointment reminders, vaccine notices, and
+follow-ups over WhatsApp. Clinics define the templates and sending rules, and messages go out at
+the right time.
+
+Q: Does it work if I have several clinics?
+A: SaaslyVet is designed to operate one clinic per account. For more than one clinic, the team can
+help set up one account per clinic — contact them to find the best setup.
+
+## Visible technology (public context)
+
+- Web-based SaaS accessed from a browser; no installation and no technical training required
+- WhatsApp used as the channel for automated reminders and follow-ups
+- Data encrypted in transit via HTTPS/TLS, with daily encrypted off-site backups and per-clinic
+  data isolation (as stated publicly on the site)
+
+## About
+
+SaaslyVet is Mexican software created to help veterinary clinics work in a more organized way,
+bringing scheduling, clinical records, inventory, billing, and the cash register into one place. It
+is an early-stage, growing project, built together with the clinics that use it. It is currently
+operated by Felipe Díaz as a sole proprietor under the SaaslyVet commercial brand, in Mexico; the
+structure may be formalized into a company as the project grows.
+
+## Links
+
+- Landing / home: https://www.saaslyvet.com/
+- Features: https://www.saaslyvet.com/#features
+- Product tour: https://www.saaslyvet.com/#tour
+- WhatsApp automation: https://www.saaslyvet.com/#automation
+- Pricing: https://www.saaslyvet.com/#pricing
+- FAQ: https://www.saaslyvet.com/#faq
+- About: https://www.saaslyvet.com/nosotros
+- Contact: https://www.saaslyvet.com/contacto
+- Privacy notice: https://www.saaslyvet.com/aviso-de-privacidad
+- Terms and conditions: https://www.saaslyvet.com/terminos
+- Cookies: https://www.saaslyvet.com/cookies
+
+## Contact
+
+- General and sales / demos: contacto@saaslyvet.com
+- Privacy and personal data requests: privacidad@saaslyvet.com

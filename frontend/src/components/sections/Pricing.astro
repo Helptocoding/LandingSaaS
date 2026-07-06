@@ -52,7 +52,7 @@ const tiers = [
       <div class="mt-8 inline-flex items-center rounded-xl border border-line bg-muted/50 p-1">
         <button
           id="btn-yearly"
-          class="rounded-lg px-5 py-2 text-sm font-medium transition-all bg-white shadow-soft text-ink"
+          class="rounded-lg px-5 py-2 text-sm font-medium transition-all bg-surface shadow-soft text-ink"
         >
           Anual
           <span id="yearly-badge" class="ml-1.5 text-[10px] uppercase tracking-wider font-semibold px-1.5 py-0.5 rounded-md bg-brand/10 text-brand">−17%</span>
@@ -73,8 +73,8 @@ const tiers = [
           data-reveal-delay={String(i * 0.1)}
           class={`relative flex flex-col rounded-3xl border p-7 ${
             t.popular
-              ? "border-2 border-brand bg-gradient-to-b from-white to-brand-soft/30 shadow-lift"
-              : "border-line bg-white"
+              ? "border-2 border-brand bg-gradient-to-b from-surface to-brand-soft/30 shadow-lift"
+              : "border-line bg-surface"
           }`}
         >
           {t.popular && (
@@ -124,7 +124,7 @@ const tiers = [
                 ? "bg-brand text-white hover:bg-brand-hover"
                 : t.enterprise
                 ? "bg-ink text-surface hover:bg-ink/90"
-                : "bg-white text-ink border border-line hover:bg-muted"
+                : "bg-surface text-ink border border-line hover:bg-muted"
             }`}
           >
             {t.cta}
@@ -146,9 +146,9 @@ const tiers = [
   var yearly = true;
 
   function setActive(btn, other) {
-    btn.classList.add('bg-white', 'shadow-soft', 'text-ink');
+    btn.classList.add('bg-surface', 'shadow-soft', 'text-ink');
     btn.classList.remove('text-ink-secondary');
-    other.classList.remove('bg-white', 'shadow-soft', 'text-ink');
+    other.classList.remove('bg-surface', 'shadow-soft', 'text-ink');
     other.classList.add('text-ink-secondary');
   }
 
