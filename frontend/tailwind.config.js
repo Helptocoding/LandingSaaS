@@ -1,32 +1,33 @@
 /** @type {import('tailwindcss').Config} */
 export default {
+  darkMode: 'class',
   content: ['./src/**/*.{astro,html,js,jsx,ts,tsx,md,mdx}'],
   theme: {
     extend: {
       colors: {
-        page: 'hsl(40, 33%, 98%)',
-        surface: '#FFFFFF',
-        muted: 'hsl(150, 18%, 95%)',
+        page: 'hsl(var(--page) / <alpha-value>)',
+        surface: 'hsl(var(--surface) / <alpha-value>)',
+        muted: 'hsl(var(--muted) / <alpha-value>)',
         ink: {
-          DEFAULT: 'hsl(165, 25%, 12%)',
-          secondary: 'hsl(160, 12%, 38%)',
-          tertiary: 'hsl(160, 8%, 55%)',
+          DEFAULT: 'hsl(var(--ink) / <alpha-value>)',
+          secondary: 'hsl(var(--ink-secondary) / <alpha-value>)',
+          tertiary: 'hsl(var(--ink-tertiary) / <alpha-value>)',
         },
         brand: {
-          DEFAULT: 'hsl(160, 35%, 28%)',
-          hover: 'hsl(160, 35%, 22%)',
-          accent: 'hsl(158, 40%, 55%)',
-          soft: 'hsl(150, 30%, 92%)',
+          DEFAULT: 'hsl(var(--brand) / <alpha-value>)',
+          hover: 'hsl(var(--brand-hover) / <alpha-value>)',
+          accent: 'hsl(var(--brand-accent) / <alpha-value>)',
+          soft: 'hsl(var(--brand-soft) / <alpha-value>)',
         },
         accent: {
-          DEFAULT: 'hsl(16, 75%, 60%)',
-          foreground: '#FFFFFF',
-          soft: 'hsl(22, 90%, 95%)',
+          DEFAULT: 'hsl(var(--accent) / <alpha-value>)',
+          foreground: 'hsl(var(--accent-foreground) / <alpha-value>)',
+          soft: 'hsl(var(--accent-soft) / <alpha-value>)',
         },
-        line: 'hsl(150, 15%, 88%)',
-        success: 'hsl(148, 50%, 42%)',
-        warning: 'hsl(36, 92%, 55%)',
-        destructive: 'hsl(0, 70%, 52%)',
+        line: 'hsl(var(--line) / <alpha-value>)',
+        success: 'hsl(var(--success) / <alpha-value>)',
+        warning: 'hsl(var(--warning) / <alpha-value>)',
+        destructive: 'hsl(var(--destructive) / <alpha-value>)',
       },
       fontFamily: {
         sans: ['Inter', 'system-ui', 'sans-serif'],

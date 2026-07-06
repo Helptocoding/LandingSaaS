@@ -1,12 +1,23 @@
 ---
+import { Image } from 'astro:assets';
 import ArrowRight from '../icons/ArrowRight.astro';
 import Calendar from '../icons/Calendar.astro';
 import Check from '../icons/Check.astro';
+import ctaEmocional from '../../assets/img/cta_emocional.webp';
 ---
 
 <section class="py-12 lg:py-24">
   <div class="container-wide">
     <div data-reveal="zoom-out" class="relative overflow-hidden rounded-[2.5rem] border border-line bg-ink p-10 lg:p-16 text-center">
+      <Image
+        src={ctaEmocional}
+        alt=""
+        aria-hidden="true"
+        loading="lazy"
+        decoding="async"
+        class="absolute inset-0 h-full w-full object-cover object-right opacity-45"
+      />
+      <div aria-hidden="true" class="absolute inset-0 bg-gradient-to-r from-ink via-ink/90 to-ink/40" />
       <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(circle at 15% 25%, hsl(158 40% 55%) 0%, transparent 25%), radial-gradient(circle at 85% 75%, hsl(16 75% 60%) 0%, transparent 25%)" />
       <div class="relative max-w-2xl mx-auto">
         <p class="text-sm font-medium text-surface/70 mb-3">Empieza hoy</p>

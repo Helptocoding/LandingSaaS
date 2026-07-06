@@ -74,6 +74,21 @@ const softwareSchema = {
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="generator" content={Astro.generator} />
 
+    <script is:inline>
+      (function () {
+        try {
+          var t = localStorage.getItem('theme');
+          if (t === 'dark' || (!t && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+          }
+        } catch (e) {}
+        window.toggleTheme = function () {
+          var dark = document.documentElement.classList.toggle('dark');
+          try { localStorage.setItem('theme', dark ? 'dark' : 'light'); } catch (e) {}
+        };
+      })();
+    </script>
+
     <GoogleAnalytics />
 
     <SEO
@@ -122,6 +137,30 @@ const softwareSchema = {
             el.style.transitionDelay = delay + 's';
           }
           revealObserver.observe(el);
+        });
+      }
+    </script>
+
+    <script>
+      // Scroll suave con inercia (Lenis). Solo wheel/desktop; touch queda nativo.
+      import Lenis from 'lenis';
+      if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        const lenis = new Lenis({ lerp: 0.12, smoothWheel: true, wheelMultiplier: 1 });
+        function raf(t) { lenis.raf(t); requestAnimationFrame(raf); }
+        requestAnimationFrame(raf);
+        // Anclas: scroll suave con offset del header fijo (h-16 = 64px)
+        document.querySelectorAll('a[href*="#"]').forEach((a) => {
+          const href = a.getAttribute('href') || '';
+          const idx = href.indexOf('#');
+          const hash = idx >= 0 ? href.slice(idx) : '';
+          if (!hash || hash === '#') return;
+          const target = document.querySelector(hash);
+          if (!target) return;
+          a.addEventListener('click', (e) => {
+            e.preventDefault();
+            lenis.scrollTo(target, { offset: -72 });
+            history.pushState(null, '', hash);
+          });
         });
       }
     </script>

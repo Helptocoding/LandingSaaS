@@ -24,11 +24,11 @@ const benefits = [
 >
   <div data-register-overlay class="absolute inset-0 bg-ink/60 backdrop-blur-sm"></div>
 
-  <div class="animate-fade-up relative flex w-full max-w-3xl max-h-[92vh] flex-col overflow-hidden rounded-2xl bg-white shadow-lift md:flex-row">
+  <div class="animate-fade-up relative flex w-full max-w-3xl max-h-[92vh] flex-col overflow-hidden rounded-2xl bg-surface shadow-lift md:flex-row">
     <button
       data-register-close
       aria-label="Cerrar"
-      class="absolute right-4 top-4 z-10 flex h-8 w-8 items-center justify-center rounded-lg text-ink-tertiary transition-colors hover:bg-muted hover:text-ink md:text-surface/70 md:hover:bg-white/10 md:hover:text-white"
+      class="absolute right-4 top-4 z-10 flex h-8 w-8 items-center justify-center rounded-lg text-ink-tertiary transition-colors hover:bg-muted hover:text-ink md:text-surface/70 md:hover:bg-surface/10 md:hover:text-white"
     >
       <X class="h-4 w-4" />
     </button>
@@ -41,7 +41,7 @@ const benefits = [
         aria-hidden="true"
       ></div>
       <div class="relative">
-        <span class="inline-flex items-center rounded-full bg-white/15 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.16em] text-white">
+        <span class="inline-flex items-center rounded-full bg-surface/15 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.16em] text-white">
           Acceso anticipado
         </span>
         <h2 class="mt-4 font-display text-2xl font-semibold leading-tight tracking-tight text-white">
@@ -85,7 +85,7 @@ const benefits = [
               <label for="reg-nombre" class="mb-1.5 block text-xs font-semibold text-ink">Nombre <span class="text-accent">*</span></label>
               <input
                 id="reg-nombre" name="nombre" type="text" required autocomplete="given-name"
-                class="w-full rounded-lg border border-line bg-white px-3.5 py-2.5 text-sm text-ink placeholder:text-ink-tertiary transition-colors focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand/20"
+                class="w-full rounded-lg border border-line bg-surface px-3.5 py-2.5 text-sm text-ink placeholder:text-ink-tertiary transition-colors focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand/20"
                 placeholder="Tu nombre"
               />
             </div>
@@ -93,7 +93,7 @@ const benefits = [
               <label for="reg-apellido" class="mb-1.5 block text-xs font-semibold text-ink">Apellido <span class="text-accent">*</span></label>
               <input
                 id="reg-apellido" name="apellido" type="text" required autocomplete="family-name"
-                class="w-full rounded-lg border border-line bg-white px-3.5 py-2.5 text-sm text-ink placeholder:text-ink-tertiary transition-colors focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand/20"
+                class="w-full rounded-lg border border-line bg-surface px-3.5 py-2.5 text-sm text-ink placeholder:text-ink-tertiary transition-colors focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand/20"
                 placeholder="Tu apellido"
               />
             </div>
@@ -103,7 +103,7 @@ const benefits = [
             <label for="reg-clinica" class="mb-1.5 block text-xs font-semibold text-ink">Nombre de la clínica <span class="text-accent">*</span></label>
             <input
               id="reg-clinica" name="clinica" type="text" required autocomplete="organization"
-              class="w-full rounded-lg border border-line bg-white px-3.5 py-2.5 text-sm text-ink placeholder:text-ink-tertiary transition-colors focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand/20"
+              class="w-full rounded-lg border border-line bg-surface px-3.5 py-2.5 text-sm text-ink placeholder:text-ink-tertiary transition-colors focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand/20"
               placeholder="Clínica Veterinaria…"
             />
           </div>
@@ -112,7 +112,7 @@ const benefits = [
             <label for="reg-email" class="mb-1.5 block text-xs font-semibold text-ink">Correo electrónico <span class="text-accent">*</span></label>
             <input
               id="reg-email" name="email" type="email" required autocomplete="email"
-              class="w-full rounded-lg border border-line bg-white px-3.5 py-2.5 text-sm text-ink placeholder:text-ink-tertiary transition-colors focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand/20"
+              class="w-full rounded-lg border border-line bg-surface px-3.5 py-2.5 text-sm text-ink placeholder:text-ink-tertiary transition-colors focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand/20"
               placeholder="tucorreo@clinica.com"
             />
             <p class="mt-1 text-[11px] text-ink-tertiary">Aquí recibirás tus credenciales de acceso.</p>
@@ -122,7 +122,7 @@ const benefits = [
             <label for="reg-telefono" class="mb-1.5 block text-xs font-semibold text-ink">Teléfono <span class="font-normal text-ink-tertiary">(opcional)</span></label>
             <input
               id="reg-telefono" name="telefono" type="tel" autocomplete="tel" inputmode="tel"
-              class="w-full rounded-lg border border-line bg-white px-3.5 py-2.5 text-sm text-ink placeholder:text-ink-tertiary transition-colors focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand/20"
+              class="w-full rounded-lg border border-line bg-surface px-3.5 py-2.5 text-sm text-ink placeholder:text-ink-tertiary transition-colors focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand/20"
               placeholder="55 1234 5678"
             />
           </div>

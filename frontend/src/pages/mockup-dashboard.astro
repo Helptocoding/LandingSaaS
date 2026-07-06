@@ -1,0 +1,91 @@
+---
+/**
+ * Página interna de CAPTURA — no forma parte del sitio de marketing.
+ *
+ * Renderiza MarketingDashboard aislado, a ancho fijo (1440px, altura definida
+ * por el contenido ≈ 980px, relación ~3:2), para tomar un screenshot en alta
+ * resolución e insertarlo dentro de la tablet del Hero.
+ * No enlazada desde ninguna parte y marcada noindex.
+ *
+ * Dos modos:
+ *   - Normal   → tarjeta con fondo/sombra, para revisar el diseño aislado.
+ *   - ?bare    → sin fondo, padding ni sombra: la captura queda recortada
+ *                exactamente a la tarjeta (fondo transparente) para componer.
+ *
+ * Captura sugerida (Chrome headless), a 2× ≈ 2880px de ancho.
+ * Para 4K real sube --force-device-scale-factor a ~2.7:
+ *   chrome --headless=new --hide-scrollbars --force-device-scale-factor=2.7 \
+ *     --default-background-color=00000000 \
+ *     --window-size=1480,1080 --screenshot=dashboard.png \
+ *     "http://localhost:3000/mockup-dashboard?bare"
+ */
+import '@fontsource/inter/latin-400.css';
+import '@fontsource/inter/latin-500.css';
+import '@fontsource/inter/latin-600.css';
+import '@fontsource/inter/latin-700.css';
+import '@fontsource/space-grotesk/latin-500.css';
+import '@fontsource/space-grotesk/latin-600.css';
+import '@fontsource/space-grotesk/latin-700.css';
+import '../styles/global.css';
+import MarketingDashboard from '../components/marketing/MarketingDashboard.astro';
+---
+
+<!doctype html>
+<html lang="es-MX">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=1520" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>SaaslyVet — Mockup dashboard (captura interna)</title>
+    <link rel="icon" type="image/x-icon" href="/iconosaaslyvet.ico" />
+  </head>
+  <body class="capture-body">
+    <div class="capture-stage">
+      <MarketingDashboard />
+    </div>
+
+    <script is:inline>
+      // ?bare → recorta a la tarjeta (sin fondo/sombra) para componer en la tablet.
+      if (location.search.includes('bare')) document.body.classList.add('bare');
+    </script>
+  </body>
+</html>
+
+<style>
+  /* Fondo neutro y suave para que la ventana del producto "flote" en la captura. */
+  .capture-body {
+    margin: 0;
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    padding: 40px;
+    background:
+      radial-gradient(60% 60% at 50% 0%, hsl(150 30% 95%) 0%, transparent 70%),
+      hsl(40 33% 98%);
+  }
+
+  /* Ancho fijo de captura; la altura la define el contenido (sin recortes ni huecos). */
+  .capture-stage {
+    width: 1440px;
+    border-radius: 26px;
+    box-shadow:
+      0 2px 8px hsl(165 25% 12% / 0.06),
+      0 30px 60px -20px hsl(160 30% 18% / 0.22);
+  }
+
+  /* Modo bare: la tarjeta ocupa toda la ventana, sin fondo ni sombra. */
+  .capture-body.bare {
+    padding: 0;
+    place-items: start;
+    background: transparent;
+  }
+  .capture-body.bare .capture-stage {
+    box-shadow: none;
+    border-radius: 0;
+  }
+  /* Rectángulo limpio (sin esquinas redondeadas) para rellenar la pantalla de la tablet. */
+  .capture-body.bare :global(.mkt-dash) {
+    border-radius: 0;
+    border: 0;
+  }
+</style>

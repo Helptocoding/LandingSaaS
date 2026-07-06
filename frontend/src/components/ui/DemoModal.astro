@@ -20,7 +20,7 @@ const users = [
 >
   <div data-demo-overlay class="absolute inset-0 bg-ink/60 backdrop-blur-sm"></div>
 
-  <div class="animate-fade-up relative w-full max-w-md rounded-2xl bg-white p-7 shadow-lift">
+  <div class="animate-fade-up relative w-full max-w-md rounded-2xl bg-surface p-7 shadow-lift">
     <button
       data-demo-close
       aria-label="Cerrar"
@@ -55,7 +55,7 @@ const users = [
       <p class="text-[11px] font-semibold uppercase tracking-[0.14em] text-ink-tertiary">Usuarios demo</p>
       <div class="mt-1.5 space-y-2">
         {users.map((u) => (
-          <div data-copy={u.email} class="flex items-center justify-between gap-3 rounded-lg border border-line bg-white px-3 py-2.5">
+          <div data-copy={u.email} class="flex items-center justify-between gap-3 rounded-lg border border-line bg-surface px-3 py-2.5">
             <div class="min-w-0">
               <p class="text-[11px] font-medium uppercase tracking-wider text-ink-tertiary">{u.role}</p>
               <code class="block truncate font-mono text-sm text-ink">{u.email}</code>

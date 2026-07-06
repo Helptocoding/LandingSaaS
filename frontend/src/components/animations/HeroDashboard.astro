@@ -1,101 +1,68 @@
 ---
-import Stethoscope from '../icons/Stethoscope.astro';
+import { Image } from 'astro:assets';
 import Check from '../icons/Check.astro';
-import ShieldCheck from '../icons/ShieldCheck.astro';
 import WhatsApp from '../icons/WhatsApp.astro';
+import CalendarCheck2 from '../icons/CalendarCheck2.astro';
+import MarketingDashboard from '../marketing/MarketingDashboard.astro';
+import tabletFrame from '../../assets/img/hero_tablet_frame.png';
 
-const citas = [
-  { hora: "10:30", nombre: "Toby", tipo: "Vacunación" },
-  { hora: "12:00", nombre: "Rocky", tipo: "Consulta" },
-  { hora: "14:30", nombre: "Mía", tipo: "Control" },
-];
+/*
+  Área visible de la pantalla dentro del WebP del marco (medida sobre el PNG
+  original 1536×1024, en % del propio marco). El MarketingDashboard se renderiza
+  detrás y se recorta exactamente a este rectángulo; el marco va encima.
+    left 20.83% · top 14.84% · width 64.78% · height 68.26%  (relación 995/699)
+*/
 ---
 
-<div id="hero-control" class="relative mx-auto w-full max-w-[460px]">
+<div id="hero-control" class="hero-mockup relative mx-auto w-full max-w-[560px] lg:max-w-[620px] xl:max-w-[680px]">
 
-  <!-- Ambient glow -->
-  <div class="pointer-events-none absolute -inset-8 -z-10 rounded-[3rem] bg-brand/8 blur-3xl opacity-60" />
-
-  <!-- ── Main panel ── -->
-  <div class="relative z-10 overflow-hidden rounded-2xl border border-line bg-white shadow-lift">
-
-    <!-- Header -->
-    <div class="flex items-center justify-between border-b border-line bg-muted/25 px-5 py-3">
-      <p class="text-[10px] font-semibold uppercase tracking-widest text-ink-tertiary">Hoy en tu clínica</p>
-      <div class="flex items-center gap-1.5">
-        <span class="relative flex h-2 w-2">
-          <span class="absolute inline-flex h-full w-full rounded-full bg-success opacity-60 hcc-ping" />
-          <span class="relative inline-flex h-2 w-2 rounded-full bg-success" />
-        </span>
-        <span class="text-[11px] text-ink-secondary">En línea</span>
-      </div>
-    </div>
-
-    <!-- Active patient -->
-    <div class="border-b border-line/40 px-5 py-4">
-      <p class="mb-3 text-[10px] font-semibold uppercase tracking-widest text-ink-tertiary">Paciente activo</p>
-      <div class="flex items-center gap-3">
-        <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-brand/10 text-brand overflow-hidden">
-          <img src="/iconosaaslyvet.ico" alt="" class="h-7 w-7 scale-[2]" />
-        </div>
-        <div class="flex-1 min-w-0">
-          <p class="text-sm font-semibold text-ink leading-tight">Luna · Golden Retriever</p>
-          <div class="mt-0.5 flex items-center gap-1 text-xs text-ink-secondary">
-            <Stethoscope class="h-3 w-3 shrink-0" />
-            <span>Consulta general · Dr. García</span>
-          </div>
-        </div>
-        <span class="shrink-0 rounded-full bg-success/10 px-2.5 py-1 text-[10px] font-semibold tracking-wide text-success">
-          En curso
-        </span>
-      </div>
-    </div>
-
-    <!-- Upcoming appointments -->
-    <div class="border-b border-line/40 px-5 py-4">
-      <p class="mb-2.5 text-[10px] font-semibold uppercase tracking-widest text-ink-tertiary">Próximas citas</p>
-      <div class="space-y-0.5">
-        {citas.map((c, i) => (
-          <div
-            class="hcc-appt-row flex items-center gap-3 rounded-lg px-2 py-2.5"
-            style={`animation-delay: ${0.85 + i * 0.12}s`}
-          >
-            <span class="w-10 shrink-0 font-mono text-xs text-ink-tertiary">{c.hora}</span>
-            <div class="h-4 w-0.5 shrink-0 rounded-full bg-brand/30" />
-            <p class="flex-1 text-sm font-medium text-ink">{c.nombre}</p>
-            <span class="text-xs text-ink-secondary">{c.tipo}</span>
-            <span class="h-1.5 w-1.5 shrink-0 rounded-full bg-brand/40" />
-          </div>
-        ))}
-      </div>
-    </div>
-
-    <!-- Income + progress -->
-    <div class="px-5 py-4">
-      <div class="flex items-baseline justify-between">
-        <p class="text-sm text-ink-secondary">Ingresos del día</p>
-        <p class="font-display text-xl font-semibold text-ink" id="hcc-income">$0</p>
-      </div>
-      <div class="mt-2.5 h-1.5 overflow-hidden rounded-full bg-line/60">
-        <div id="hcc-progress" class="h-full w-0 rounded-full bg-brand" style="transition: width 1.1s cubic-bezier(0.16,1,0.3,1)" />
-      </div>
-      <p class="mt-1.5 text-[11px] text-ink-tertiary">4 de 6 citas completadas hoy</p>
-    </div>
-
+  <!-- ── Iluminación ambiental: todo por CSS, el WebP se mantiene transparente ── -->
+  <div class="hero-ambient pointer-events-none absolute inset-0 -z-10" aria-hidden="true">
+    <!-- Aurora: luz ambiental viva (blobs de marca que giran muy lento, difuminados) -->
+    <span class="hero-aurora"></span>
+    <!-- Anillo/halo sutil para dar foco al dispositivo -->
+    <span class="hero-halo"></span>
+    <span class="hero-glow hero-glow--primary"></span>
+    <span class="hero-glow hero-glow--accent"></span>
+    <span class="hero-glow hero-glow--soft"></span>
+    <span class="hero-glow hero-ground"></span>
   </div>
 
-  <!--
-    Signals anchored at panel corners, floating AWAY from the panel.
-    WA: top-right corner → floats up-right
-    Sync: bottom-left corner → floats down-left
-    Both stay within the hero section bounds.
-  -->
+  <!-- ── Tablet: dashboard vivo (HTML) + marco (WebP) + reflejo (CSS) ── -->
+  <div class="hero-tablet__float">
+    <div class="hero-tablet">
 
-  <!-- WA — top-right corner, floats up -->
+      <!-- Pantalla: el componente real, recortado al área visible -->
+      <div class="hero-tablet__screen">
+        <div class="hero-tablet__scale">
+          <MarketingDashboard variant="hero" animated={false} compact={true} />
+        </div>
+      </div>
+
+      <!-- Marco físico encima (bisel, cámara, manos). Pantalla transparente. -->
+      <Image
+        src={tabletFrame}
+        alt="Tablet mostrando el panel de SaaSlyVet con la agenda, ingresos y pacientes de una clínica veterinaria"
+        widths={[420, 620, 840, 1200, 1536]}
+        sizes="(max-width: 1023px) 88vw, 620px"
+        format="webp"
+        quality={82}
+        loading="eager"
+        fetchpriority="high"
+        decoding="async"
+        class="hero-tablet__frame"
+        draggable="false"
+      />
+    </div>
+  </div>
+
+  <!-- ── Tarjetas flotantes: WhatsApp + Agenda ── -->
+
+  <!-- WhatsApp (wsp) — esquina superior derecha, flota hacia arriba -->
   <div
     id="hcc-signal-wa"
-    class="hcc-signal pointer-events-none absolute -top-5 right-4 z-20
-           hidden md:flex items-center gap-2 rounded-full border border-line bg-white px-3 py-2 shadow-soft"
+    class="hcc-signal pointer-events-none absolute right-1 top-3 z-20 md:right-0 md:-top-7
+           hidden md:flex items-center gap-2 rounded-full border border-line bg-surface/95 px-3 py-2 backdrop-blur-sm"
   >
     <WhatsApp class="h-3.5 w-3.5 shrink-0 text-[#25D366]" />
     <span class="whitespace-nowrap text-[11px] font-medium text-ink">Recordatorio enviado</span>
@@ -108,14 +75,14 @@ const citas = [
     </span>
   </div>
 
-  <!-- Sync — bottom-left corner, floats down -->
+  <!-- Agenda — esquina inferior izquierda, flota hacia abajo -->
   <div
-    id="hcc-signal-sync"
-    class="hcc-signal pointer-events-none absolute -bottom-5 left-4 z-20
-           hidden md:flex items-center gap-2 rounded-full border border-line bg-white px-3 py-2 shadow-soft"
+    id="hcc-signal-agenda"
+    class="hcc-signal pointer-events-none absolute bottom-6 left-1 z-20 md:left-0 md:-bottom-7
+           hidden md:flex items-center gap-2 rounded-full border border-line bg-surface/95 px-3 py-2 backdrop-blur-sm"
   >
-    <ShieldCheck class="h-3.5 w-3.5 shrink-0 text-brand" />
-    <span class="whitespace-nowrap text-[11px] font-medium text-ink">Historial actualizado</span>
+    <CalendarCheck2 class="h-3.5 w-3.5 shrink-0 text-brand" />
+    <span class="whitespace-nowrap text-[11px] font-medium text-ink">Nueva cita agendada</span>
     <span class="flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-brand text-white">
       <Check class="h-2.5 w-2.5" />
     </span>
@@ -124,61 +91,212 @@ const citas = [
 </div>
 
 <style>
-  /* ── Row entrance ── */
-  .hcc-appt-row {
-    opacity: 0;
-    animation: hcc-row-enter 0.4s ease forwards;
-  }
-  @keyframes hcc-row-enter {
-    from { opacity: 0; transform: translateX(-6px); }
-    to   { opacity: 1; transform: translateX(0); }
+  /* ══════════════ Iluminación ambiental (CSS, fuera del WebP) ══════════════ */
+  .hero-glow {
+    position: absolute;
+    display: block;
+    border-radius: 50%;
+    filter: blur(8px);
   }
 
-  /* ── Signals: entrance pop ── */
+  /* ── Aurora: blobs de marca que orbitan muy lento tras el dispositivo ── */
+  .hero-aurora {
+    position: absolute;
+    inset: -28%;
+    border-radius: 50%;
+    background:
+      radial-gradient(38% 42% at 30% 34%, hsl(160 52% 42% / 0.55) 0%, transparent 60%),
+      radial-gradient(34% 38% at 74% 30%, hsl(16 85% 62% / 0.34) 0%, transparent 60%),
+      radial-gradient(44% 46% at 60% 76%, hsl(158 50% 50% / 0.48) 0%, transparent 62%),
+      radial-gradient(30% 32% at 22% 72%, hsl(174 60% 46% / 0.32) 0%, transparent 60%);
+    filter: blur(44px);
+    opacity: 1;
+    will-change: transform;
+    animation: hero-aurora-spin 26s linear infinite;
+  }
+
+  /* ── Halo: anillo de luz suave que enfoca el dispositivo ── */
+  .hero-halo {
+    position: absolute;
+    inset: 2% 6%;
+    border-radius: 50%;
+    background: radial-gradient(closest-side,
+      transparent 62%, hsl(160 40% 40% / 0.16) 78%, transparent 92%);
+    filter: blur(14px);
+    animation: hero-halo-pulse 8s ease-in-out infinite;
+  }
+
+  /* Glow principal — verde marca, amplio y elegante, domina la escena. */
+  .hero-glow--primary {
+    inset: -18% -14% -10% -14%;
+    background: radial-gradient(54% 50% at 50% 46%,
+      hsl(160 38% 30% / 0.42) 0%, hsl(160 38% 34% / 0.18) 44%, transparent 72%);
+    filter: blur(34px);
+    animation: hero-glow-pulse 8s ease-in-out infinite;
+  }
+
+  /* Secundario cálido (terracota) — muy sutil, aporta profundidad. */
+  .hero-glow--accent {
+    inset: 12% -14% 22% 44%;
+    background: radial-gradient(50% 50% at 62% 50%, hsl(16 75% 60% / 0.10) 0%, transparent 68%);
+    filter: blur(32px);
+  }
+
+  /* Secundario verde claro — rebote inferior, integra con el fondo del hero. */
+  .hero-glow--soft {
+    inset: 40% 22% -12% 18%;
+    background: radial-gradient(55% 55% at 45% 70%, hsl(158 40% 55% / 0.16) 0%, transparent 70%);
+    filter: blur(28px);
+  }
+
+  /* Sombra de contacto anclada bajo la tablet (no flota → parallax con el mockup). */
+  .hero-ground {
+    inset: auto 12% -8% 12%;
+    height: 24%;
+    background: radial-gradient(50% 50% at 50% 50%, hsl(165 25% 12% / 0.22) 0%, transparent 72%);
+    filter: blur(20px);
+  }
+
+  /* ══════════════ Tablet ══════════════ */
+  .hero-tablet__float {
+    position: relative;
+    will-change: transform;
+    animation: hero-tablet-float 7s ease-in-out infinite;
+  }
+
+  .hero-tablet {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1536 / 1024;
+  }
+
+  /* Pantalla: recorte EXACTO del área visible del marco. */
+  .hero-tablet__screen {
+    position: absolute;
+    top: 14.84%;
+    left: 20.83%;
+    width: 64.78%;
+    height: 68.26%;
+    overflow: hidden;
+    border-radius: 0.7cqw; /* radio sutil, alineado al hueco de pantalla del marco */
+    z-index: 0;
+    /* Contenedor de consulta: permite escalar el panel fijo (1440px) por CSS puro. */
+    container-type: size;
+    background: hsl(40 33% 98%); /* respaldo por si el panel tarda un frame */
+  }
+
+  /* Escala proporcional del panel fijo (1440px de ancho) al ancho de la pantalla.
+     100cqw / 1440px → factor sin unidades. Mantiene la relación de aspecto y la
+     nitidez en Retina (el DOM se rasteriza al tamaño final). */
+  .hero-tablet__scale {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 1440px;
+    transform-origin: top left;
+    transform: scale(calc(100cqw / 1440px));
+  }
+
+  /* Reflejo de cristal — sutil, diagonal, por encima del panel y bajo el marco. */
+  .hero-tablet__screen::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    pointer-events: none;
+    background: linear-gradient(
+      118deg,
+      hsl(0 0% 100% / 0.14) 0%,
+      hsl(0 0% 100% / 0.05) 12%,
+      transparent 34%,
+      transparent 100%
+    );
+  }
+
+  /* Marco físico encima del panel; sombras físicas apiladas (silueta manos+tablet). */
+  .hero-tablet__frame {
+    position: absolute;
+    inset: 0;
+    z-index: 10;
+    display: block;
+    width: 100%;
+    height: 100%;
+    filter:
+      drop-shadow(0 7px 12px hsl(165 25% 12% / 0.12))
+      drop-shadow(0 20px 36px hsl(160 30% 18% / 0.18))
+      drop-shadow(0 46px 84px hsl(160 32% 14% / 0.20));
+  }
+
+  @keyframes hero-tablet-float {
+    0%, 100% { transform: translateY(0); }
+    50%      { transform: translateY(-7px); }
+  }
+
+  @keyframes hero-aurora-spin {
+    to { transform: rotate(360deg); }
+  }
+  @keyframes hero-halo-pulse {
+    0%, 100% { opacity: 0.55; transform: scale(0.98); }
+    50%      { opacity: 1;    transform: scale(1.03); }
+  }
+  @keyframes hero-glow-pulse {
+    0%, 100% { opacity: 0.85; }
+    50%      { opacity: 1; }
+  }
+
+  /* ══════════════ Tarjetas flotantes ══════════════ */
   .hcc-signal {
     opacity: 0;
     transform: scale(0.85) translateY(6px);
     transition: opacity 0.4s ease, transform 0.45s cubic-bezier(0.34,1.56,0.64,1);
+    box-shadow:
+      0 4px 10px hsl(165 25% 12% / 0.08),
+      0 12px 28px hsl(160 30% 18% / 0.12);
   }
   .hcc-signal.hcc-visible {
     opacity: 1;
     transform: scale(1) translateY(0);
   }
 
-  /* ── Signals: opposite directions, different speeds, large delay gap ── */
-  /* WA floats UP — 2.4s */
   #hcc-signal-wa.hcc-visible {
     animation: hcc-float-wa 2.4s ease-in-out 0.5s infinite;
   }
-  /* Sync floats DOWN — 3.2s, starts 1.9s later so never in phase with WA */
-  #hcc-signal-sync.hcc-visible {
-    animation: hcc-float-sync 3.2s ease-in-out 1.9s infinite;
+  #hcc-signal-agenda.hcc-visible {
+    animation: hcc-float-agenda 3.2s ease-in-out 1.9s infinite;
   }
 
   @keyframes hcc-float-wa {
-    0%, 100% { transform: translateY(0px); }
-    50%      { transform: translateY(-14px); }
+    0%, 100% { transform: translateY(0); }
+    50%      { transform: translateY(-12px); }
+  }
+  @keyframes hcc-float-agenda {
+    0%, 100% { transform: translateY(0); }
+    50%      { transform: translateY(10px); }
   }
 
-  @keyframes hcc-float-sync {
-    0%, 100% { transform: translateY(0px); }
-    50%      { transform: translateY(12px); }
-  }
-
-  /* Pulse dot */
-  .hcc-ping {
-    animation: hcc-ping 2s cubic-bezier(0,0,0.2,1) infinite;
-  }
-  @keyframes hcc-ping {
-    75%, 100% { transform: scale(2.2); opacity: 0; }
+  /* ══════════════ Responsive: bajar intensidad, mantener composición ══════════════ */
+  @media (max-width: 1023px) {
+    .hero-aurora { opacity: 0.55; filter: blur(40px); animation-duration: 40s; }
+    .hero-halo   { display: none; }
+    .hero-glow--primary { filter: blur(20px); background: radial-gradient(52% 48% at 50% 46%, hsl(160 35% 28% / 0.20) 0%, transparent 72%); animation: none; }
+    .hero-glow--accent  { opacity: 0.7; }
+    .hero-glow--soft    { opacity: 0.7; }
+    .hero-ground        { opacity: 0.7; }
+    .hero-tablet__frame {
+      filter:
+        drop-shadow(0 5px 10px hsl(165 25% 12% / 0.10))
+        drop-shadow(0 16px 34px hsl(160 30% 18% / 0.14));
+    }
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .hcc-appt-row { opacity: 1; animation: none; }
+    .hero-tablet__float,
+    .hero-aurora,
+    .hero-halo,
+    .hero-glow--primary { animation: none; }
     .hcc-signal   { opacity: 1; transform: none; transition: none; }
     #hcc-signal-wa.hcc-visible,
-    #hcc-signal-sync.hcc-visible { animation: none; }
-    .hcc-ping     { animation: none; }
+    #hcc-signal-agenda.hcc-visible { animation: none; }
   }
 </style>
 
@@ -186,50 +304,20 @@ const citas = [
 (function () {
   var pref = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  var incomeEl   = document.getElementById('hcc-income');
-  var progressEl = document.getElementById('hcc-progress');
-  var waEl       = document.getElementById('hcc-signal-wa');
-  var syncEl     = document.getElementById('hcc-signal-sync');
-  var waCheck    = document.getElementById('hcc-wa-check');
-
-  function easeOut(t) { return 1 - Math.pow(1 - t, 3); }
-
-  function countUp(el, target, duration) {
-    if (!el) return;
-    if (pref) { el.textContent = '$' + target.toLocaleString('en-US'); return; }
-    var start = performance.now();
-    function step(now) {
-      var p = Math.min((now - start) / duration, 1);
-      el.textContent = '$' + Math.round(easeOut(p) * target).toLocaleString('en-US');
-      if (p < 1) requestAnimationFrame(step);
-    }
-    requestAnimationFrame(step);
-  }
+  var waEl    = document.getElementById('hcc-signal-wa');
+  var agEl    = document.getElementById('hcc-signal-agenda');
+  var waCheck = document.getElementById('hcc-wa-check');
 
   function activate() {
-    countUp(incomeEl, 8450, 1400);
-
-    setTimeout(function () {
-      if (progressEl) progressEl.style.width = '66.7%';
-    }, pref ? 0 : 150);
-
-    setTimeout(function () {
-      if (waEl) waEl.classList.add('hcc-visible');
-    }, pref ? 0 : 900);
-
-    setTimeout(function () {
-      if (syncEl) syncEl.classList.add('hcc-visible');
-    }, pref ? 0 : 1200);
-
-    setTimeout(function () {
-      if (waCheck) waCheck.style.transform = 'scale(1)';
-    }, pref ? 0 : 1500);
+    setTimeout(function () { if (waEl) waEl.classList.add('hcc-visible'); }, pref ? 0 : 500);
+    setTimeout(function () { if (agEl) agEl.classList.add('hcc-visible'); }, pref ? 0 : 800);
+    setTimeout(function () { if (waCheck) waCheck.style.transform = 'scale(1)'; }, pref ? 0 : 1100);
   }
 
   if (pref) { activate(); return; }
 
-  var panel = document.getElementById('hero-control');
-  if (!panel) return;
+  var anchor = document.getElementById('hero-control');
+  if (!anchor) return;
 
   var obs = new IntersectionObserver(function (entries) {
     if (entries[0].isIntersecting) {
@@ -237,6 +325,6 @@ const citas = [
       activate();
     }
   }, { threshold: 0.2 });
-  obs.observe(panel);
+  obs.observe(anchor);
 })();
 </script>
