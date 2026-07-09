@@ -1,0 +1,273 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../../../layouts/Base.astro';
+import JsonLD from '../../../components/seo/JsonLD.astro';
+import Header from '../../../components/sections/Header.astro';
+import Footer from '../../../components/sections/Footer.astro';
+import Breadcrumbs from '../../../components/blog/Breadcrumbs.astro';
+import CategoryNav from '../../../components/blog/CategoryNav.astro';
+import CategoryIcon from '../../../components/blog/CategoryIcon.astro';
+import ArticleCard from '../../../components/blog/ArticleCard.astro';
+import BlogCTA from '../../../components/blog/BlogCTA.astro';
+import Pagination from '../../../components/blog/Pagination.astro';
+import Check from '../../../components/icons/Check.astro';
+import { CATEGORIES, POSTS_PER_PAGE, type PillarCategory } from '../../../data/blog';
+
+export async function getStaticPaths() {
+  return CATEGORIES.map((category) => ({
+    params: { category: category.slug },
+    props: { category },
+  }));
+}
+
+interface Props {
+  category: PillarCategory;
+}
+const { category } = Astro.props as Props;
+
+const published = await getCollection('blog', ({ data }) =>
+  import.meta.env.PROD ? !data.draft : true
+);
+const publishedSlugs = new Set(published.map((p) => p.id));
+
+const posts = published
+  .filter((p) => p.data.category === category.slug)
+  .sort((a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf());
+
+// Página 1 del clúster; el resto en /blog/categoria/[category]/pagina/[page].
+const pageItems = posts.slice(0, POSTS_PER_PAGE);
+const totalPages = Math.max(1, Math.ceil(posts.length / POSTS_PER_PAGE));
+
+const siteUrl = Astro.site?.toString().replace(/\/$/, '') ?? 'https://www.saaslyvet.com';
+const pageUrl = `${siteUrl}/blog/categoria/${category.slug}`;
+
+const collectionSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  name: category.title,
+  description: category.description,
+  url: pageUrl,
+  inLanguage: 'es-MX',
+  isPartOf: { '@type': 'Blog', name: 'Blog de SaaslyVet', url: `${siteUrl}/blog` },
+};
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Inicio', item: `${siteUrl}/` },
+    { '@type': 'ListItem', position: 2, name: 'Blog', item: `${siteUrl}/blog` },
+    { '@type': 'ListItem', position: 3, name: category.name, item: pageUrl },
+  ],
+};
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: category.faq.map((f) => ({
+    '@type': 'Question',
+    name: f.q,
+    acceptedAnswer: { '@type': 'Answer', text: f.a },
+  })),
+};
+---
+
+<Base
+  title={`${category.title} | SaaslyVet`}
+  description={category.description}
+  canonical={pageUrl}
+  ogType="website"
+  jsonld={collectionSchema}
+>
+  <Fragment slot="head">
+    <JsonLD schema={breadcrumbSchema} />
+    <JsonLD schema={faqSchema} />
+    <link rel="alternate" type="application/rss+xml" title="Blog de SaaslyVet" href="/blog/rss.xml" />
+  </Fragment>
+
+  <Header />
+
+  <main id="main" class="pt-16">
+    <!-- Hero de la hub -->
+    <section class="border-b border-line bg-gradient-hero">
+      <div class="container-wide py-12 lg:py-16">
+        <Breadcrumbs
+          items={[
+            { label: 'Inicio', href: '/' },
+            { label: 'Blog', href: '/blog/' },
+            { label: category.name },
+          ]}
+        />
+
+        <div class="mt-8 flex items-start gap-5">
+          <span class="hidden h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-brand/10 text-brand sm:inline-flex">
+            <CategoryIcon name={category.icon} class="h-7 w-7" />
+          </span>
+          <div class="max-w-3xl">
+            <p class="eyebrow">{category.eyebrow}</p>
+            <h1 class="mt-3 font-display text-4xl font-semibold tracking-tight text-ink text-balance lg:text-5xl">
+              {category.title}
+            </h1>
+            <p class="mt-5 text-lg leading-relaxed text-ink-secondary">{category.intro}</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="container-wide py-12 lg:py-16">
+      <div class="mb-10">
+        <CategoryNav active={category.slug} />
+      </div>
+
+      <div class="mx-auto max-w-3xl">
+        <!-- ¿Qué es…? -->
+        <section aria-labelledby="que-es">
+          <h2 id="que-es" class="font-display text-2xl font-semibold tracking-tight text-ink">
+            {`¿Qué es ${category.name.toLowerCase()}?`}
+          </h2>
+          <div class="prose-pillar mt-4">
+            {category.whatIs.map((p) => <p>{p}</p>)}
+          </div>
+
+          {
+            category.commercialAnchor && (
+              <p class="mt-5 rounded-xl border border-brand/20 bg-brand/5 p-4 text-sm text-ink-secondary">
+                ¿Buscas el producto y no la teoría? Conoce el{' '}
+                <a
+                  href={category.commercialAnchor.href}
+                  class="font-medium text-brand underline underline-offset-2 hover:text-brand-hover"
+                >
+                  {category.commercialAnchor.text}
+                </a>{' '}
+                de SaaslyVet.
+              </p>
+            )
+          }
+        </section>
+
+        <!-- Problemas comunes -->
+        <section class="mt-12" aria-labelledby="problemas">
+          <h2 id="problemas" class="font-display text-2xl font-semibold tracking-tight text-ink">
+            Problemas comunes
+          </h2>
+          <ul class="mt-5 space-y-3">
+            {
+              category.problems.map((p) => (
+                <li class="flex gap-3 text-ink-secondary">
+                  <span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-accent" aria-hidden="true" />
+                  <span class="leading-relaxed">{p}</span>
+                </li>
+              ))
+            }
+          </ul>
+        </section>
+
+        <!-- Cómo solucionarlos (enlaza a artículos del clúster) -->
+        <section class="mt-12" aria-labelledby="soluciones">
+          <h2 id="soluciones" class="font-display text-2xl font-semibold tracking-tight text-ink">
+            Cómo solucionarlos
+          </h2>
+          <ul class="mt-5 space-y-3">
+            {
+              category.solutions.map((s) => {
+                const linked = s.slug && publishedSlugs.has(s.slug);
+                return (
+                  <li class="flex gap-3">
+                    <Check class="mt-0.5 h-5 w-5 shrink-0 text-brand" />
+                    {linked ? (
+                      <a
+                        href={`/blog/${s.slug}/`}
+                        class="font-medium text-brand underline underline-offset-2 hover:text-brand-hover"
+                      >
+                        {s.text}
+                      </a>
+                    ) : (
+                      <span class="leading-relaxed text-ink-secondary">{s.text}</span>
+                    )}
+                  </li>
+                );
+              })
+            }
+          </ul>
+        </section>
+      </div>
+
+      <!-- Cluster de artículos -->
+      <section class="mt-14" aria-labelledby="articulos">
+        <h2 id="articulos" class="mb-6 font-display text-2xl font-semibold tracking-tight text-ink">
+          Artículos de {category.name}
+        </h2>
+        {
+          pageItems.length > 0 ? (
+            <>
+              <div class="grid gap-px overflow-hidden rounded-2xl bg-line ring-1 ring-line sm:grid-cols-2 lg:grid-cols-3">
+                {pageItems.map((p, i) => (
+                  <ArticleCard post={p} index={i} />
+                ))}
+              </div>
+              <Pagination
+                currentPage={1}
+                totalPages={totalPages}
+                basePath={`/blog/categoria/${category.slug}`}
+              />
+            </>
+          ) : (
+            <p class="rounded-xl border border-line bg-muted/30 p-6 text-ink-secondary">
+              Estamos preparando los primeros artículos de esta sección. Mientras tanto, explora el
+              resto del{' '}
+              <a href="/blog/" class="font-medium text-brand underline underline-offset-2 hover:text-brand-hover">
+                blog
+              </a>
+              .
+            </p>
+          )
+        }
+      </section>
+
+      <!-- FAQ de la categoría -->
+      <section class="mx-auto mt-14 max-w-3xl" aria-labelledby="faq-cat">
+        <h2 id="faq-cat" class="font-display text-2xl font-semibold tracking-tight text-ink">
+          Preguntas frecuentes
+        </h2>
+        <div class="mt-6 divide-y divide-line border-y border-line">
+          {
+            category.faq.map((f) => (
+              <details class="group py-4">
+                <summary class="flex cursor-pointer list-none items-center justify-between gap-4 font-medium text-ink">
+                  {f.q}
+                  <span class="text-ink-tertiary transition-transform group-open:rotate-45">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14"/><path d="M5 12h14"/></svg>
+                  </span>
+                </summary>
+                <p class="mt-3 leading-relaxed text-ink-secondary">{f.a}</p>
+              </details>
+            ))
+          }
+        </div>
+      </section>
+
+      <!-- CTA contextual del clúster -->
+      <div class="mt-14">
+        <BlogCTA
+          kind={category.defaultCta.kind}
+          title={category.defaultCta.title}
+          text={category.defaultCta.text}
+          label={category.defaultCta.label}
+        />
+      </div>
+    </div>
+  </main>
+
+  <Footer />
+</Base>
+
+<style is:global>
+  .prose-pillar > p {
+    font-size: 1.0625rem;
+    line-height: 1.75;
+    color: hsl(var(--ink-secondary));
+  }
+  .prose-pillar > p + p {
+    margin-top: 1.25em;
+  }
+</style>

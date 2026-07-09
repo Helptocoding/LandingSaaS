@@ -1,0 +1,98 @@
+---
+// Páginas 2..N del clúster de una categoría. La página 1 (con contenido pilar) vive
+// en /blog/categoria/[category].
+import { getCollection } from 'astro:content';
+import Base from '../../../../../layouts/Base.astro';
+import Header from '../../../../../components/sections/Header.astro';
+import Footer from '../../../../../components/sections/Footer.astro';
+import Breadcrumbs from '../../../../../components/blog/Breadcrumbs.astro';
+import CategoryNav from '../../../../../components/blog/CategoryNav.astro';
+import ArticleCard from '../../../../../components/blog/ArticleCard.astro';
+import Pagination from '../../../../../components/blog/Pagination.astro';
+import { CATEGORIES, POSTS_PER_PAGE, getCategory } from '../../../../../data/blog';
+
+export async function getStaticPaths() {
+  const published = await getCollection('blog', ({ data }) =>
+    import.meta.env.PROD ? !data.draft : true
+  );
+
+  const paths = [];
+  for (const category of CATEGORIES) {
+    const posts = published
+      .filter((p) => p.data.category === category.slug)
+      .sort((a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf());
+
+    const totalPages = Math.max(1, Math.ceil(posts.length / POSTS_PER_PAGE));
+    for (let n = 2; n <= totalPages; n++) {
+      paths.push({
+        params: { category: category.slug, page: String(n) },
+        props: {
+          categorySlug: category.slug,
+          page: n,
+          totalPages,
+          items: posts.slice((n - 1) * POSTS_PER_PAGE, n * POSTS_PER_PAGE),
+        },
+      });
+    }
+  }
+  return paths;
+}
+
+const { categorySlug, page, totalPages, items } = Astro.props as {
+  categorySlug: string;
+  page: number;
+  totalPages: number;
+  items: Awaited<ReturnType<typeof getCollection<'blog'>>>;
+};
+
+const category = getCategory(categorySlug)!;
+const siteUrl = Astro.site?.toString().replace(/\/$/, '') ?? 'https://www.saaslyvet.com';
+const pageUrl = `${siteUrl}/blog/categoria/${category.slug}/pagina/${page}/`;
+---
+
+<Base
+  title={`${category.name} — Página ${page} | SaaslyVet`}
+  description={category.description}
+  canonical={pageUrl}
+  ogType="website"
+>
+  <Fragment slot="head">
+    <link rel="alternate" type="application/rss+xml" title="Blog de SaaslyVet" href="/blog/rss.xml" />
+  </Fragment>
+
+  <Header />
+
+  <main id="main" class="pt-16">
+    <section class="border-b border-line bg-gradient-hero">
+      <div class="container-wide py-10 lg:py-14">
+        <Breadcrumbs
+          items={[
+            { label: 'Inicio', href: '/' },
+            { label: 'Blog', href: '/blog/' },
+            { label: category.name, href: `/blog/categoria/${category.slug}/` },
+            { label: `Página ${page}` },
+          ]}
+        />
+        <h1 class="mt-6 font-display text-3xl font-semibold tracking-tight text-ink lg:text-4xl">
+          {category.name} — página {page}
+        </h1>
+      </div>
+    </section>
+
+    <div class="container-wide py-12 lg:py-16">
+      <div class="mb-10">
+        <CategoryNav active={category.slug} />
+      </div>
+
+      <div class="grid gap-px overflow-hidden rounded-2xl bg-line ring-1 ring-line sm:grid-cols-2 lg:grid-cols-3">
+        {items.map((p, i) => (
+          <ArticleCard post={p} index={i} />
+        ))}
+      </div>
+
+      <Pagination currentPage={page} totalPages={totalPages} basePath={`/blog/categoria/${category.slug}`} />
+    </div>
+  </main>
+
+  <Footer />
+</Base>

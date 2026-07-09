@@ -1,0 +1,27 @@
+---
+// Mapea el string `icon` de CATEGORIES (src/data/blog.ts) a su componente SVG.
+import Stethoscope from '../icons/Stethoscope.astro';
+import CalendarCheck2 from '../icons/CalendarCheck2.astro';
+import Sparkles from '../icons/Sparkles.astro';
+import CreditCard from '../icons/CreditCard.astro';
+import BarChart3 from '../icons/BarChart3.astro';
+import TrendingUp from '../icons/TrendingUp.astro';
+
+const map: Record<string, any> = {
+  Stethoscope,
+  CalendarCheck2,
+  Sparkles,
+  CreditCard,
+  BarChart3,
+  TrendingUp,
+};
+
+export interface Props {
+  name: string;
+  class?: string;
+}
+const { name, class: cls = 'h-5 w-5' } = Astro.props;
+const Icon = map[name] ?? Stethoscope;
+---
+
+<Icon class={cls} />

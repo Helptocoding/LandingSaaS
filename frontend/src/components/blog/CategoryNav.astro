@@ -1,0 +1,29 @@
+---
+// Navegación de clústeres. En /blog resalta "Todos"; en cada pilar resalta su chip.
+import { CATEGORIES } from '../../data/blog';
+
+export interface Props {
+  active?: string; // slug de categoría activa; undefined = /blog
+}
+const { active } = Astro.props;
+
+const base =
+  'inline-flex items-center rounded-full border px-3.5 py-1.5 text-sm font-medium transition-colors';
+const on = 'border-ink bg-ink text-surface';
+const off = 'border-line text-ink-secondary hover:border-ink/30 hover:text-ink';
+---
+
+<nav aria-label="Categorías del blog" class="flex flex-wrap gap-2">
+  <a href="/blog/" class={`${base} ${!active ? on : off}`}>Todos</a>
+  {
+    CATEGORIES.map((c) => (
+      <a
+        href={`/blog/categoria/${c.slug}/`}
+        class={`${base} ${active === c.slug ? on : off}`}
+        aria-current={active === c.slug ? 'page' : undefined}
+      >
+        {c.name}
+      </a>
+    ))
+  }
+</nav>

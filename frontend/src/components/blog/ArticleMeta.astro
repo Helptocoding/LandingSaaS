@@ -1,0 +1,38 @@
+---
+import Calendar from '../icons/Calendar.astro';
+import Clock from '../icons/Clock.astro';
+import { formatDate, isoDate } from '../../data/blog';
+
+export interface Props {
+  author: string;
+  authorHref?: string;
+  date: Date;
+  updated?: Date;
+  readingTime: number;
+}
+const { author, authorHref, date, updated, readingTime } = Astro.props;
+---
+
+<div class="flex flex-wrap items-center gap-x-4 gap-y-1.5 text-sm text-ink-tertiary">
+  {authorHref ? (
+    <a href={authorHref} class="font-medium text-ink-secondary transition-colors hover:text-ink">{author}</a>
+  ) : (
+    <span class="font-medium text-ink-secondary">{author}</span>
+  )}
+  <span aria-hidden="true" class="text-line">·</span>
+  <span class="inline-flex items-center gap-1.5">
+    <Calendar class="h-3.5 w-3.5" />
+    <time datetime={isoDate(date)}>{formatDate(date)}</time>
+  </span>
+  <span aria-hidden="true" class="text-line">·</span>
+  <span class="inline-flex items-center gap-1.5">
+    <Clock class="h-3.5 w-3.5" />
+    {readingTime} min de lectura
+  </span>
+  {updated && (
+    <>
+      <span aria-hidden="true" class="text-line">·</span>
+      <span>Actualizado el {formatDate(updated)}</span>
+    </>
+  )}
+</div>

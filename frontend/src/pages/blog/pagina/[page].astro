@@ -1,0 +1,92 @@
+---
+// Páginas 2..N del archivo del blog. La página 1 vive en /blog (con hero + destacado).
+import { getCollection } from 'astro:content';
+import Base from '../../../layouts/Base.astro';
+import JsonLD from '../../../components/seo/JsonLD.astro';
+import Header from '../../../components/sections/Header.astro';
+import Footer from '../../../components/sections/Footer.astro';
+import Breadcrumbs from '../../../components/blog/Breadcrumbs.astro';
+import CategoryNav from '../../../components/blog/CategoryNav.astro';
+import ArticleCard from '../../../components/blog/ArticleCard.astro';
+import Pagination from '../../../components/blog/Pagination.astro';
+import { POSTS_PER_PAGE } from '../../../data/blog';
+
+export async function getStaticPaths() {
+  const posts = (
+    await getCollection('blog', ({ data }) => (import.meta.env.PROD ? !data.draft : true))
+  ).sort((a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf());
+
+  const featured = posts.find((p) => p.data.featured) ?? posts[0];
+  const rest = featured ? posts.filter((p) => p.id !== featured.id) : posts;
+
+  const totalPages = Math.max(1, Math.ceil(rest.length / POSTS_PER_PAGE));
+
+  const paths = [];
+  for (let n = 2; n <= totalPages; n++) {
+    paths.push({
+      params: { page: String(n) },
+      props: {
+        page: n,
+        totalPages,
+        items: rest.slice((n - 1) * POSTS_PER_PAGE, n * POSTS_PER_PAGE),
+      },
+    });
+  }
+  return paths;
+}
+
+const { page, totalPages, items } = Astro.props as {
+  page: number;
+  totalPages: number;
+  items: Awaited<ReturnType<typeof getCollection<'blog'>>>;
+};
+
+const siteUrl = Astro.site?.toString().replace(/\/$/, '') ?? 'https://www.saaslyvet.com';
+const pageUrl = `${siteUrl}/blog/pagina/${page}/`;
+---
+
+<Base
+  title={`Blog de SaaslyVet — Página ${page} | SaaslyVet`}
+  description="Más guías sobre software y gestión veterinaria para dueños de clínicas."
+  canonical={pageUrl}
+  ogType="website"
+>
+  <Fragment slot="head">
+    <link rel="alternate" type="application/rss+xml" title="Blog de SaaslyVet" href="/blog/rss.xml" />
+  </Fragment>
+
+  <Header />
+
+  <main id="main" class="pt-16">
+    <section class="border-b border-line bg-gradient-hero">
+      <div class="container-wide py-10 lg:py-14">
+        <Breadcrumbs
+          items={[
+            { label: 'Inicio', href: '/' },
+            { label: 'Blog', href: '/blog/' },
+            { label: `Página ${page}` },
+          ]}
+        />
+        <h1 class="mt-6 font-display text-3xl font-semibold tracking-tight text-ink lg:text-4xl">
+          Blog — página {page}
+        </h1>
+      </div>
+    </section>
+
+    <div class="container-wide py-12 lg:py-16">
+      <div class="mb-10">
+        <CategoryNav />
+      </div>
+
+      <div class="grid gap-px overflow-hidden rounded-2xl bg-line ring-1 ring-line sm:grid-cols-2 lg:grid-cols-3">
+        {items.map((p, i) => (
+          <ArticleCard post={p} index={i} />
+        ))}
+      </div>
+
+      <Pagination currentPage={page} totalPages={totalPages} basePath="/blog" />
+    </div>
+  </main>
+
+  <Footer />
+</Base>

@@ -1,0 +1,43 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import ArrowRight from '../icons/ArrowRight.astro';
+
+export interface Props {
+  prev?: CollectionEntry<'blog'>; // más antiguo
+  next?: CollectionEntry<'blog'>; // más reciente
+}
+const { prev, next } = Astro.props;
+---
+
+{
+  (prev || next) && (
+    <nav
+      class="grid gap-px overflow-hidden rounded-2xl bg-line ring-1 ring-line sm:grid-cols-2"
+      aria-label="Navegación entre artículos"
+    >
+      {prev ? (
+        <a href={`/blog/${prev.id}/`} class="group bg-surface p-6 transition-colors hover:bg-muted/40">
+          <span class="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wide text-ink-tertiary">
+            <ArrowRight class="h-3.5 w-3.5 rotate-180 transition-transform group-hover:-translate-x-0.5" />
+            Anterior
+          </span>
+          <p class="mt-2 font-display font-semibold text-ink text-balance">{prev.data.title}</p>
+        </a>
+      ) : (
+        <div class="hidden bg-surface sm:block" />
+      )}
+
+      {next ? (
+        <a href={`/blog/${next.id}/`} class="group bg-surface p-6 text-right transition-colors hover:bg-muted/40">
+          <span class="inline-flex w-full items-center justify-end gap-1.5 text-xs font-semibold uppercase tracking-wide text-ink-tertiary">
+            Siguiente
+            <ArrowRight class="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
+          </span>
+          <p class="mt-2 font-display font-semibold text-ink text-balance">{next.data.title}</p>
+        </a>
+      ) : (
+        <div class="hidden bg-surface sm:block" />
+      )}
+    </nav>
+  )
+}
