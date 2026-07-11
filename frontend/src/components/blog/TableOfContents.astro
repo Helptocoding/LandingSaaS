@@ -1,0 +1,68 @@
+---
+// Tabla de contenidos automática a partir de los `headings` de render().
+// Toma solo h2/h3. Scroll-spy resalta la sección visible. Sin dependencias.
+export interface Heading {
+  depth: number;
+  slug: string;
+  text: string;
+}
+export interface Props {
+  headings: Heading[];
+}
+const items = Astro.props.headings.filter((h) => h.depth === 2 || h.depth === 3);
+---
+
+{
+  items.length > 0 && (
+    <nav aria-label="Contenido del artículo" class="toc text-sm">
+      <p class="mb-3 font-display text-xs font-semibold uppercase tracking-[0.14em] text-ink-tertiary">
+        En este artículo
+      </p>
+      <ul class="space-y-1 border-l border-line">
+        {items.map((h) => (
+          <li>
+            <a
+              href={`#${h.slug}`}
+              data-toc-link={h.slug}
+              class:list={[
+                'toc-link -ml-px block border-l-2 border-transparent py-1 text-ink-tertiary transition-colors hover:text-ink',
+                h.depth === 3 ? 'pl-7' : 'pl-4',
+              ]}
+            >
+              {h.text}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+  )
+}
+
+<script>
+  const links = Array.from(document.querySelectorAll<HTMLElement>('[data-toc-link]'));
+  if (links.length) {
+    const byId = new Map(links.map((l) => [l.getAttribute('data-toc-link'), l]));
+    const spy = new IntersectionObserver(
+      (entries) => {
+        for (const e of entries) {
+          if (e.isIntersecting) {
+            links.forEach((l) => l.classList.remove('toc-active'));
+            byId.get(e.target.id)?.classList.add('toc-active');
+          }
+        }
+      },
+      { rootMargin: '-10% 0px -80% 0px', threshold: 0 }
+    );
+    document
+      .querySelectorAll('.prose h2[id], .prose h3[id]')
+      .forEach((h) => spy.observe(h));
+  }
+</script>
+
+<style>
+  .toc-active {
+    border-color: hsl(var(--brand));
+    color: hsl(var(--ink));
+    font-weight: 500;
+  }
+</style>

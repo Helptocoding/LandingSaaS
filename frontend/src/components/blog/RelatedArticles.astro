@@ -1,0 +1,29 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import ArticleCard from './ArticleCard.astro';
+
+export interface Props {
+  posts: CollectionEntry<'blog'>[];
+  title?: string;
+  subtitle?: string;
+}
+const { posts, title = 'Sigue leyendo', subtitle } = Astro.props;
+---
+
+{
+  posts.length > 0 && (
+    <section class="border-t border-line py-12 lg:py-16">
+      <div class="container-wide">
+        <div class="mb-8 max-w-2xl">
+          <h2 class="font-display text-2xl font-semibold tracking-tight text-ink">{title}</h2>
+          {subtitle && <p class="mt-2 text-ink-secondary">{subtitle}</p>}
+        </div>
+        <div class="grid gap-px overflow-hidden rounded-2xl bg-line ring-1 ring-line sm:grid-cols-2 lg:grid-cols-3">
+          {posts.map((p, i) => (
+            <ArticleCard post={p} index={i} />
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}

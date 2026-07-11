@@ -1,0 +1,54 @@
+---
+// Paginación estática reutilizable (listado del blog y hubs de categoría).
+// page 1 = basePath con barra; page N≥2 = `${basePath}/pagina/N/`.
+import ArrowRight from '../icons/ArrowRight.astro';
+
+export interface Props {
+  currentPage: number;
+  totalPages: number;
+  basePath: string; // p.ej. '/blog' o '/blog/categoria/software-veterinario'
+}
+const { currentPage, totalPages, basePath } = Astro.props;
+
+const href = (n: number) => (n === 1 ? `${basePath}/` : `${basePath}/pagina/${n}/`);
+const pages = Array.from({ length: totalPages }, (_, i) => i + 1);
+
+const base = 'inline-flex h-9 min-w-9 items-center justify-center rounded-md px-3 text-sm font-medium transition-colors';
+const on = 'bg-ink text-surface';
+const off = 'border border-line text-ink-secondary hover:border-ink/30 hover:text-ink';
+const disabled = 'pointer-events-none opacity-40';
+---
+
+{
+  totalPages > 1 && (
+    <nav class="mt-12 flex items-center justify-center gap-1.5" aria-label="Paginación">
+      <a
+        href={href(currentPage - 1)}
+        rel="prev"
+        aria-label="Página anterior"
+        class:list={[base, off, currentPage === 1 && disabled]}
+      >
+        <ArrowRight class="h-4 w-4 rotate-180" />
+      </a>
+
+      {pages.map((n) => (
+        <a
+          href={href(n)}
+          aria-current={n === currentPage ? 'page' : undefined}
+          class:list={[base, n === currentPage ? on : off]}
+        >
+          {n}
+        </a>
+      ))}
+
+      <a
+        href={href(currentPage + 1)}
+        rel="next"
+        aria-label="Página siguiente"
+        class:list={[base, off, currentPage === totalPages && disabled]}
+      >
+        <ArrowRight class="h-4 w-4" />
+      </a>
+    </nav>
+  )
+}
